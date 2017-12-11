@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class FirstViewCamera : MonoBehaviour {
+public class FirstViewCamera : Photon.PunBehaviour {
 
     [SerializeField] private Transform mCenter;
     [SerializeField] private Transform mCamera;
@@ -29,6 +29,11 @@ public class FirstViewCamera : MonoBehaviour {
 
     void Start()
     {
+		if (!photonView.isMine) {
+			mCamera.gameObject.SetActive (false);
+			this.enabled = false;
+			return;
+		}
         cameraDistance = (mCamera.position - mRaycastor.position).magnitude;
     }
 
