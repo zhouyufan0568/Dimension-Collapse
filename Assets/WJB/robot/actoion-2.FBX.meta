@@ -1,0 +1,380 @@
+fileFormatVersion: 2
+guid: cadbdf404c7f10d43bd6ae9750a8d6f8
+timeCreated: 1512056205
+licenseType: Free
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: Bone001
+    100004: Bone002
+    100006: Bone003
+    100008: Bone004
+    100010: Bone005
+    100012: Bone006
+    100014: Bone007
+    100016: Bone008
+    100018: Bone009
+    100020: Bone010
+    100022: Bone011
+    100024: Bone012
+    100026: Bone013
+    100028: Bone014
+    100030: Bone015
+    100032: Bone016
+    100034: Bone017
+    100036: Bone018
+    100038: Bone019
+    100040: Bone020
+    100042: Bone021
+    100044: Bone022
+    100046: Bone023
+    100048: Bone024
+    100050: Bone025
+    100052: Bone026
+    100054: Bone027
+    100056: Bone028
+    100058: Bone029
+    100060: Bone030
+    100062: Bone031
+    100064: Bone032
+    100066: Bone033
+    100068: Bone034
+    100070: Bone035
+    100072: Bone036
+    100074: Bone037
+    100076: Bone038
+    100078: Bone039
+    100080: Bone040
+    100082: Bone041
+    100084: Bone042
+    100086: Bone043
+    100088: Bone044
+    100090: Bone045
+    100092: Bone046
+    100094: Bone047
+    100096: Bone048
+    100098: Bone049
+    100100: Bone050
+    100102: Bone051
+    100104: Bone052
+    100106: Bone053
+    100108: Bone054
+    100110: Bone055
+    100112: Bone056
+    100114: Bone057
+    100116: Bone058
+    100118: Bone059
+    100120: Bone060
+    100122: Bone061
+    100124: Bone062
+    100126: Bone063
+    100128: Bone064
+    100130: Bone065
+    100132: Bone066
+    100134: Bone067
+    100136: robo
+    400000: //RootNode
+    400002: Bone001
+    400004: Bone002
+    400006: Bone003
+    400008: Bone004
+    400010: Bone005
+    400012: Bone006
+    400014: Bone007
+    400016: Bone008
+    400018: Bone009
+    400020: Bone010
+    400022: Bone011
+    400024: Bone012
+    400026: Bone013
+    400028: Bone014
+    400030: Bone015
+    400032: Bone016
+    400034: Bone017
+    400036: Bone018
+    400038: Bone019
+    400040: Bone020
+    400042: Bone021
+    400044: Bone022
+    400046: Bone023
+    400048: Bone024
+    400050: Bone025
+    400052: Bone026
+    400054: Bone027
+    400056: Bone028
+    400058: Bone029
+    400060: Bone030
+    400062: Bone031
+    400064: Bone032
+    400066: Bone033
+    400068: Bone034
+    400070: Bone035
+    400072: Bone036
+    400074: Bone037
+    400076: Bone038
+    400078: Bone039
+    400080: Bone040
+    400082: Bone041
+    400084: Bone042
+    400086: Bone043
+    400088: Bone044
+    400090: Bone045
+    400092: Bone046
+    400094: Bone047
+    400096: Bone048
+    400098: Bone049
+    400100: Bone050
+    400102: Bone051
+    400104: Bone052
+    400106: Bone053
+    400108: Bone054
+    400110: Bone055
+    400112: Bone056
+    400114: Bone057
+    400116: Bone058
+    400118: Bone059
+    400120: Bone060
+    400122: Bone061
+    400124: Bone062
+    400126: Bone063
+    400128: Bone064
+    400130: Bone065
+    400132: Bone066
+    400134: Bone067
+    400136: robo
+    2300000: robo
+    3300000: robo
+    4300000: robo
+    7400000: holdgun
+    7400002: hi
+    7400004: walk
+    7400006: holdgun-2
+    7400008: Idle
+    9500000: //RootNode
+    11100000: //RootNode
+    13700000: robo
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: metal
+    second: {fileID: 2100000, guid: 216f5e94889d4a24881c0dd00443c648, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    animationCompression: 3
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths:
+    - Bone001
+    extraUserProperties: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: holdgun
+      takeName: Take 001
+      firstFrame: 0
+      lastFrame: 10
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: hi
+      takeName: Take 001
+      firstFrame: 60
+      lastFrame: 80
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: walk
+      takeName: Take 001
+      firstFrame: 20
+      lastFrame: 60
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 1
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: holdgun-2
+      takeName: Take 001
+      firstFrame: 10
+      lastFrame: 20
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Idle
+      takeName: Take 001
+      firstFrame: 1
+      lastFrame: 1
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 1
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
