@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class MapDynamicLoading : MonoBehaviour {
+public class MapDynamicLoading : Photon.PunBehaviour {
 
 	[SerializeField]
 	private int visibleScope=300;
@@ -101,7 +101,10 @@ public class MapDynamicLoading : MonoBehaviour {
 		floor = InitializeMap ();
 		InitializeFallTime (floor);
 		Array.Sort (floor);
-		whenToStart = Time.time;
+		if (PhotonNetwork.isMasterClient) {
+			PhotonNetwork.room.SetCustomProperties (new ExitGames.Client.Photon.Hashtable (){ { "StartTime",PhotonNetwork.time } });
+		}
+		whenToStart = (float)(double)PhotonNetwork.room.CustomProperties["StartTime"];
 
 		//----------------------------动态加载-----------------------------------
 
@@ -130,7 +133,7 @@ public class MapDynamicLoading : MonoBehaviour {
 
 		//----------------------------安全区-------------------------------------
 
-		elapsed = Time.time - whenToStart;
+		elapsed = (float)PhotonNetwork.time - whenToStart;
 		//Debug.Log (current+elapsed);
 
 		while (cnt<floor.Length && elapsed >= timeToFall[floor[cnt].x,floor[cnt].z]) {
@@ -370,28 +373,29 @@ public class MapDynamicLoading : MonoBehaviour {
 	}
 
 	private void InitializeFallTime (FloorUnit[] fl){
-		float firstx=maxX / 2;
-		float firstz=maxZ / 2;
-		float firstr=Mathf.Sqrt ((Mathf.Pow (firstx, 2) + Mathf.Pow (firstz, 2)));
-		Circle now = new Circle (firstx,firstz,firstr);
-		Circle bef = null;
+
+		if (PhotonNetwork.isMasterClient) {
+			RandomCircle ();
+		}
+		
 		float distance;
 		float maxDistance;
 		//直线与大圆的交点
 		float fx,fz,x1,x2;
 		float a, b, c, k;
+		int cnt = 0;
 
-		//Debug.Log ("timeToReset:"+timeToReset);
-		//Debug.Log ("timeToCollapse:"+timeToCollapse);
-		//Debug.Log ("timeToCFinish:"+timeToCFinish);
-		//Debug.Log ("befx:"+bef.x+" befz:"+bef.z+" befr:"+bef.r);
-		//Debug.Log ("nowx:"+now.x+" nowz:"+now.z+" nowr:"+now.r);
+		Circle bef;
+		Circle now;
+		float[] nowf = (float[])PhotonNetwork.room.CustomProperties ["Circle" + cnt++];
+		now = new Circle (nowf[0],nowf[1],nowf[2]);
 
-		while (now.r > 1) {
+		while (PhotonNetwork.room.CustomProperties["Circle"+cnt]!=null) {
 
 			bef = now;
-			Vector2 cPos = UnityEngine.Random.insideUnitCircle * (bef.r * (1 - shrinkRatio)) + new Vector2(bef.x, bef.z);
-			now = new Circle(cPos.x, cPos.y, bef.r * shrinkRatio);
+			nowf = (float[])PhotonNetwork.room.CustomProperties ["Circle" + cnt++];
+			now = new Circle (nowf[0],nowf[1],nowf[2]);
+
 			for (int i = 0; i < fl.Length; i++) {
 				if(fl[i].isSureDropOrNot==false){
 					int flx = fl [i].x;
@@ -437,12 +441,29 @@ public class MapDynamicLoading : MonoBehaviour {
 			timeToReset *= shrinkRatio;
 			timeToCollapse *= shrinkRatio;
 			timeToCFinish *= shrinkRatio;
-			//Debug.Log ("timeToReset:"+timeToReset);
-			//Debug.Log ("timeToCollapse:"+timeToCollapse);
-			//Debug.Log ("timeToCFinish:"+timeToCFinish);
-			//Debug.Log ("befx:"+bef.x+" befz:"+bef.z+" befr:"+bef.r);
-			//Debug.Log ("nowx:"+now.x+" nowz:"+now.z+" nowr:"+now.r);
 		}
+	}
+
+	private void RandomCircle(){
+		
+		ExitGames.Client.Photon.Hashtable hashtable = new ExitGames.Client.Photon.Hashtable ();
+
+		int cnt = 0;
+		float firstx=maxX / 2;
+		float firstz=maxZ / 2;
+		float firstr=Mathf.Sqrt ((Mathf.Pow (firstx, 2) + Mathf.Pow (firstz, 2)));
+		Circle now = new Circle (firstx,firstz,firstr);
+		Circle bef = null;
+		hashtable.Add ("Circle"+cnt++,new float[3]{now.x,now.z,now.r});
+
+		while (now.r > 1) {
+			bef = now;
+			Vector2 cPos = UnityEngine.Random.insideUnitCircle * (bef.r * (1 - shrinkRatio)) + new Vector2(bef.x, bef.z);
+			now = new Circle(cPos.x, cPos.y, bef.r * shrinkRatio);
+			hashtable.Add ("Circle"+cnt++,new float[3]{now.x,now.z,now.r});
+		}
+		//set room customproperties
+		PhotonNetwork.room.SetCustomProperties (hashtable,null,false);
 	}
 
 	private class Circle{

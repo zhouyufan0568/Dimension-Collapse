@@ -1592,8 +1592,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   visibleScope: 100
   shrinkRatio: 0.8
-  timeToReset: 10
-  timeToCollapse: 10
+  timeToReset: 30
+  timeToCollapse: 30
   timeToCFinish: 60
   elapsed: 0
 --- !u!114 &1503099199
