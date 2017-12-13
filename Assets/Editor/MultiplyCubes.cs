@@ -66,6 +66,9 @@ public class MultiplyCubes : EditorWindow {
     private bool showWriteIntoFiles;
     public int chunkSize = 10;
 
+    private bool showReadFromFiles;
+    public GameObject cubePrefab;
+
     [MenuItem("BlackHole Tools/MultiplyCubes")]
     static void Init()
     {
@@ -128,8 +131,6 @@ public class MultiplyCubes : EditorWindow {
             needTofollow = GUILayout.Toggle(needTofollow, "Follow The Newest");
 
             addIntoParent = GUILayout.Toggle(addIntoParent, "Add Into Parent");
-
-            //autoBind = GUILayout.Toggle(autoBind, "Auto Bind");
 
             multiplyBy = EditorGUILayout.FloatField("Multiply By", multiplyBy);
             if (multiplyBy <= 0)
@@ -341,6 +342,11 @@ public class MultiplyCubes : EditorWindow {
             {
                 MoveSelectedToOrigin();
             }
+
+            //if (GUILayout.Button("Remove Rotations", GUILayout.ExpandWidth(true)))
+            //{
+            //    RemoveRotationOfSelected();
+            //}
         }
 
         showWriteIntoFiles = EditorGUILayout.Foldout(showWriteIntoFiles, "Write Into Files");
@@ -349,6 +355,20 @@ public class MultiplyCubes : EditorWindow {
             if (GUILayout.Button("Start", GUILayout.ExpandWidth(true)))
             {
                 MapToFiles();
+            }
+        }
+
+        showReadFromFiles = EditorGUILayout.Foldout(showReadFromFiles, "Read From Files");
+        if (showReadFromFiles)
+        {
+            cubePrefab = (GameObject)EditorGUILayout.ObjectField(
+               "Prefab", cubePrefab, typeof(GameObject), true);
+            if (GUILayout.Button("Start", GUILayout.ExpandWidth(true)))
+            {
+                if (cubePrefab != null)
+                {
+                    FilesToMap();
+                }
             }
         }
 
@@ -472,7 +492,7 @@ public class MultiplyCubes : EditorWindow {
         float minX = float.MaxValue;
         float maxX = float.MinValue;
         float minY = float.MaxValue;
-        float cubeSpace_Y = float.MinValue;
+        float maxY = float.MinValue;
         float minZ = float.MaxValue;
         float maxZ = float.MinValue;
         for (int i = 0; i < structure.Length; i++)
@@ -493,9 +513,9 @@ public class MultiplyCubes : EditorWindow {
             if (position.y < minY)
             {
                 minY = position.y;
-            } else if (position.y > cubeSpace_Y)
+            } else if (position.y > maxY)
             {
-                cubeSpace_Y = position.y;
+                maxY = position.y;
             }
             if (position.z < minZ)
             {
@@ -518,7 +538,7 @@ public class MultiplyCubes : EditorWindow {
 
         //step 3: create a three-dimensional array to place all the cubes.
         int lengthX = (int)(maxX - minX) + 1;
-        int lengthY = (int)(cubeSpace_Y - minY) + 1;
+        int lengthY = (int)(maxY - minY) + 1;
         int lengthZ = (int)(maxZ - minZ) + 1;
         if (lengthX <= 0 || lengthY <= 0 || lengthZ <= 0)
         {
@@ -893,7 +913,7 @@ public class MultiplyCubes : EditorWindow {
         float minX = float.MaxValue;
         float maxX = float.MinValue;
         float minY = float.MaxValue;
-        float cubeSpace_Y = float.MinValue;
+        float maxY = float.MinValue;
         float minZ = float.MaxValue;
         float maxZ = float.MinValue;
         Debug.Log(cubes.Length);
@@ -912,9 +932,9 @@ public class MultiplyCubes : EditorWindow {
             {
                 minY = position.y;
             }
-            if (position.y > cubeSpace_Y)
+            if (position.y > maxY)
             {
-                cubeSpace_Y = position.y;
+                maxY = position.y;
             }
             if (position.z < minZ)
             {
@@ -933,7 +953,7 @@ public class MultiplyCubes : EditorWindow {
 
         //step 2: create a three-dimensional array to place all the cubes.
         int lengthX = (int)(maxX - minX) + 1;
-        int lengthY = (int)(cubeSpace_Y - minY) + 1;
+        int lengthY = (int)(maxY - minY) + 1;
         int lengthZ = (int)(maxZ - minZ) + 1;
         Debug.Log(lengthX);
         Debug.Log(lengthY);
@@ -1043,13 +1063,54 @@ public class MultiplyCubes : EditorWindow {
     private void MoveSelectedToOrigin()
     {
         LinkedList<Transform> structure = GetAllChildrenFromSelected();
-        if (structure.Count > 0)
+        if (structure.Count != 0)
         {
-            MergeCubes(structure);
+            Vector3 origin;
+            Transform[] cubes;
+            Transform[,,] cubespace = CreateCubeSpace(structure, out origin, out cubes);
         }
-        Vector3 origin;
-        Transform[] cubes;
-        Transform[,,] cubespace = CreateCubeSpace(structure, out origin, out cubes);
+    }
+
+    private void RemoveRotationOfSelected()
+    {
+        if (Selection.transforms.Length > 0)
+        {
+            foreach(Transform root in Selection.transforms)
+            {
+                Dictionary<Transform, Vector3> cubeToPos = new Dictionary<Transform, Vector3>();
+                AddIntoDic(root, cubeToPos);
+                RemoveRotation(root, cubeToPos);
+            }
+        }
+    }
+
+    private void AddIntoDic(Transform root, Dictionary<Transform, Vector3> cubeToPos)
+    {
+        if (root == null)
+        {
+            return;
+        }
+
+        cubeToPos.Add(root, root.position);
+        for (int i = 0; i < root.childCount; i++)
+        {
+            AddIntoDic(root.GetChild(i), cubeToPos);
+        }
+    }
+
+    //unfinished
+    private void RemoveRotation(Transform root, Dictionary<Transform, Vector3> cubeToPos)
+    {
+        if (root == null)
+        {
+            return;
+        }
+
+        root.SetPositionAndRotation(cubeToPos[root], Quaternion.identity);
+        for (int i = 0; i < root.childCount; i++)
+        {
+            RemoveRotation(root.GetChild(i), cubeToPos);
+        }
     }
 
     private void MapToFiles()
@@ -1069,32 +1130,9 @@ public class MultiplyCubes : EditorWindow {
         int spaceSize_Z_From = (int)origin.z;
         int spaceSize_X_To = (int)origin.x + cubeSpace.GetLength(0);
         int spaceSize_Z_To = (int)origin.z + cubeSpace.GetLength(2);
-        Debug.Log("spaceSize_X_From: " + spaceSize_X_From);
-        Debug.Log("spaceSize_Z_From: " + spaceSize_Z_From);
-        Debug.Log("spaceSize_X_To: " + spaceSize_X_To);
-        Debug.Log("spaceSize_Z_To: " + spaceSize_Z_To);
         int cubeSpace_X = cubeSpace.GetLength(0);
         int cubeSpace_Y = cubeSpace.GetLength(1);
         int cubeSpace_Z = cubeSpace.GetLength(2);
-        Debug.Log("cubeSpace_X: " + cubeSpace_X);
-        Debug.Log("cubeSpace_Y: " + cubeSpace_Y);
-        Debug.Log("cubeSpace_Z: " + cubeSpace_Z);
-
-        //int count = 0;
-        //for (int i = 0; i < cubeSpace_X; i++)
-        //{
-        //    for (int j = 0; j < cubeSpace_Y; j++)
-        //    {
-        //        for (int k = 0; k < cubeSpace_Z; k++)
-        //        {
-        //            if (cubeSpace[i, j, k] != null)
-        //            {
-        //                count++;
-        //            }
-        //        }
-        //    }
-        //}
-        //Debug.Log(count);
 
         //step 2: determine where chunks exist.
         int chunk_X_From = Mathf.FloorToInt((float)spaceSize_X_From / chunkSize);
@@ -1114,13 +1152,8 @@ public class MultiplyCubes : EditorWindow {
                 int minZ = j * chunkSize;
                 int maxX = (i + 1) * chunkSize - 1;
                 int maxZ = (j + 1) * chunkSize - 1;
-				int minY = spaceSize_Y_From;
-				int maxY = spaceSize_Y_From + cubeSpace_Y - 1;
-				
-                //Debug.Log(minX);
-                //Debug.Log(minZ);
-                //Debug.Log(maxX);
-                //Debug.Log(maxZ);
+                int minY = spaceSize_Y_From;
+                int maxY = spaceSize_Y_From + cubeSpace_Y - 1;
                 bool hasSth = false;
                 for (int x = minX; x <= maxX; x++)
                 {
@@ -1128,14 +1161,12 @@ public class MultiplyCubes : EditorWindow {
                     {
                         for (int y = minY; y <= maxY; y++)
                         {
-                            //Debug.Log("x: " + x + " y: " + y + " z:" + z);
                             int indexX = x - spaceSize_X_From;
                             int indexY = y - spaceSize_Y_From ;
                             int indexZ = z - spaceSize_Z_From;
                             if (indexX < 0 || indexY < 0 || indexZ < 0
                                 || indexX >= cubeSpace_X || indexY >= cubeSpace_Y || indexZ >= cubeSpace_Z)
                             {
-								Debug.Log ("wrong!");
                                 continue;
                             }
                             if (cubeSpace[indexX, indexY, indexZ] != null)
@@ -1147,7 +1178,6 @@ public class MultiplyCubes : EditorWindow {
                 }
                 if (hasSth)
                 {
-                    //Debug.Log("here");
                     isExist[i, j] = true;
                 }
             }
@@ -1247,8 +1277,6 @@ public class MultiplyCubes : EditorWindow {
         {
             for (int j = chunk_Z_From; j < chunk_Z_To; j++)
             {
-                //Debug.Log(i);
-                //Debug.Log(j);
                 if (!isExist[i, j])
                 {
                     continue;
@@ -1271,9 +1299,8 @@ public class MultiplyCubes : EditorWindow {
                 int minZ = j * chunkSize;
                 int maxX = (i + 1) * chunkSize - 1;
                 int maxZ = (j + 1) * chunkSize - 1;
-				int minY = spaceSize_Y_From;
-				int maxY = spaceSize_Y_From + cubeSpace_Y - 1;
-
+                int minY = spaceSize_Y_From;
+                int maxY = spaceSize_Y_From + cubeSpace_Y - 1;
                     for (int x = minX; x <= maxX; x++)
                     {
                         for (int z = minZ; z <= maxZ; z++)
@@ -1298,13 +1325,11 @@ public class MultiplyCubes : EditorWindow {
                                     if (renderer != null)
                                     {
                                         materialId = materialManager.MaterialNameToId(renderer.sharedMaterial.name);
-                                        //Debug.Log("materialId: " + materialId);
                                     }
                                     if (materialIdToCubes[materialId].Count == 0)
                                     {
                                         materialCount++;
                                     }
-                                    //Debug.Log(materialCount);
                                     materialIdToCubes[materialId].AddLast(cube);
                                 }
                             }
@@ -1379,5 +1404,110 @@ public class MultiplyCubes : EditorWindow {
         {
             cube.position += origin;
         }
+    }
+
+    private void FilesToMap()
+    {
+        //step 1: get the single instance of the MaterialManager. 
+        MaterialManager materialManager = MaterialManager.INSTANCE;
+
+        //step 2: read the mapInfo.bytes.
+        string rootPath = Application.streamingAssetsPath + "/Map/MapFragments";
+        if (!ValidateDirExists(rootPath))
+        {
+            Debug.LogError("Map is broken.");
+            return;
+        }
+        string mapInfoPath = rootPath + "/mapInfo.bytes";
+        if (!ValidateFileExists(mapInfoPath))
+        {
+            Debug.LogError("Map is broken.");
+            return;
+        }
+        int Chunk_X_Max;
+        int Chunk_Z_Max;
+        int ChunkSize;
+        using (BinaryReader br = new BinaryReader(new FileStream(mapInfoPath, FileMode.Open)))
+        {
+            Chunk_X_Max = br.ReadInt32();
+            Chunk_Z_Max = br.ReadInt32();
+            ChunkSize = br.ReadInt32();
+        }
+
+        //step 3: read all chunks
+        GameObject map = new GameObject
+        {
+            name = "MapFromFiles"
+        };
+        for (int chunkX = 0; chunkX < Chunk_X_Max; chunkX++)
+        {
+            string dirPath = rootPath + '/' + chunkX;
+            if (!ValidateDirExists(dirPath))
+            {
+                continue;
+            }
+
+            DirectoryInfo dirInfo = new DirectoryInfo(dirPath);
+            FileInfo[] fileInfos = dirInfo.GetFiles();
+            foreach (FileInfo fileInfo in fileInfos)
+            {
+                if (!fileInfo.FullName.EndsWith(".bytes"))
+                {
+                    continue;
+                }
+
+                string strChunkZ = fileInfo.Name.Split('.')[0];
+                int chunkZ;
+                if (int.TryParse(strChunkZ, out chunkZ))
+                {
+                    GameObject chunk = new GameObject
+                    {
+                        name = "chunk(" + chunkX + "," + chunkZ + ")"
+                    };
+                    chunk.transform.parent = map.transform;
+                    using (BinaryReader br = new BinaryReader(new FileStream(fileInfo.FullName, FileMode.Open)))
+                    {
+                        int cubeCount = br.ReadInt32();
+                        int materialCount = br.ReadInt32();
+                        for (int i = 0; i < materialCount; i++)
+                        {
+                            byte materialId = br.ReadByte();
+                            int count = br.ReadInt32();
+                            while (count-- > 0)
+                            {
+                                ushort encodedXYZ = br.ReadUInt16();
+                                byte encodedVisible = br.ReadByte();
+                                byte x, y, z;
+                                MapChunkIO.DecodeXYZ(encodedXYZ, out x, out y, out z);
+                                float actualX = (float)x + chunkX * ChunkSize;
+                                float actualY = (float)y;
+                                float actualZ = (float)z + chunkZ * ChunkSize;
+                                GameObject cube = Instantiate(cubePrefab, new Vector3(actualX, actualY, actualZ), Quaternion.identity, chunk.transform);
+                                MeshRenderer renderer = cube.GetComponent<MeshRenderer>();
+                                if (renderer == null)
+                                {
+                                    renderer = cube.AddComponent<MeshRenderer>();
+                                }
+                                renderer.sharedMaterial = materialManager.IdToMaterial(materialId);
+                            }
+                        }
+                        int visiblePlaneCount;
+                        visiblePlaneCount = br.ReadInt32();
+                    }
+                }
+            }
+        }
+    }
+
+    //used in FilesToMap()
+    private bool ValidateFileExists(string path)
+    {
+        return new FileInfo(path).Exists;
+    }
+
+    //used in FilesToMap()
+    private bool ValidateDirExists(string path)
+    {
+        return new DirectoryInfo(path).Exists;
     }
 }
