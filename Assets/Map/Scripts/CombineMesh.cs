@@ -242,6 +242,7 @@ public class CombineMesh : MonoBehaviour {
 
 		chunk.name = "Chunk(" + chunkX + ',' + ' ' + chunkZ + ')';
 		chunk.transform.position = new Vector3(chunkX * ChunkSize, 0, chunkZ * ChunkSize);
+		chunk.layer=9;
 		return true;
 	}
 
