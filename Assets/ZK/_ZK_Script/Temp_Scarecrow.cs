@@ -35,7 +35,7 @@ namespace DimensionCollapse
             Rect rect = new Rect(50, 0, 100, 50);
             GUI.TextField(rect, "剩余" + health + "血量");
         }
-        public void OnAttacked(int primaryDamge, ContactPoint contact)
+        public void OnAttacked(int primaryDamge, Vector3 contact)
         {
             //Debug.Log(primaryDamge + "受到的伤害");
             this.health -= primaryDamge;
