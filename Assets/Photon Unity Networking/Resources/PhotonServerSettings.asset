@@ -42,4 +42,5 @@ MonoBehaviour:
   - RequestForPickupItems
   - RequestForPickupTimes
   - TaggedPlayer
+  - ShootCore
   DisableAutoOpenWizard: 1
