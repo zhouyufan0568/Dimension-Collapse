@@ -69,7 +69,6 @@ namespace DimensionCollapse
 			}
 			// Cache references for efficiency
 			_target = target;
-			Debug.Log ("set finish");
 		}
 
 		#endregion

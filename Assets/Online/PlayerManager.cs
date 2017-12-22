@@ -35,12 +35,16 @@ public class PlayerManager : Photon.PunBehaviour,IPunObservable {
 
 	// Use this for initialization
 	void Start () {
-		GameObject.Find("GameManager").SendMessage ("SetTarget", this, SendMessageOptions.RequireReceiver);
-		Direction = transform.rotation.eulerAngles.y;
+		if (photonView.isMine) {
+			GameObject.Find ("UIManager").SendMessage ("SetTarget", this, SendMessageOptions.RequireReceiver);
+			Direction = transform.rotation.eulerAngles.y;
+		}
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		Direction = transform.rotation.eulerAngles.y;
+		if (photonView.isMine) {
+			Direction = transform.rotation.eulerAngles.y;
+		}
 	}
 }

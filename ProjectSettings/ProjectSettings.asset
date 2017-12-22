@@ -609,7 +609,7 @@ PlayerSettings:
   cloudServicesEnabled:
     UNet: 1
   facebookSdkVersion: 7.9.4
-  apiCompatibilityLevel: 2
+  apiCompatibilityLevel: 3
   cloudProjectId: 9435234c-a341-436c-a16e-fe9678d34fa1
   projectName: Dimension Collapse
   organizationId: lloyalty
