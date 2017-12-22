@@ -36,7 +36,7 @@ public class PlayerManager : Photon.PunBehaviour,IPunObservable {
 	// Use this for initialization
 	void Start () {
 		if (photonView.isMine) {
-			GameObject.Find ("GameManager").SendMessage ("SetTarget", this, SendMessageOptions.RequireReceiver);
+			GameObject.Find ("UIManager").SendMessage ("SetTarget", this, SendMessageOptions.RequireReceiver);
 			Direction = transform.rotation.eulerAngles.y;
 		}
 	}
