@@ -97,6 +97,10 @@ public class SettingUIManager : MonoBehaviour {
         {
             contentAnimator.SetTrigger("Close");
             backButtonAnimator.SetTrigger("Close");
+            if (curSelected >= 0 && curSelected < animators.Length)
+            {
+                animators[curSelected].SetTrigger("Close");
+            }
         }
 
         isOpen = false;
