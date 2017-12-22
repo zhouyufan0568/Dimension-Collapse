@@ -38,7 +38,9 @@ namespace DimensionCollapse {
 
         // Use this for initialization
         void Start() {
-            GameObject.Find("GameManager").SendMessage("SetTarget", this, SendMessageOptions.RequireReceiver);
+			if (photonView.isMine) {
+				GameObject.Find ("UIManager").SendMessage ("SetTarget", this, SendMessageOptions.RequireReceiver);
+			}
             Direction = transform.rotation.eulerAngles.y;
             health = transform.GetComponent<Health>();
         }
