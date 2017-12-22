@@ -234,6 +234,7 @@ GameObject:
   - component: {fileID: 114092046160593534}
   - component: {fileID: 114120725730729202}
   - component: {fileID: 114199609544843088}
+  - component: {fileID: 114794150754254826}
   m_Layer: 0
   m_Name: PlayerPrefab
   m_TagString: Player
@@ -3719,6 +3720,19 @@ MonoBehaviour:
   mCenter: {fileID: 4049885416086630}
   m_RightHand: {fileID: 4790274831972654}
   mInventory: {fileID: 114434917117425698}
+--- !u!114 &114794150754254826
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1151663828921520}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36ff87a9e993c1544abb448a52aa924d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 200
+  health: 200
 --- !u!114 &114807126424518926
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -80,7 +80,7 @@ public class Player : Photon.PunBehaviour
     }
     private void PlayHiAnim()
     {
-        m_Animator.SetBool("ishi", true);
+        m_Animator.SetTrigger("ishi");
     }
     private void PlayJumpAnim()
     {
@@ -89,7 +89,7 @@ public class Player : Photon.PunBehaviour
 
     private void HiAnim()
     {
-        if (Input.GetKeyDown(KeyCode.H))
+        if (Input.GetKey(KeyCode.H))
         {
             PlayHiAnim();
         }

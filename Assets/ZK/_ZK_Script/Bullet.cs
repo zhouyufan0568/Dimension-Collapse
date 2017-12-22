@@ -234,7 +234,7 @@ namespace DimensionCollapse
 
             for (int i = 0; i < colliders.Length; i++)
             {
-                Temp_Scarecrow scarecrow = colliders[i].gameObject.GetComponent<Temp_Scarecrow>();
+                Health scarecrow = colliders[i].gameObject.GetComponent<Health>();
                 if (scarecrow != null)
                 {
                     //计算下人物所要受到的伤害，目前使用简单线性关系：y =100 * （1 - x） ，y是受到的伤害量，x是两点间距离占球形碰撞体半径的百分比，
