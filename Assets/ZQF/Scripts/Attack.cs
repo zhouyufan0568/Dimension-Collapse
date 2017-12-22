@@ -1,18 +1,28 @@
 ﻿using UnityEngine;
 using DimensionCollapse;
 
-public class Attack : MonoBehaviour {
+public class Attack : Photon.PunBehaviour
+{
 
-    public Weapon weapon;
-	
-	// Update is called once per frame
-	void Update () {
+    //public Weapon weapon;
+    private Shoot shoot;
+    private PhotonView photonVieww;
+
+    void Start()
+    {
+        shoot = GetComponentInParent<Shoot>();
+        photonVieww = GetComponentInParent<PhotonView>();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
         if (Input.GetMouseButton(0))
         {
-            if (weapon != null)
+            if (photonVieww.isMine)
             {
-                weapon.Attack();
+                photonVieww.RPC("ShootCore", PhotonTargets.All);
             }
         }
-	}
+    }
 }

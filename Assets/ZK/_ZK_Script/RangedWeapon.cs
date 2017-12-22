@@ -18,7 +18,7 @@ namespace DimensionCollapse
         private LinkedList<Bullet> bulletList = new LinkedList<Bullet>();  //武器子弹列表，先生成同一时间能存在的最大数量子弹，供发射时调用
         private float currentInterval = float.MaxValue; //上一次射击距离现在的时间，用于实现武器射速限制
 
-        private Camera m_Camera; //当前使用的相机，用于将子弹方向对准屏幕中心
+		public Camera m_Camera; //当前使用的相机，用于将子弹方向对准屏幕中心
         private RaycastHit hitInfo; //将子弹方向对准屏幕中心辅助对象
         private Transform gunpoint; //空物体：枪口,子弹实际上从此点进行发射
         private Vector3 force; //将子弹方向对准屏幕中心辅助对象
@@ -92,6 +92,7 @@ namespace DimensionCollapse
             }
             currentInterval = float.MaxValue;
         }
+
         public override void Attack()
         {
 
@@ -107,7 +108,7 @@ namespace DimensionCollapse
                     //Debug.Log(CurrentChanger);
 
                     /*-------------------------------------------朝向准心发射代码----------------------------------------------*/
-                    m_Camera = Camera.main;
+                  //  m_Camera = Camera.main;
                     //if (m_Camera == null) { Debug.Log("null!!!!"); }-
                     //通过摄像机在屏幕中心点位置发射一条射线  
                     Ray ray = m_Camera.ScreenPointToRay(new Vector3(Screen.width >> 1, Screen.height >> 1, 0));

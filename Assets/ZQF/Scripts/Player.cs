@@ -5,7 +5,7 @@ using Random = UnityEngine.Random;
 
 [RequireComponent(typeof (CharacterController))]
 [RequireComponent(typeof (AudioSource))]
-public class Player : MonoBehaviour
+public class Player : Photon.PunBehaviour
 {
     [SerializeField] private bool m_PreIsJump;
     [SerializeField] private bool m_IsWalking;
@@ -28,9 +28,10 @@ public class Player : MonoBehaviour
     [SerializeField] private Transform mCenter;
     [SerializeField] private Transform m_RightHand;
     [SerializeField] private Inventory mInventory;
+    //[SerializeField] private GameObject m_PlayerModel;//人物模型，包含动画
 
     private Camera m_Camera;
-    private bool m_Jump;
+    private bool m_Jump;//控制执行跳跃
     private float m_YRotation;
     private Vector2 m_Input;
     private Vector3 m_MoveDir = Vector3.zero;
@@ -40,13 +41,19 @@ public class Player : MonoBehaviour
     private Vector3 m_OriginalCameraPosition;
     private float m_StepCycle;
     private float m_NextStep;
-    private bool m_Jumping;
+    private bool m_Jumping;//是否正在跳跃
     private AudioSource m_AudioSource;
+    private Animator m_Animator;//获取人物模型中的动画组件
 
     // Use this for initialization
     private void Start()
     {
+        if (!photonView.isMine)
+        {
+            return;
+        }
         m_CharacterController = GetComponent<CharacterController>();
+        m_Animator = GetComponent<Animator>();
         m_Camera = Camera.main;
         m_OriginalCameraPosition = mCenter.localPosition;
         m_FovKick.Setup(m_Camera);
@@ -58,14 +65,87 @@ public class Player : MonoBehaviour
         m_MouseLook.Init(transform, mCenter,m_RightHand);
         //同步isJump信息
         m_PreIsJump = false;
+        //初始化人物动画
+        //m_Animator = m_PlayerModel.GetComponent<Animator>();
+    }
 
+    //动画播放
+    private void WalkAnim(float walkSpeed)
+    {
+        m_Animator.SetFloat("walkSpeed", walkSpeed);
+        //if (walkSpeed > 0.1f)
+        //{
+        //    m_Animator.SetBool("iswalk", true);
+        //}
+    }
+    private void PlayHiAnim()
+    {
+        m_Animator.SetBool("ishi", true);
+    }
+    private void PlayJumpAnim()
+    {
+
+    }
+
+    private void HiAnim()
+    {
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            PlayHiAnim();
+        }
     }
 
 
     // Update is called once per frame
     private void Update()
     {
+        if (photonView.isMine == false&&PhotonNetwork.connected==true)
+        {
+            return;
+        }
+        float speed = 0;
+        GetInput(out speed);
+        // always move along the camera forward as it is the direction that it being aimed at
+        Vector3 desiredMove = transform.forward * m_Input.y + transform.right * m_Input.x;
+
+        // get a normal for the surface that is being touched to move along it
+        RaycastHit hitInfo;
+        Physics.SphereCast(transform.position, m_CharacterController.radius, Vector3.down, out hitInfo,
+                            m_CharacterController.height / 2f, Physics.AllLayers, QueryTriggerInteraction.Ignore);
+        desiredMove = Vector3.ProjectOnPlane(desiredMove, hitInfo.normal).normalized;
+
+        m_MoveDir.x = desiredMove.x * speed;
+        m_MoveDir.z = desiredMove.z * speed;
+
+
+        if (m_CharacterController.isGrounded)
+        {
+            m_MoveDir.y = -m_StickToGroundForce;
+
+            if (m_Jump)
+            {
+                m_MoveDir.y = m_JumpSpeed;
+                PlayJumpSound();
+                PlayJumpAnim();
+                m_PreIsJump = true;//在m_Jump变成false之前锁定
+                m_Jump = false;
+                m_Jumping = true;
+            }
+        }
+        else
+        {
+            m_MoveDir += Physics.gravity * m_GravityMultiplier * Time.deltaTime;
+            m_PreIsJump = false;
+        }
+        m_CollisionFlags = m_CharacterController.Move(m_MoveDir * Time.deltaTime);
+
+        ProgressStepCycle(speed);
+        UpdateCameraPosition(speed);
+
+        m_MouseLook.UpdateCursorLock();
+
         RotateView();
+        HiAnim();
         // the jump state needs to read here to make sure it is not missed
         if (!m_Jump)
         {
@@ -96,50 +176,6 @@ public class Player : MonoBehaviour
     }
 
 
-    private void FixedUpdate()
-    {
-        float speed;
-        GetInput(out speed);
-        // always move along the camera forward as it is the direction that it being aimed at
-        Vector3 desiredMove = transform.forward*m_Input.y + transform.right*m_Input.x;
-
-        // get a normal for the surface that is being touched to move along it
-        RaycastHit hitInfo;
-        Physics.SphereCast(transform.position, m_CharacterController.radius, Vector3.down, out hitInfo,
-                            m_CharacterController.height/2f, Physics.AllLayers, QueryTriggerInteraction.Ignore);
-        desiredMove = Vector3.ProjectOnPlane(desiredMove, hitInfo.normal).normalized;
-
-        m_MoveDir.x = desiredMove.x*speed;
-        m_MoveDir.z = desiredMove.z*speed;
-
-
-        if (m_CharacterController.isGrounded)
-        {
-            m_MoveDir.y = -m_StickToGroundForce;
-
-            if (m_Jump)
-            {
-                m_MoveDir.y = m_JumpSpeed;
-                PlayJumpSound();
-                m_PreIsJump = true;//在m_Jump变成false之前锁定
-                m_Jump = false;
-                m_Jumping = true;
-            }
-        }
-        else
-        {
-            m_MoveDir += Physics.gravity*m_GravityMultiplier*Time.fixedDeltaTime;
-            m_PreIsJump = false;
-        }
-        m_CollisionFlags = m_CharacterController.Move(m_MoveDir*Time.fixedDeltaTime);
-
-        ProgressStepCycle(speed);
-        UpdateCameraPosition(speed);
-
-        m_MouseLook.UpdateCursorLock();
-    }
-
-
     private void PlayJumpSound()
     {
         m_AudioSource.clip = m_JumpSound;
@@ -163,6 +199,8 @@ public class Player : MonoBehaviour
         m_NextStep = m_StepCycle + m_StepInterval;
 
         PlayFootStepAudio();
+        WalkAnim(speed);
+        Debug.Log("speed:" + speed);
     }
 
 
@@ -219,6 +257,8 @@ public class Player : MonoBehaviour
             m_Input.Normalize();
         }
 
+        WalkAnim(horizontal * horizontal + vertical * vertical);
+
         // handle speed change to give an fov kick
         // only if the player is going to a run, is running and the fovkick is to be used
         if (m_IsWalking != waswalking && m_UseFovKick && m_CharacterController.velocity.sqrMagnitude > 0)
@@ -226,6 +266,7 @@ public class Player : MonoBehaviour
             StopAllCoroutines();
             StartCoroutine(!m_IsWalking ? m_FovKick.FOVKickUp() : m_FovKick.FOVKickDown());
         }
+
     }
 
 
