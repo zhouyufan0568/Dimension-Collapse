@@ -64,6 +64,12 @@ namespace DimensionCollapse
                 "where `account`=\"{0}\");";
 
             private string sqlForAccountExistenceTest = "select `user`.account from `dimensioncollapse`.user where account = \"{0}\";";
+
+            private string sqlForVerifyAccountAndPassword = 
+                "select count(*) as result" +
+                " from `dimensioncollapse`.`user`" +
+                " where `account` = \"{0}\" and `password` = \"{1}\";";
+
             static AccountManager()
             {
                 INSTANCE = new AccountManager();
@@ -184,6 +190,58 @@ namespace DimensionCollapse
             public async Task<Result> IsAccountExistsAsync(string account)
             {
                 return await Task.Run(() => IsAccountExists(account));
+            }
+
+            /// <summary>
+            /// Check if the account matches the password.
+            /// This is a sync method.
+            /// </summary>
+            /// <param name="account">The account to be checked.</param>
+            /// <param name="password">The password to be checked.</param>
+            /// <returns>
+            /// Result.DISCONNECTED : Fail to connect to the database;
+            /// Result.YES          : The account and the password matches.
+            /// Result.NO           : The account and the password don't match.
+            /// </returns>
+            public Result VerifyAccountAndPassword(string account, string password)
+            {
+                string sql = string.Format(sqlForVerifyAccountAndPassword, account, password);
+                return DbHelper.TemplateQueryForYesAndNo(sql, reader =>
+                {
+                    try
+                    {
+                        int res = Convert.ToInt32(reader["result"]);
+                        if (res == 1)
+                        {
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    }
+                    catch (FormatException e)
+                    {
+                        Debug.Log(e);
+                        return false;
+                    }
+;                });
+            }
+
+            /// <summary>
+            /// Check if the account matches the password.
+            /// This is an async method.
+            /// </summary>
+            /// <param name="account">The account to be checked.</param>
+            /// <param name="password">The password to be checked.</param>
+            /// <returns>
+            /// Result.DISCONNECTED : Fail to connect to the database;
+            /// Result.YES          : The account and the password matches.
+            /// Result.NO           : The account and the password don't match.
+            /// </returns>
+            public async Task<Result> VerifyAccountAndPasswordAsync(string account, string password)
+            {
+                return await Task.Run(() => VerifyAccountAndPassword(account, password));
             }
         }
 
