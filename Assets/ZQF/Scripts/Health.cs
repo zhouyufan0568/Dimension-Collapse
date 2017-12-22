@@ -33,11 +33,7 @@ namespace DimensionCollapse
                 this.health = 200;
             }
         }
-        void OnGUI()
-        {
-            Rect rect = new Rect(50, 0, 100, 50);
-            GUI.TextField(rect, "剩余" + health + "血量");
-        }
+
         public void OnAttacked(int primaryDamage, Vector3 contact)
         {
             if (!photonView.isMine)
