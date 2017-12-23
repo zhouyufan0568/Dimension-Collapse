@@ -2,45 +2,54 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerManager : Photon.PunBehaviour,IPunObservable {
-	
-	#region IPunObservable implementation
-	public void OnPhotonSerializeView (PhotonStream stream, PhotonMessageInfo info)
-	{
-		//throw new System.NotImplementedException ();
-	}
-	#endregion
+namespace DimensionCollapse {
+    public class PlayerManager : Photon.PunBehaviour, IPunObservable {
 
-	#region Public Variables
+        #region IPunObservable implementation
+        public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+        {
+            //throw new System.NotImplementedException ();
+        }
+        #endregion
 
-	[Tooltip("The current Health of our player")]
-	public float Health = 1f;
+        #region Public Variables
 
-	[Tooltip("The local player instance. Use this to know if the local player is represented in the Scene")]
-	public static GameObject LocalPlayerInstance;
+        [Tooltip("The current Health of our player")]
+        public float Health = 1f;
 
-	public float Direction;
+        [Tooltip("The local player instance. Use this to know if the local player is represented in the Scene")]
+        public static GameObject LocalPlayerInstance;
 
-	#endregion
+        public float Direction;
 
-	void awake(){
-		
-		// #Important
-		// used in GameManager.cs: we keep track of the localPlayer instance to prevent instantiation when levels are synchronized
-		if ( photonView.isMine)
-		{
-			PlayerManager.LocalPlayerInstance = this.gameObject;
-		}
-	}
+        #endregion
 
-	// Use this for initialization
-	void Start () {
-		GameObject.Find("GameManager").SendMessage ("SetTarget", this, SendMessageOptions.RequireReceiver);
-		Direction = transform.rotation.eulerAngles.y;
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		Direction = transform.rotation.eulerAngles.y;
-	}
+        private Health health;
+
+        void awake() {
+
+            // #Important
+            // used in GameManager.cs: we keep track of the localPlayer instance to prevent instantiation when levels are synchronized
+            if (photonView.isMine)
+            {
+                PlayerManager.LocalPlayerInstance = this.gameObject;
+            }
+        }
+
+        // Use this for initialization
+        void Start() {
+			if (photonView.isMine) {
+				GameObject.Find ("UIManager").SendMessage ("SetTarget", this, SendMessageOptions.RequireReceiver);
+			}
+            Direction = transform.rotation.eulerAngles.y;
+            health = transform.GetComponent<Health>();
+        }
+
+        // Update is called once per frame
+        void Update() {
+            Direction = transform.rotation.eulerAngles.y;
+            Health = health.health/health.maxHealth;
+    
+    }
+    }
 }

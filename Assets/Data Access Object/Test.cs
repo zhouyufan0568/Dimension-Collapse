@@ -12,10 +12,12 @@ public class Test : MonoBehaviour {
         Debug.Log(await accountManager.IsOnlineAsync("swt369"));
         Debug.Log(await accountManager.IsAccountExistsAsync("swt369"));
         Debug.Log(await accountManager.IsAccountExistsAsync("asdsad"));
-	}
+        Debug.Log(await accountManager.VerifyAccountAndPasswordAsync("swt369", "21751001"));
+        Debug.Log(await accountManager.VerifyAccountAndPasswordAsync("swt369", "2175100df1"));
+    }
 	
 	// Update is called once per frame
 	void Update () {
-        Debug.Log("update");
+        //Debug.Log("update");
     }
 }

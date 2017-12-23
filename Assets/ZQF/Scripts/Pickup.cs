@@ -1,11 +1,12 @@
 ﻿using UnityEngine;
 using DimensionCollapse;
 
-public class Pickup : MonoBehaviour {
+public class Pickup : MonoBehaviour
+{
 
     [SerializeField] private Transform mCenter;
     [SerializeField] private Transform mCamera;
-    [SerializeField] private Transform mRightHand;
+    [SerializeField] private Transform mWeaponPanel;
     private GameObject currentItem;
     private RaycastHit hit;
     private Inventory inventory;
@@ -16,28 +17,25 @@ public class Pickup : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update () {
-
-		if (transform.position.y < -10f) {
-			transform.position = new Vector3 (50,3,50);
-		}
-
+    void Update()
+    {
         Vector3 forward = mCamera.TransformDirection(Vector3.forward);
-		if (Input.GetKeyDown(KeyCode.F))
+        if (Input.GetKeyDown(KeyCode.E))
         {
-            if (Physics.Raycast(mCamera.position,forward,out hit, 5f))
+            if (Physics.Raycast(mCamera.position, forward, out hit, 5f))
             {
-                
-                Debug.DrawLine(mCamera.position, hit.point,Color.red);//划出射线，只有在scene视图中才能看到
+
+                Debug.DrawLine(mCamera.position, hit.point, Color.red);//划出射线，只有在scene视图中才能看到
                 Vector3 forward2 = mCenter.TransformDirection(Vector3.forward);
-                if (Physics.Raycast(mCenter.position,forward2, out hit, 7f)){
+                if (Physics.Raycast(mCenter.position, forward2, out hit, 7f))
+                {
                     Debug.DrawLine(mCenter.position, hit.point);
                     currentItem = hit.collider.gameObject;
 
                     Item item = currentItem.GetComponent<Item>();
-                    if (item!=null&&!item.Picked)
+                    if (item != null && !item.Picked)
                     {
-                        if(item is Weapon && mRightHand.childCount == 0)
+                        if (item is Weapon && mWeaponPanel.childCount == 0)
                         {
                             EquipeWeapon(currentItem.gameObject);
                         }
@@ -49,18 +47,18 @@ public class Pickup : MonoBehaviour {
                                 currentItem.SetActive(false);
                             }
                         }
-                        
+
                     }
                 }
             }
         }
-		if (Input.GetKeyUp(KeyCode.G))
+        if (Input.GetKeyUp(KeyCode.Q))
         {
-            if (mRightHand.childCount > 0)
+            if (mWeaponPanel.childCount > 0)
             {
                 Debug.Log("throw");
-                GameObject weapon = mRightHand.GetChild(0).gameObject;
-                mRightHand.DetachChildren();
+                GameObject weapon = mWeaponPanel.GetChild(0).gameObject;
+                mWeaponPanel.DetachChildren();
                 weapon.GetComponent<Collider>().enabled = true;
                 weapon.transform.Rotate(weapon.transform.up, -90, Space.World);
                 Rigidbody weaponRigid = weapon.AddComponent<Rigidbody>();
@@ -68,10 +66,10 @@ public class Pickup : MonoBehaviour {
                 weaponRigid.isKinematic = false;
                 weaponRigid.AddForce(forward.normalized * 100f);
                 weapon.GetComponent<Weapon>().Picked = false;
-                mRightHand.GetComponent<Attack>().weapon = null;
+                mWeaponPanel.GetComponent<Shoot>().weapon = null;
 
                 GameObject newWeapon = inventory.GetNextWeapon();
-                if (newWeapon != null&&mRightHand.childCount==0)
+                if (newWeapon != null && mWeaponPanel.childCount == 0)
                 {
                     Debug.Log("newWeapon");
                     newWeapon.SetActive(true);
@@ -79,18 +77,18 @@ public class Pickup : MonoBehaviour {
                 }
             }
         }
-	}
+    }
 
     private void EquipeWeapon(GameObject weaponGO)
     {
         Destroy(weaponGO.GetComponent<Rigidbody>());
         weaponGO.GetComponent<Collider>().enabled = false;
         //Debug.Log("Remove rigid");
-        weaponGO.transform.parent = mRightHand;
+        weaponGO.transform.parent = mWeaponPanel;
         weaponGO.transform.localPosition = Vector3.zero;
         weaponGO.transform.localEulerAngles = Vector3.zero;
         weaponGO.GetComponent<Item>().Picked = true;
-        mRightHand.GetComponent<Attack>().weapon = weaponGO.GetComponent<Weapon>();
+        mWeaponPanel.GetComponent<Shoot>().weapon = weaponGO.GetComponent<Weapon>();
     }
 
 }
