@@ -29,7 +29,7 @@ namespace DimensionCollapse
         {
             get
             {
-                return Mathf.Approximately(CooldownTimeLeft, 0) ? true : false;
+                return Mathf.Approximately(CooldownTimeLeft, 0f) ? true : false;
             }
         }
 
