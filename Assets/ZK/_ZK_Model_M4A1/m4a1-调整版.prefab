@@ -101,8 +101,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4757431224629574}
-  - component: {fileID: 65682981111130054}
-  - component: {fileID: 114154782058394878}
+  - component: {fileID: 114727693660733200}
   m_Layer: 0
   m_Name: "m4a1-\u8C03\u6574\u7248"
   m_TagString: Untagged
@@ -138,7 +137,7 @@ GameObject:
   - component: {fileID: 198292627433139156}
   - component: {fileID: 199172101053890182}
   m_Layer: 0
-  m_Name: ShellParticle
+  m_Name: Particle_Shell
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -223,7 +222,7 @@ GameObject:
   - component: {fileID: 198903526151588900}
   - component: {fileID: 199685324793427132}
   m_Layer: 0
-  m_Name: FlashParticle
+  m_Name: Particle_Flash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -444,7 +443,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1193929743253618}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 88.5, y: 7.19, z: 17.15}
+  m_LocalPosition: {x: -0.18, y: 0.82, z: 0.51}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4243888751984022}
@@ -913,18 +912,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1727064769285320}
   m_Mesh: {fileID: 4300014, guid: d6ccf5d1b0188e44f9469d5f0831f313, type: 3}
---- !u!65 &65682981111130054
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1193929743253618}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.18, y: 0.51, z: 2.09}
-  m_Center: {x: -0.19, y: -0.26, z: 0.91}
 --- !u!82 &82422380328228118
 AudioSource:
   m_ObjectHideFlags: 1
@@ -992,7 +979,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -1005,7 +992,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
---- !u!114 &114154782058394878
+--- !u!114 &114727693660733200
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -1016,18 +1003,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08750690810e1974186a9ab9f0309c76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Name: m4a1
-  ID: 0
+  Name: M4A1
+  ID: 1
   Picked: 0
-  TheBullet: {fileID: 114059846178572870, guid: 141e29725dd25cd4bb01a19c62cf5f4d,
+  TheBullet: {fileID: 114523114689912646, guid: 141e29725dd25cd4bb01a19c62cf5f4d,
     type: 2}
-  InitialV: 200
+  InitialV: 100
   Interval: 0.1
-  damage: 999
-  CurrentChanger: 999
-  CurrentChangerCapacity: 999
-  AlternativeCharger: 9999
-  AlternativeChargerCapacity: 9999
+  damage: 10
+  CurrentChanger: 30
+  CurrentChangerCapacity: 30
+  AlternativeCharger: 90
+  AlternativeChargerCapacity: 90
 --- !u!198 &198292627433139156
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -1088,7 +1075,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 38189409
+  randomSeed: 1840797578
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -4378,7 +4365,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 0
-  randomSeed: -1627469209
+  randomSeed: 1914940416
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -7662,7 +7649,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1546135501
+  randomSeed: -479909225
   InitialModule:
     serializedVersion: 3
     enabled: 1

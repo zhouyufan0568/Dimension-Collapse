@@ -16,8 +16,8 @@ private Animator animator;
 		if(Input.GetAxis("Vertical") != 0)
 		{
 			animator.SetBool("isRunning",true);
-
-		}else
+		}
+		else
 		{
 			animator.SetBool("isRunning",false);
 		}

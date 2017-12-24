@@ -68,7 +68,7 @@ public class Player : Photon.PunBehaviour
         //初始化人物动画
         //m_Animator = m_PlayerModel.GetComponent<Animator>();
     }
-
+    
     //动画播放
     private void WalkAnim(float walkSpeed)
     {

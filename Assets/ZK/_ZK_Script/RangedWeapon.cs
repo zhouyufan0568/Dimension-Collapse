@@ -18,7 +18,7 @@ namespace DimensionCollapse
         private LinkedList<Bullet> bulletList = new LinkedList<Bullet>();  //武器子弹列表，先生成同一时间能存在的最大数量子弹，供发射时调用
         private float currentInterval = float.MaxValue; //上一次射击距离现在的时间，用于实现武器射速限制
 
-		public Camera m_Camera; //当前使用的相机，用于将子弹方向对准屏幕中心
+        public Camera m_Camera; //当前使用的相机，用于将子弹方向对准屏幕中心
         private RaycastHit hitInfo; //将子弹方向对准屏幕中心辅助对象
         private Transform gunpoint; //空物体：枪口,子弹实际上从此点进行发射
         private Vector3 force; //将子弹方向对准屏幕中心辅助对象
@@ -53,9 +53,9 @@ namespace DimensionCollapse
             try
             {
                 Audio_Shoot = this.transform.Find("Empty_Gunpoint").gameObject.GetComponent<AudioSource>();
-                if(Audio_Shoot == null)
+                if (Audio_Shoot == null)
                 {
-                      throw new System.NullReferenceException();
+                    throw new System.NullReferenceException();
                 }
             }
             catch (System.NullReferenceException e)
@@ -112,7 +112,7 @@ namespace DimensionCollapse
                     //Debug.Log(CurrentChanger);
 
                     /*-------------------------------------------朝向准心发射代码----------------------------------------------*/
-                  //  m_Camera = Camera.main;
+                    //  m_Camera = Camera.main;
                     //if (m_Camera == null) { Debug.Log("null!!!!"); }-
                     //通过摄像机在屏幕中心点位置发射一条射线  
                     Ray ray = m_Camera.ScreenPointToRay(new Vector3(Screen.width >> 1, Screen.height >> 1, 0));
@@ -131,7 +131,7 @@ namespace DimensionCollapse
                     currentBullet = bulletList.First.Value;
                     gunpoint.LookAt(force);
                     //Debug.DrawLine(gunpoint.position, force, Color.red, 20000, false);
-                    currentBullet.setInitTransformAndDamage(gunpoint,damage);
+                    currentBullet.setInitTransformAndDamage(gunpoint, damage);
 
                     /*-------------------------------------------朝向准心发射代码----------------------------------------------*/
                     force -= gunpoint.position;
@@ -174,14 +174,17 @@ namespace DimensionCollapse
         private void initBulletList()
         {
             TheBullet.gameObject.SetActive(true);   //此行代码不加的话，在子弹的Prefab激活栏中不打勾时，就会出现获取不到子弹生命周期的情况，原因是Prefab不打勾不会在Instantiate后调用Awake()！
-            Bullet newBullet = Instantiate(TheBullet, transform.position, transform.rotation) as Bullet;
+
+            GameObject bulletListParent = new GameObject(this.TheBullet.name + "sList");
+            Bullet newBullet = Instantiate(TheBullet, bulletListParent.GetComponent<Transform>(), true) as Bullet;
+
             bulletList.AddLast(newBullet);
             newBullet.setBulletList(bulletList);
             float bulletRealLifeTime = newBullet.getBulletRealLifeTime();
             //Debug.Log("RangedWeapon:" + bulletRealLifeTime);
             for (int i = 0; i < bulletRealLifeTime / Interval; i++)
             {
-                newBullet = Instantiate(TheBullet, transform.position, transform.rotation) as Bullet;
+                newBullet = Instantiate(TheBullet, bulletListParent.GetComponent<Transform>(), true) as Bullet;
                 bulletList.AddLast(newBullet);
                 newBullet.setBulletList(bulletList);
                 //Debug.Log("i = " + i);
