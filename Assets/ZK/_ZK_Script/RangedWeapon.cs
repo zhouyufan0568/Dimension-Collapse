@@ -53,6 +53,10 @@ namespace DimensionCollapse
             try
             {
                 Audio_Shoot = this.transform.Find("Empty_Gunpoint").gameObject.GetComponent<AudioSource>();
+                if(Audio_Shoot == null)
+                {
+                      throw new System.NullReferenceException();
+                }
             }
             catch (System.NullReferenceException e)
             {
@@ -65,7 +69,7 @@ namespace DimensionCollapse
             }
             catch (System.NullReferenceException e)
             {
-                //Debug.Log("此武器：" + name + " 不含ShellParticle，也即没有弹壳弹出特效。 " + e);
+                Debug.Log("此武器：" + name + " 不含ShellParticle，也即没有弹壳弹出特效。 " + e);
             }
 
             try
@@ -75,7 +79,7 @@ namespace DimensionCollapse
 
             catch (System.NullReferenceException e)
             {
-                //Debug.Log("此武器：" + name + " 不含FlashParticle，也即没有枪口闪光特效。 " + e);
+                Debug.Log("此武器：" + name + " 不含FlashParticle，也即没有枪口闪光特效。 " + e);
             }
         }
 

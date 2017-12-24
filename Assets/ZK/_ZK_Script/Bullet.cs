@@ -186,7 +186,7 @@ namespace DimensionCollapse
                     //让子弹停止,很关键的代码~不然要加很多的代码来让爆炸位置不动,就算没有爆炸，这条语句也不会引发错误  
                     bulletRigidbody.isKinematic = true;
 
-                    Temp_Scarecrow player = other.gameObject.GetComponent<Temp_Scarecrow>();
+                    Health player = other.gameObject.GetComponent<Health>();
                     if (flying != null)
                     {
                         StopFlyingAndExplode();
