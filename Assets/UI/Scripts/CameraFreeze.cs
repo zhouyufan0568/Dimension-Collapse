@@ -12,17 +12,17 @@ namespace DimensionCollapse{
 		private GameObject cameraNotFreeze;
 
 		void Start(){
-			
-		}
-
-		public void Init(){
-			if (MapDynamicLoading.mine != null) {
-				player = MapDynamicLoading.mine.transform;
+			if (PlayerManager.LocalPlayerInstance != null) {
+				player = PlayerManager.LocalPlayerInstance.transform;
 				cameraNotFreeze = player.Find ("MiniMapCamera").gameObject;
 			}
 		}
-
+			
 		void Update(){
+			if(Input.GetButtonDown("LockMinimap")){
+				FreezeRotationOrNot();
+			}
+
 			if (isFreeze) {
 				miniMapCameraFreeze.transform.position = player.position + new Vector3 (0, 50, 0);
 			}

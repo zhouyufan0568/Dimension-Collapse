@@ -15,6 +15,9 @@ namespace DimensionCollapse
 		[Tooltip("UI raw image to display Player's Direction")]
 		public RawImage PlayerDirectionSignal;
 
+		[Tooltip("UI canvas to display Player's backpack")]
+		public Canvas PlayerBackpackCanvas;
+
 		#endregion
 
 		#region Private Properties
