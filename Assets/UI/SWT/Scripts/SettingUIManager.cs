@@ -31,6 +31,9 @@ public class SettingUIManager : MonoBehaviour {
     public int firstSelected = 0;
     private int curSelected = -1;
 
+    private float lastClicked = -1f;
+    private float clickInterval = 0.8f;
+
     private bool isOpen = false;
 
     private void Start()
@@ -118,6 +121,11 @@ public class SettingUIManager : MonoBehaviour {
 
     public void Reverse()
     {
+        if (Time.time - lastClicked < clickInterval)
+        {
+            return;
+        }
+
         if (isOpen)
         {
             Close();
@@ -126,5 +134,7 @@ public class SettingUIManager : MonoBehaviour {
         {
             Open();
         }
+
+        lastClicked = Time.time;
     }
 }
