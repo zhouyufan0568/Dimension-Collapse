@@ -24,7 +24,7 @@ namespace DimensionCollapse{
 			}
 
 			if (isFreeze) {
-				miniMapCameraFreeze.transform.position = player.position + new Vector3 (0, 50, 0);
+				miniMapCameraFreeze.transform.position = player.position + new Vector3 (0, 200, 0);
 			}
 		}
 

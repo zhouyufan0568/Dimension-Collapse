@@ -25,6 +25,8 @@ namespace DimensionCollapse {
 		[Tooltip("The current equipbar of our player")]
 		public GameObject[] itembar;
 
+		public bool isAlive;
+
         #endregion
 
 		#region Private Variables
@@ -49,6 +51,7 @@ namespace DimensionCollapse {
 			if (photonView.isMine) {
 				GameObject.Find ("UIManager").SendMessage ("SetTarget", this, SendMessageOptions.RequireReceiver);
 			}
+			isAlive = true;
             Direction = transform.rotation.eulerAngles.y;
             health = transform.GetComponent<Health>();
         }
@@ -57,7 +60,6 @@ namespace DimensionCollapse {
         void Update() {
             Direction = transform.rotation.eulerAngles.y;
             Health = health.health/health.maxHealth;
-    
     	}
 
 		#endregion
