@@ -5,29 +5,39 @@ using UnityEngine;
 namespace DimensionCollapse {
     public class PlayerManager : Photon.PunBehaviour, IPunObservable {
 
-        #region IPunObservable implementation
-        public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-        {
-            //throw new System.NotImplementedException ();
-        }
-        #endregion
-
         #region Public Variables
 
-        [Tooltip("The current Health of our player")]
+        [Tooltip("The current health of our player")]
         public float Health = 1f;
 
         [Tooltip("The local player instance. Use this to know if the local player is represented in the Scene")]
         public static GameObject LocalPlayerInstance;
 
+		[Tooltip("The current direction of our player")]
         public float Direction;
+
+		[Tooltip("The current equipbar of our player")]
+		public GameObject[] equipbar;
+
+		[Tooltip("The current equipbar of our player")]
+		public GameObject[] skillbar;
+
+		[Tooltip("The current equipbar of our player")]
+		public GameObject[] itembar;
+
+		public bool isAlive;
 
         #endregion
 
+		#region Private Variables
+
         private Health health;
 
-        void awake() {
+		#endregion
 
+		#region MonoBehaviour Messages
+
+        void Awake() {
             // #Important
             // used in GameManager.cs: we keep track of the localPlayer instance to prevent instantiation when levels are synchronized
             if (photonView.isMine)
@@ -41,6 +51,7 @@ namespace DimensionCollapse {
 			if (photonView.isMine) {
 				GameObject.Find ("UIManager").SendMessage ("SetTarget", this, SendMessageOptions.RequireReceiver);
 			}
+			isAlive = true;
             Direction = transform.rotation.eulerAngles.y;
             health = transform.GetComponent<Health>();
         }
@@ -49,7 +60,15 @@ namespace DimensionCollapse {
         void Update() {
             Direction = transform.rotation.eulerAngles.y;
             Health = health.health/health.maxHealth;
-    
-    }
+    	}
+
+		#endregion
+
+		#region IPunObservable implementation
+		public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+		{
+			//throw new System.NotImplementedException ();
+		}
+		#endregion
     }
 }

@@ -50,7 +50,7 @@ namespace DimensionCollapse{
 
 		//----------------------------动态加载-----------------------------------
 
-		private GameObject[] player;
+		//private GameObject[] player;
 		private GameObject[,] mapChunk;
 		private int[,] flag;
 
@@ -113,18 +113,14 @@ namespace DimensionCollapse{
 
 			//----------------------------动态加载-----------------------------------
 
-			player = GameObject.FindGameObjectsWithTag ("Player");
-			foreach (GameObject p in player) {
-				if (p.GetComponent<PhotonView> ().isMine) {
-					mine = p;
-					break;
-				}
-			}
-
-			//call init method of a script attached on the GameManager
-			if(GameObject.Find("GameManager").GetComponent<CameraFreeze>()!=null){
-				GameObject.Find ("GameManager").GetComponent<CameraFreeze> ().Init ();
-			}
+			//player = GameObject.FindGameObjectsWithTag ("Player");
+//			foreach (GameObject p in player) {
+//				if (p.GetComponent<PhotonView> ().isMine) {
+//					mine = p;
+//					break;
+//				}
+//			}
+			mine=PlayerManager.LocalPlayerInstance;
 
 			mapChunk=new GameObject[maxX,maxZ];
 			flag = new int[maxX, maxZ];

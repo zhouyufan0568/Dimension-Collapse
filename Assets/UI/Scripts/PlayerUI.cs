@@ -15,11 +15,16 @@ namespace DimensionCollapse
 		[Tooltip("UI raw image to display Player's Direction")]
 		public RawImage PlayerDirectionSignal;
 
+		[Tooltip("UI canvas to display Player's backpack")]
+		public GameObject PlayerBackpackCanvas;
+
+		public GameObject dynamicUI;
+
 		#endregion
 
 		#region Private Properties
 
-		PlayerManager _target;
+		private PlayerManager _target;
 
 		#endregion
 
@@ -37,7 +42,13 @@ namespace DimensionCollapse
 
 		// Update is called once per frame
 		void Update () {
-			
+
+			if (_target.isAlive == false&&dynamicUI.GetActive()==true) {
+				dynamicUI.SetActive (false);
+			}else if(_target.isAlive == true&&GameObject.Find ("DynamicUI")==false){
+				dynamicUI.SetActive (true);
+			}
+
 			// Reflect the Player Health
 			if (PlayerHealthSlider != null) 
 			{
