@@ -6,7 +6,7 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: sky5X1
+  m_Name: Daytime
   m_Shader: {fileID: 10700, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -19,19 +19,19 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BackTex:
-        m_Texture: {fileID: 2800000, guid: 5df3a5da4b9409d4e8dcfcb5a7f2efb6, type: 3}
+        m_Texture: {fileID: 2800000, guid: 2f457ab648d52c3438926569eff3903b, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DownTex:
-        m_Texture: {fileID: 2800000, guid: 25656bb4bdba9d74fbdcec086c36da54, type: 3}
+        m_Texture: {fileID: 2800000, guid: b7cd9fbb5ae5e7a4bad1091bd6724b9f, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _FrontTex:
-        m_Texture: {fileID: 2800000, guid: 5a88471d48adeb5439a6f1fb77fffb76, type: 3}
+        m_Texture: {fileID: 2800000, guid: 1b4e6cc33563f5a43bcb38d0b0a6c80a, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _LeftTex:
-        m_Texture: {fileID: 2800000, guid: 7ec97cef417aea24187127b871f79cf9, type: 3}
+        m_Texture: {fileID: 2800000, guid: 2264faf4f795b6843932d09a642d442b, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
@@ -39,11 +39,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _RightTex:
-        m_Texture: {fileID: 2800000, guid: 610d6985ab90c9d43895bfcf1edc1e1f, type: 3}
+        m_Texture: {fileID: 2800000, guid: 9526bf9c85a76e140bba2b7054b6d9b4, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _UpTex:
-        m_Texture: {fileID: 2800000, guid: a88bc1d48e8ad1141a7f5c7252a63f30, type: 3}
+        m_Texture: {fileID: 2800000, guid: 9c15b007bc3e6a34f843295e48f9b10a, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats: []
