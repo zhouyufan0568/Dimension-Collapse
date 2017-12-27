@@ -8,7 +8,7 @@ namespace DimensionCollapse
         public SpaceExchangeBall manager;
 
         [HideInInspector]
-        public GameObject sender;
+        public GameObject owner;
 
         public float velocity = 5f;
 
@@ -23,17 +23,17 @@ namespace DimensionCollapse
 
         private void OnTriggerEnter(Collider other)
         {
-            if (sender != null && other.gameObject.CompareTag("Player") && sender != other.gameObject)
+            if (owner != null && other.gameObject.CompareTag("Player") && owner != other.gameObject)
             {
                 GameObject poorGay = other.gameObject;
 
-                Vector3 temp = sender.transform.position;
-                sender.transform.position = poorGay.transform.position;
+                Vector3 temp = owner.transform.position;
+                owner.transform.position = poorGay.transform.position;
                 poorGay.transform.position = temp;
 
                 if (transformEffect != null)
                 {
-                    GameObject effect1 = Instantiate(transformEffect, sender.transform.position + Vector3.up * transformEffectOffsetY, Quaternion.identity);
+                    GameObject effect1 = Instantiate(transformEffect, owner.transform.position + Vector3.up * transformEffectOffsetY, Quaternion.identity);
                     GameObject effect2 = Instantiate(transformEffect, poorGay.transform.position + Vector3.up * transformEffectOffsetY, Quaternion.identity);
                     Destroy(effect1, transformEffectLifetime);
                     Destroy(effect2, transformEffectLifetime);

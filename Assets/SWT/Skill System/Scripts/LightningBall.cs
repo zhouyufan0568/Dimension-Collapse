@@ -4,14 +4,16 @@ using UnityEngine;
 
 namespace DimensionCollapse
 {
-    public class SpaceExchangeBall : AbstractNonDirectiveSkill
+    public class LightningBall : AbstractNonDirectiveSkill
     {
-        public float cooldownTimeTotal = 10f;
+        public float cooldownTimeTotal = 12f;
         private float cooldownTimeLeft = 0f;
+
+        public int ballNumOneShot = 8;
 
         public GameObject ball;
 
-        public float lifetime = 10f;
+        public float lifetime = 8f;
 
         private PlayerManager playerManager;
 
@@ -40,19 +42,17 @@ namespace DimensionCollapse
                 return;
             }
 
-            GameObject newBall = Instantiate(ball, playerManager.transform.position + playerManager.transform.forward * 2f, playerManager.camera.transform.rotation);
-            SpaceExchangeBallObj ballObj = newBall.GetComponent<SpaceExchangeBallObj>();
-            ballObj.owner = playerManager.gameObject;
-            Destroy(newBall, lifetime);
-
-            cooldownTimeLeft = CooldownTimeTotal;
-        }
-
-        private void Update()
-        {
-            if (cooldownTimeLeft > 0)
+            float angleBetweenTwoBall = 180f / ballNumOneShot;
+            for (float curAngle = -90f; curAngle <= 90f ; curAngle += angleBetweenTwoBall)
             {
-                cooldownTimeLeft = Mathf.Clamp(cooldownTimeLeft - Time.deltaTime, 0, CooldownTimeTotal);
+                GameObject newBall = Instantiate(
+                    ball,
+                    playerManager.transform.position + playerManager.transform.forward * 5f,
+                    playerManager.camera.transform.rotation * Quaternion.AngleAxis(curAngle, playerManager.camera.transform.up)
+                    );
+                LightningBallObj ballObj = newBall.GetComponent<LightningBallObj>();
+                ballObj.owner = playerManager.gameObject;
+                Destroy(newBall, lifetime);
             }
         }
     }

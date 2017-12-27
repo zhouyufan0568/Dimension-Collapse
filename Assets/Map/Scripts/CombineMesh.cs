@@ -88,6 +88,7 @@ public class CombineMesh : MonoBehaviour {
 		if (mapChunkIO.GetChunkDataByXZ(chunkX, chunkZ, out positions, out materialIds, out isVisible, out visiblePlaneCount))
 		{
 			chunk = new GameObject();
+            chunk.layer = 9;
 
 			Mesh mesh = new Mesh
 			{
