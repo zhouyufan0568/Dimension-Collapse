@@ -25,6 +25,13 @@ namespace DimensionCollapse {
 		[Tooltip("The current equipbar of our player")]
 		public GameObject[] itembar;
 
+        /// <summary>
+        /// The main camera of this player.
+        /// Add by SWT.
+        /// </summary>
+        [HideInInspector]
+        public new Camera camera;
+
 		public bool isAlive;
 
         #endregion
@@ -54,6 +61,16 @@ namespace DimensionCollapse {
 			isAlive = true;
             Direction = transform.rotation.eulerAngles.y;
             health = transform.GetComponent<Health>();
+
+            Camera[] cameras = gameObject.GetComponentsInChildren<Camera>();
+            foreach (var cam in cameras)
+            {
+                if (cam.tag == "MainCamera")
+                {
+                    camera = cam;
+                    break;
+                }
+            }
         }
 
         // Update is called once per frame

@@ -11,7 +11,15 @@ namespace DimensionCollapse
 
         private void Start()
         {
-            localCamera = PlayerManager.LocalPlayerInstance.GetComponentInChildren<Camera>();
+            Camera[] cameras = PlayerManager.LocalPlayerInstance.GetComponentsInChildren<Camera>();
+            foreach (var camera in cameras)
+            {
+                if (camera.tag == "MainCamera")
+                {
+                    localCamera = camera;
+                    break;
+                }
+            }
         }
 
         private void Update()

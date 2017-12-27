@@ -102,7 +102,7 @@ namespace DimensionCollapse
         {
             if (doorObjs[index].activeInHierarchy)
             {
-                cooldownTimeLeft[index] = Mathf.Clamp(cooldownTimeLeft[index] - Time.deltaTime, 0, CooldownTimeLeft);
+                cooldownTimeLeft[index] = Mathf.Clamp(cooldownTimeLeft[index] - Time.deltaTime, 0, CooldownTimeTotal);
             }
         }
 
