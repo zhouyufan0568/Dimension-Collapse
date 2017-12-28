@@ -376,12 +376,12 @@ Prefab:
     - target: {fileID: 224781284739156648, guid: 388997c354ce3694bbb9d52fc38f9be7,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: 515
+      value: 368.5
       objectReference: {fileID: 0}
     - target: {fileID: 224781284739156648, guid: 388997c354ce3694bbb9d52fc38f9be7,
         type: 2}
       propertyPath: m_LocalPosition.y
-      value: 275.5
+      value: 241.5
       objectReference: {fileID: 0}
     - target: {fileID: 224781284739156648, guid: 388997c354ce3694bbb9d52fc38f9be7,
         type: 2}
@@ -478,6 +478,10 @@ Prefab:
       propertyPath: launcher
       value: 
       objectReference: {fileID: 504727727}
+    - target: {fileID: 1524668910405366, guid: 388997c354ce3694bbb9d52fc38f9be7, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 388997c354ce3694bbb9d52fc38f9be7, type: 2}
   m_IsPrefabParent: 0
