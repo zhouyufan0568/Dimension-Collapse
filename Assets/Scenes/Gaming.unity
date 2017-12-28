@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4367242, g: 0.48433214, b: 0.5645831, a: 1}
+  m_IndirectSpecularColor: {r: 0.4367248, g: 0.48433262, b: 0.5645835, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -1422,7 +1422,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e29989a18d5131e4e8e5add3bc747347, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPrefab: {fileID: 1151663828921520, guid: 5109f6fb64b4b9f4a8da61c6e1e9b432,
+  playerPrefab: {fileID: 1038965112058080, guid: 9132590f69376404794d846e9b44e3d3,
     type: 2}
 --- !u!4 &548977939 stripped
 Transform:
@@ -2553,7 +2553,6 @@ Camera:
   m_TargetEye: 3
   m_HDR: 1
   m_AllowMSAA: 1
-  m_AllowDynamicResolution: 0
   m_ForceIntoRT: 0
   m_OcclusionCulling: 1
   m_StereoConvergence: 10

@@ -160,7 +160,7 @@ namespace DimensionCollapse
         //检测是否进行了碰撞，进行了就删除此子弹,如果有爆炸特效的话，触发爆炸特效
         private void OnCollisionEnter(Collision other)
         {
-            Debug.Log("By means of collosion mode to add this impuse: " + other.impulse);
+            // Debug.Log("By means of collosion mode to add this impuse: " + other.impulse);
             //碰撞时调用此函数，把它单独写到一个函数里是因为射线检测时无法自己触发OnCollisionEnter函数。
             BulletOnCollisionEnter(other.collider, other.contacts[0].point, Vector3.zero);
         }
@@ -178,7 +178,7 @@ namespace DimensionCollapse
                         if (otherRigidbody != null)
                         {
                             otherRigidbody.AddForce(impulse, ForceMode.Impulse);
-                            Debug.Log("By means of ray mode to add this impuse: " + impulse);
+                            // Debug.Log("By means of ray mode to add this impuse: " + impulse);
                         }
                     }
                     //Debug.Log("by normal means");
