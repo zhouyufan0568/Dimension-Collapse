@@ -17,6 +17,8 @@ ModelImporter:
     3300002: assembled_MeshPart1
     4300000: assembled_MeshPart0
     4300002: assembled_MeshPart1
+    6400000: assembled_MeshPart0
+    6400002: assembled_MeshPart1
   externalObjects:
   - first:
       type: UnityEngine:Material
@@ -52,9 +54,9 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 1
+    globalScale: 10
     meshCompression: 3
-    addColliders: 0
+    addColliders: 1
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1
