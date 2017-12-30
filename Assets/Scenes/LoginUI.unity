@@ -88,6 +88,7 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaDirect: 0.5
     m_PVRFilteringAtrousPositionSigmaIndirect: 2
     m_PVRFilteringAtrousPositionSigmaAO: 1
+    m_ShowResolutionOverlay: 1
   m_LightingDataAsset: {fileID: 0}
   m_UseShadowmask: 1
 --- !u!196 &4
@@ -175,6 +176,7 @@ Camera:
   m_TargetEye: 3
   m_HDR: 1
   m_AllowMSAA: 1
+  m_AllowDynamicResolution: 0
   m_ForceIntoRT: 0
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
@@ -299,6 +301,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &1386166638 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1850341332514772, guid: 388997c354ce3694bbb9d52fc38f9be7,
+    type: 2}
+  m_PrefabInternal: {fileID: 1754193649}
+--- !u!114 &1386166640
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1386166638}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83ed19ad7eb74b6448421947232c8042, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  launcher: {fileID: 504727727}
 --- !u!1 &1623869458
 GameObject:
   m_ObjectHideFlags: 0
@@ -478,6 +497,7 @@ Prefab:
       propertyPath: launcher
       value: 
       objectReference: {fileID: 504727727}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 114689691514588330, guid: 388997c354ce3694bbb9d52fc38f9be7, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 388997c354ce3694bbb9d52fc38f9be7, type: 2}
   m_IsPrefabParent: 0
