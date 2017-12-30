@@ -18,15 +18,9 @@ public class UIController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (Input.GetButtonDown ("Backpack")) {
-			//backpackAnimator.SetTrigger ("Open");
-			//backpackCanvasGroup.interactable=true;
-			//backpackCanvasGroup.blocksRaycasts = true;
 			backpack.SetActive(true);
 		}
 		if(Input.GetButtonUp("Backpack")){
-			//backpackAnimator.SetTrigger ("Close");
-			//backpackCanvasGroup.interactable=false;
-			//backpackCanvasGroup.blocksRaycasts = false;
 			backpack.SetActive(false);
 		}
 	}
