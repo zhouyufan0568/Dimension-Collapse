@@ -1140,23 +1140,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &1738835830712302
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 4648600238244736}
-  - component: {fileID: 20196757869647096}
-  - component: {fileID: 124424769669118852}
-  m_Layer: 0
-  m_Name: MiniMapCamera
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &1753365693156064
 GameObject:
   m_ObjectHideFlags: 1
@@ -1685,7 +1668,7 @@ Transform:
   m_LocalScale: {x: 15, y: 15, z: 1}
   m_Children: []
   m_Father: {fileID: 4467382873442606}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!4 &4168531312243620
 Transform:
@@ -1753,7 +1736,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4467382873442606}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4210321985296266
 Transform:
@@ -2056,7 +2039,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4467382873442606}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4467382873442606
 Transform:
@@ -2072,7 +2055,6 @@ Transform:
   - {fileID: 4049885416086630}
   - {fileID: 4102869715382852}
   - {fileID: 4790274831972654}
-  - {fileID: 4648600238244736}
   - {fileID: 4153947724937704}
   - {fileID: 4463271872217194}
   - {fileID: 4694389087070028}
@@ -2342,19 +2324,6 @@ Transform:
   m_Father: {fileID: 4727010268540868}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4648600238244736
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1738835830712302}
-  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 200, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4467382873442606}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!4 &4682267577260226
 Transform:
   m_ObjectHideFlags: 1
@@ -2380,7 +2349,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4467382873442606}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4703559351795040
 Transform:
@@ -2797,41 +2766,6 @@ Transform:
   m_Father: {fileID: 4074203611881720}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!20 &20196757869647096
-Camera:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1738835830712302}
-  m_Enabled: 1
-  serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
-  m_NormalizedViewPortRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1
-    height: 1
-  near clip plane: 0.3
-  far clip plane: 1000
-  field of view: 60
-  orthographic: 1
-  orthographic size: 80
-  m_Depth: 0
-  m_CullingMask:
-    serializedVersion: 2
-    m_Bits: 768
-  m_RenderingPath: -1
-  m_TargetTexture: {fileID: 8400000, guid: 06e1f2ba11d7c104e860e5f0d0030d27, type: 2}
-  m_TargetDisplay: 0
-  m_TargetEye: 3
-  m_HDR: 1
-  m_AllowMSAA: 1
-  m_ForceIntoRT: 0
-  m_OcclusionCulling: 1
-  m_StereoConvergence: 10
-  m_StereoSeparation: 0.022
 --- !u!20 &20989203777353836
 Camera:
   m_ObjectHideFlags: 1
@@ -3642,6 +3576,9 @@ MonoBehaviour:
   equipbar: []
   skillbar: []
   itembar: []
+  playerPrefab: {fileID: 1151663828921520}
+  GhostPlayerfab: {fileID: 1038965112058080, guid: 9132590f69376404794d846e9b44e3d3,
+    type: 2}
   camera: {fileID: 0}
   isAlive: 1
   maxHealth: 200
@@ -4048,7 +3985,7 @@ MonoBehaviour:
   mCenter: {fileID: 4049885416086630}
   mCamera: {fileID: 4933917739248322}
   mRaycastor: {fileID: 4217406314701590}
-  m_MiniMap: {fileID: 4648600238244736}
+  m_MiniMap: {fileID: 0}
   cameraDistance: 0
 --- !u!114 &114881214863106432
 MonoBehaviour:
@@ -4135,13 +4072,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8092a565c94b96f41929115cfc9b4b9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!124 &124424769669118852
-Behaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1738835830712302}
-  m_Enabled: 1
 --- !u!124 &124691979104363428
 Behaviour:
   m_ObjectHideFlags: 1

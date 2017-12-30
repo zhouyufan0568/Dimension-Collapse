@@ -9,13 +9,9 @@ namespace DimensionCollapse{
 		public bool isFreeze=false;
 
 		private Transform player;
-		private GameObject cameraNotFreeze;
 
 		void Start(){
-			if (PlayerManager.LocalPlayerInstance != null) {
-				player = PlayerManager.LocalPlayerInstance.transform;
-				cameraNotFreeze = player.Find ("MiniMapCamera").gameObject;
-			}
+			player = PlayerManager.LocalPlayerInstance.transform;
 		}
 			
 		void Update(){
@@ -25,6 +21,10 @@ namespace DimensionCollapse{
 
 			if (isFreeze) {
 				miniMapCameraFreeze.transform.position = player.position + new Vector3 (0, 200, 0);
+			} else {
+				miniMapCameraFreeze.transform.position = player.position + new Vector3 (0, 200, 0);
+				Vector3 playerQuaternion = player.rotation.eulerAngles;
+				miniMapCameraFreeze.transform.eulerAngles = new Vector3(90,playerQuaternion.y,playerQuaternion.z);
 			}
 		}
 
@@ -32,13 +32,9 @@ namespace DimensionCollapse{
 			if (!isFreeze) {
 				Debug.Log("Lock execute!");
 				isFreeze = true;
-				miniMapCameraFreeze.SetActive (true);
-				cameraNotFreeze.SetActive (false);
 			} else {
 				Debug.Log("Unlock execute!");
 				isFreeze = false;
-				miniMapCameraFreeze.SetActive (false);
-				cameraNotFreeze.SetActive (true);
 			}
 		}
 	}

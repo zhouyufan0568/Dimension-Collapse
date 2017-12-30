@@ -25,6 +25,12 @@ namespace DimensionCollapse {
 		[Tooltip("The current equipbar of our player")]
 		public GameObject[] itembar;
 
+		[Tooltip("The prefab to use for representing the player")]
+		public GameObject playerPrefab;
+
+		[Tooltip("The prefab to use for representing dead state of the player")]
+		public GameObject GhostPlayerfab;
+
         /// <summary>
         /// The main camera of this player.
         /// Add by SWT.
@@ -62,8 +68,7 @@ namespace DimensionCollapse {
 			if (photonView.isMine) {
 				GameObject.Find ("UIManager").SendMessage ("SetTarget", this, SendMessageOptions.RequireReceiver);
 			}
-
-			isAlive = true;
+				
             Direction = transform.rotation.eulerAngles.y;
 
             Camera[] cameras = gameObject.GetComponentsInChildren<Camera>();
@@ -86,11 +91,11 @@ namespace DimensionCollapse {
 			}
 			if (health < 0)
 			{
-				//DeadDecision ();
+				DeadDecision ();
 			}
 			if (Input.GetKeyDown(KeyCode.E))
 			{
-				//Revive ();
+				if(isAlive==true){Revive ();}
 			}
 
             Direction = transform.rotation.eulerAngles.y;
@@ -137,6 +142,15 @@ namespace DimensionCollapse {
 		#endregion
 
 		#region Private Method
+		void DeadDecision(){
+			PhotonNetwork.Instantiate (this.GhostPlayerfab.name, transform.position, transform.rotation, 0);
+			PhotonNetwork.Destroy (this.gameObject);
+		}
+
+		void Revive(){
+			PhotonNetwork.Instantiate (this.playerPrefab.name, transform.position, transform.rotation, 0);
+			PhotonNetwork.Destroy (this.gameObject);
+		}
 		#endregion
     }
 }

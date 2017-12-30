@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GhostMoveController : MonoBehaviour
+public class GhostMoveController : Photon.PunBehaviour
 {
+	[SerializeField] private Transform mCamera;
+
     public float MoveSpeed = 8f;
     public float RotSpeed = 25f;
 //    bool isRotate = false;
@@ -18,7 +20,13 @@ public class GhostMoveController : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-		 Cursor.lockState = CursorLockMode.Locked;
+		if (photonView.isMine == false)
+		{
+			mCamera.gameObject.SetActive(false);
+			this.enabled = false;
+		}
+
+		Cursor.lockState = CursorLockMode.Locked;
 
         Vector3 eulerAngles = this.transform.eulerAngles;//当前物体的欧拉角
 
