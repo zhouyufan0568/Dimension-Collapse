@@ -5,7 +5,6 @@ public class FirstViewCamera : Photon.PunBehaviour {
     [SerializeField] private Transform mCenter;
     [SerializeField] private Transform mCamera;
     [SerializeField] private Transform mRaycastor;
-    [SerializeField] private Transform m_MiniMap;
 
     //处理背靠墙体视角问题
     [SerializeField] private float cameraDistance;
@@ -33,7 +32,6 @@ public class FirstViewCamera : Photon.PunBehaviour {
         if (photonView.isMine == false)
         {
             mCamera.gameObject.SetActive(false);
-            m_MiniMap.gameObject.SetActive(false);
             this.enabled = false;
         }
         cameraDistance = (mCamera.position - mRaycastor.position).magnitude;
