@@ -172,6 +172,7 @@ GameObject:
   - component: {fileID: 4625304909915328}
   - component: {fileID: 33436165342730330}
   - component: {fileID: 23111380025071364}
+  - component: {fileID: 114683387774024458}
   m_Layer: 8
   m_Name: MiniMapIcon
   m_TagString: Untagged
@@ -652,7 +653,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mCamera: {fileID: 4487445567826870}
-  m_MiniMap: {fileID: 0}
   MoveSpeed: 8
   RotSpeed: 25
 --- !u!114 &114571320710391024
@@ -671,9 +671,9 @@ MonoBehaviour:
   equipbar: []
   skillbar: []
   itembar: []
-  playerPrefab: {fileID: 1038965112058080}
-  GhostPlayerfab: {fileID: 1151663828921520, guid: 5109f6fb64b4b9f4a8da61c6e1e9b432,
+  playerPrefab: {fileID: 1151663828921520, guid: 5109f6fb64b4b9f4a8da61c6e1e9b432,
     type: 2}
+  GhostPlayerfab: {fileID: 1038965112058080}
   camera: {fileID: 0}
   isAlive: 0
   maxHealth: 200
@@ -706,6 +706,17 @@ MonoBehaviour:
   instantiationId: -1
   currentMasterID: -1
   isRuntimeInstantiated: 0
+--- !u!114 &114683387774024458
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1967633692631554}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0549018e8920de4986f2bbffe95a9f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114930587680861384
 MonoBehaviour:
   m_ObjectHideFlags: 1

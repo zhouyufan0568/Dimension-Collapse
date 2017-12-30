@@ -256,7 +256,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 671322190}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 542, y: 305, z: 0}
+  m_LocalPosition: {x: 508.5, y: 286, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1004042077}
@@ -508,11 +508,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 114873934379243178, guid: 5109f6fb64b4b9f4a8da61c6e1e9b432,
-        type: 2}
-      propertyPath: m_MiniMap
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 114940440203486702, guid: 5109f6fb64b4b9f4a8da61c6e1e9b432,
         type: 2}
       propertyPath: viewIdField
@@ -639,11 +634,6 @@ Prefab:
     - target: {fileID: 4955262442401576, guid: 9132590f69376404794d846e9b44e3d3, type: 2}
       propertyPath: m_RootOrder
       value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 114345913680526956, guid: 9132590f69376404794d846e9b44e3d3,
-        type: 2}
-      propertyPath: m_MiniMap
-      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 114582760623786304, guid: 9132590f69376404794d846e9b44e3d3,
         type: 2}
