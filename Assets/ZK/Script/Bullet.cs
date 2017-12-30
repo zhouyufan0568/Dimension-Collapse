@@ -186,7 +186,7 @@ namespace DimensionCollapse
                     //让子弹停止,很关键的代码~不然要加很多的代码来让爆炸位置不动,就算没有爆炸，这条语句也不会引发错误  
                     bulletRigidbody.isKinematic = true;
 
-                    Health player = other.gameObject.GetComponent<Health>();
+                    PlayerManager player = other.gameObject.GetComponent<PlayerManager>();
                     if (flying != null)
                     {
                         StopFlyingAndExplode();
@@ -234,7 +234,7 @@ namespace DimensionCollapse
 
             for (int i = 0; i < colliders.Length; i++)
             {
-                Health scarecrow = colliders[i].gameObject.GetComponent<Health>();
+                PlayerManager scarecrow = colliders[i].gameObject.GetComponent<PlayerManager>();
                 if (scarecrow != null)
                 {
                     //计算下人物所要受到的伤害，目前使用简单线性关系：y =100 * （1 - x） ，y是受到的伤害量，x是两点间距离占球形碰撞体半径的百分比，
