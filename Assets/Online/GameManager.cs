@@ -16,6 +16,9 @@ namespace DimensionCollapse
 		[Tooltip("The prefab to use for representing the player")]
 		public GameObject playerPrefab;
 
+		[Tooltip("The prefab to use for representing dead state of the player")]
+		public GameObject GhostPlayerfab;
+
 		#region MonoBehaviour CallBacks
 
 		void Start()

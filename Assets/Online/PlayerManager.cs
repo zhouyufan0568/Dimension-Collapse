@@ -32,10 +32,10 @@ namespace DimensionCollapse {
         [HideInInspector]
         public new Camera camera;
 
-		public bool isAlive=true;
+		public bool isAlive;
 
 		public float maxHealth = 200;
-		public float health=200;
+		public float health;
 
 
 
@@ -86,13 +86,11 @@ namespace DimensionCollapse {
 			}
 			if (health < 0)
 			{
-				health = 0;
-				isAlive = false;
+				//DeadDecision ();
 			}
 			if (Input.GetKeyDown(KeyCode.E))
 			{
-				this.health = maxHealth;
-				isAlive = true;
+				//Revive ();
 			}
 
             Direction = transform.rotation.eulerAngles.y;
@@ -101,6 +99,7 @@ namespace DimensionCollapse {
 
 		#endregion
 
+		#region Public Method
 		public void OnAttacked(int primaryDamage, Vector3 contact)
 		{
 			if (!photonView.isMine)
@@ -121,9 +120,6 @@ namespace DimensionCollapse {
 			//Debug.Log(primaryDamage + "受到的伤害");
 			this.health -= primaryDamage;
 		}
-
-		#region Public Method
-
 		#endregion
 
 		#region IPunObservable implementation
@@ -138,6 +134,9 @@ namespace DimensionCollapse {
 				this.health = (float)stream.ReceiveNext();
 			}
 		}
+		#endregion
+
+		#region Private Method
 		#endregion
     }
 }

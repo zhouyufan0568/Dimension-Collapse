@@ -1423,6 +1423,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 1151663828921520, guid: 5109f6fb64b4b9f4a8da61c6e1e9b432,
     type: 2}
+  GhostPlayerfab: {fileID: 1038965112058080, guid: 9132590f69376404794d846e9b44e3d3,
+    type: 2}
 --- !u!4 &548977939 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4757431224629574, guid: 3bb9a377914d4544086d3bd7436c2063,

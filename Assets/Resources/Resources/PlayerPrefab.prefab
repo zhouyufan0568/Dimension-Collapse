@@ -3643,7 +3643,7 @@ MonoBehaviour:
   skillbar: []
   itembar: []
   camera: {fileID: 0}
-  isAlive: 0
+  isAlive: 1
   maxHealth: 200
   health: 200
 --- !u!114 &114111428534659050

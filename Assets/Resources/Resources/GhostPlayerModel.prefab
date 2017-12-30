@@ -25,7 +25,6 @@ GameObject:
   - component: {fileID: 114930587680861384}
   - component: {fileID: 95932953714416796}
   - component: {fileID: 114571320710391024}
-  - component: {fileID: 114562666334344816}
   - component: {fileID: 114345913680526956}
   m_Layer: 0
   m_Name: GhostPlayerModel
@@ -720,19 +719,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MoveSpeed: 8
   RotSpeed: 25
---- !u!114 &114562666334344816
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1038965112058080}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36ff87a9e993c1544abb448a52aa924d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 200
-  health: 0
 --- !u!114 &114571320710391024
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -749,7 +735,10 @@ MonoBehaviour:
   equipbar: []
   skillbar: []
   itembar: []
+  camera: {fileID: 0}
   isAlive: 0
+  maxHealth: 200
+  health: 0
 --- !u!114 &114582760623786304
 MonoBehaviour:
   m_ObjectHideFlags: 1
