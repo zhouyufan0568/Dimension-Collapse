@@ -11,10 +11,15 @@ namespace DimensionCollapse{
 		private Transform player;
 
 		void Start(){
-			player = PlayerManager.LocalPlayerInstance.transform;
+			
 		}
 			
 		void Update(){
+
+			if (player == null) {
+				player = PlayerManager.LocalPlayerInstance.transform;
+			}
+
 			if(Input.GetButtonDown("LockMinimap")){
 				FreezeRotationOrNot();
 			}
@@ -32,6 +37,7 @@ namespace DimensionCollapse{
 			if (!isFreeze) {
 				Debug.Log("Lock execute!");
 				isFreeze = true;
+				miniMapCameraFreeze.transform.eulerAngles = new Vector3(90,0,0);
 			} else {
 				Debug.Log("Unlock execute!");
 				isFreeze = false;
