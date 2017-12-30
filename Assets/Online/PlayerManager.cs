@@ -95,7 +95,7 @@ namespace DimensionCollapse {
 			}
 			if (Input.GetKeyDown(KeyCode.E))
 			{
-				if(isAlive==true){Revive ();}
+				if(isAlive==false){Revive ();}
 			}
 
             Direction = transform.rotation.eulerAngles.y;
@@ -148,7 +148,7 @@ namespace DimensionCollapse {
 		}
 
 		void Revive(){
-			PhotonNetwork.Instantiate (this.playerPrefab.name, transform.position, transform.rotation, 0);
+			PhotonNetwork.Instantiate (this.playerPrefab.name, transform.position, new Quaternion(), 0);
 			PhotonNetwork.Destroy (this.gameObject);
 		}
 		#endregion

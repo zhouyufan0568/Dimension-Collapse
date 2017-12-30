@@ -949,6 +949,7 @@ GameObject:
   - component: {fileID: 4153947724937704}
   - component: {fileID: 33014115997020562}
   - component: {fileID: 23465441772653858}
+  - component: {fileID: 114911982865688186}
   m_Layer: 8
   m_Name: MiniMapIcon
   m_TagString: Untagged
@@ -3985,7 +3986,6 @@ MonoBehaviour:
   mCenter: {fileID: 4049885416086630}
   mCamera: {fileID: 4933917739248322}
   mRaycastor: {fileID: 4217406314701590}
-  m_MiniMap: {fileID: 0}
   cameraDistance: 0
 --- !u!114 &114881214863106432
 MonoBehaviour:
@@ -3999,6 +3999,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   texture: {fileID: 2800000, guid: 7d7cfcb468004fb47bffef0723ed0d32, type: 3}
+--- !u!114 &114911982865688186
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1629241983239560}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0549018e8920de4986f2bbffe95a9f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114940440203486702
 MonoBehaviour:
   m_ObjectHideFlags: 1
