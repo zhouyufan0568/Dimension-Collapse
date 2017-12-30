@@ -3584,6 +3584,8 @@ MonoBehaviour:
   isAlive: 1
   maxHealth: 200
   health: 200
+  survivors: {fileID: 0}
+  deaders: {fileID: 0}
 --- !u!114 &114111428534659050
 MonoBehaviour:
   m_ObjectHideFlags: 1

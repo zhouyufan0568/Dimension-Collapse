@@ -43,11 +43,14 @@ namespace DimensionCollapse {
 		public float maxHealth = 200;
 		public float health;
 
-
+		public int numOfkill=0;
 
         #endregion
 
 		#region Private Variables
+
+		private GameObject survivors;
+		private GameObject deaders;
 
 		#endregion
 
@@ -64,9 +67,18 @@ namespace DimensionCollapse {
 
         // Use this for initialization
         void Start() {
-			
+
+			survivors = GameObject.Find ("Survivors");
+			deaders = GameObject.Find ("Deaders");
+
 			if (photonView.isMine) {
 				GameObject.Find ("UIManager").SendMessage ("SetTarget", this, SendMessageOptions.RequireReceiver);
+			}
+
+			if (isAlive) {
+				gameObject.transform.SetParent (survivors.transform);
+			} else {
+				gameObject.transform.SetParent (deaders.transform);
 			}
 				
             Direction = transform.rotation.eulerAngles.y;

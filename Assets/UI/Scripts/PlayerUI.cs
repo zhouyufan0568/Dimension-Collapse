@@ -18,7 +18,17 @@ namespace DimensionCollapse
 		[Tooltip("UI canvas to display Player's backpack")]
 		public GameObject PlayerBackpackCanvas;
 
+		[Tooltip("UI object shown Dynamically according to states of player")]
 		public GameObject dynamicUI;
+
+		[Tooltip("The number of people killed by player")]
+		public Text Kill;
+
+		[Tooltip("The number of survivors in current game")]
+		public Text Alive;
+
+		public GameObject survivors;
+		public GameObject deaders;
 
 		#endregion
 
@@ -37,7 +47,6 @@ namespace DimensionCollapse
 
 		// Use this for initialization
 		void Start () {
-			
 		}
 
 		// Update is called once per frame
@@ -65,6 +74,15 @@ namespace DimensionCollapse
 				Destroy(this.gameObject);
 				return;
 			}
+
+			if (Kill != null) {
+				Kill.text = _target.numOfkill.ToString();
+			}
+
+			if (Alive != null) {
+				Alive.text = survivors.transform.childCount.ToString();
+			}
+
 		}
 
 		#endregion

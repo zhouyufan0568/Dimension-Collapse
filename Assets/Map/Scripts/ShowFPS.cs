@@ -2,7 +2,7 @@
 using System.Collections;
 
 namespace DimensionCollapse{
-	public class ShowFPS : MonoBehaviour {
+	public class ShowFPS : Photon.PunBehaviour {
 
 		//states of map
 		public enum mapStates{
@@ -79,6 +79,7 @@ namespace DimensionCollapse{
 		private void OnGUI()
 		{
 			GUILayout.Label("FPS:" + currentFPS.ToString("f2"));
+			GUILayout.Label("Ping:" + PhotonNetwork.GetPing());
 			GUILayout.Label("当前时间："+mapdynamicloading.elapsed);
 			switch (state) {
 			case(mapStates.WaitforReset):
