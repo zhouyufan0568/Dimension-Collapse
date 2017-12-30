@@ -25,7 +25,7 @@ namespace DimensionCollapse
         private float rayLength;    //此长度为上述射线的长度
         private int thisHash;   //此物品的Hash值，用于防止上述射线检测检测到自己
 
-        private const float HIGH_SPEED = 50; //超过这个速度的加入射线检测，防止穿过物体
+        // private const float HIGH_SPEED = 50; //超过这个速度的加入射线检测，防止穿过物体。由于地图没有厚度，此判定暂时搁置
 
         //int cursor = 0; //此游标用来测试射线发射是否正常
         void Awake()
@@ -96,7 +96,7 @@ namespace DimensionCollapse
 
                     //此判断用于跳过Position是初始值的第一次情况；
 
-                    if (lastPosition.x < float.MaxValue && bulletRigidbody.velocity.magnitude > HIGH_SPEED)
+                    if (lastPosition.x < float.MaxValue)
                     {
                         ray = new Ray(lastPosition, this.transform.position - lastPosition);
                         rayLength = (transform.position - lastPosition).magnitude;
@@ -240,7 +240,7 @@ namespace DimensionCollapse
                     //计算下人物所要受到的伤害，目前使用简单线性关系：y =100 * （1 - x） ，y是受到的伤害量，x是两点间距离占球形碰撞体半径的百分比，
                     //0代表在圆心爆炸，受到满额100点伤害，1代表在边缘处爆炸，受到0点伤害
                     int currentDamage = (int)(this.damage * (1 - (Vector3.Distance(scarecrow.transform.position, center) / radius)));
-                    Debug.Log("this.damage:" + this.damage + ",distance:" + Vector3.Distance(scarecrow.transform.position, center) + ",radius:" + radius + ",percentage:" + (Vector3.Distance(scarecrow.transform.position, center) / radius));
+                    // Debug.Log("this.damage:" + this.damage + ",distance:" + Vector3.Distance(scarecrow.transform.position, center) + ",radius:" + radius + ",percentage:" + (Vector3.Distance(scarecrow.transform.position, center) / radius));
                     scarecrow.OnAttacked(currentDamage);
                 }
                 //Debug.Log(colliders[i].gameObject.name);
@@ -302,7 +302,7 @@ namespace DimensionCollapse
                 explosion.GetComponent<ParticleSystem>().Play(); //爆炸特效显示
 
                 //调用爆炸碰撞体控制函数，现在的思路是碰撞发生后，将碰撞体残留0.2秒，然后消除，不然会在爆炸地点一直存在一个球状空气墙
-                StartCoroutine(explosionCollisionControler());
+                StartCoroutine(explosionCollisionController());
 
                 if (audioExplosion != null)
                 {
@@ -312,7 +312,7 @@ namespace DimensionCollapse
 
         }
 
-        private IEnumerator explosionCollisionControler()
+        private IEnumerator explosionCollisionController()
         {
             this.GetComponent<Collider>().enabled = false; //禁用物体本身的碰撞体
             explosion.GetComponent<Collider>().enabled = true; //启动爆炸的碰撞体
