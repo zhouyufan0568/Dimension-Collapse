@@ -1,18 +1,19 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class GhostMoveController : Photon.PunBehaviour
 {
-	[SerializeField] private Transform mCamera;
+    [SerializeField] private Transform mCamera;
 
     public float MoveSpeed = 8f;
     public float RotSpeed = 25f;
-//    bool isRotate = false;
+    //    bool isRotate = false;
 
- //   private float trans_y = 0;
-//    private float trans_x = 0;
-  //  private float trans_z = 0;
+    //   private float trans_y = 0;
+    //    private float trans_x = 0;
+    //  private float trans_z = 0;
 
     private float eulerAngles_x;
     private float eulerAngles_y;
@@ -20,13 +21,13 @@ public class GhostMoveController : Photon.PunBehaviour
     // Use this for initialization
     void Start()
     {
-		if (photonView.isMine == false)
-		{
-			mCamera.gameObject.SetActive(false);
-			this.enabled = false;
-		}
+        if (photonView.isMine == false)
+        {
+            mCamera.gameObject.SetActive(false);
+            this.enabled = false;
+        }
 
-		Cursor.lockState = CursorLockMode.Locked;
+        Cursor.lockState = CursorLockMode.Locked;
 
         Vector3 eulerAngles = this.transform.eulerAngles;//当前物体的欧拉角
 
@@ -48,8 +49,19 @@ public class GhostMoveController : Photon.PunBehaviour
         this.transform.rotation = quaternion;
 
         moveByKey(MoveSpeed);
-    }
+        cursorController();
 
+    }
+    /// <summary>
+    /// control cursor visible
+    /// </summary>
+    private void cursorController()
+    {
+        if (Input.GetMouseButtonUp(0))
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+    }
 
     void moveByKey(float speed)
     {

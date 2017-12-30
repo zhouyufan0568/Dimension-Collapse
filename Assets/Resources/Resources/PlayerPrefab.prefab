@@ -3985,7 +3985,6 @@ MonoBehaviour:
   mCenter: {fileID: 4049885416086630}
   mCamera: {fileID: 4933917739248322}
   mRaycastor: {fileID: 4217406314701590}
-  m_MiniMap: {fileID: 0}
   cameraDistance: 0
 --- !u!114 &114881214863106432
 MonoBehaviour:
