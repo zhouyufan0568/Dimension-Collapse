@@ -69,6 +69,13 @@ public class MultiplyCubes : EditorWindow {
     private bool showReadFromFiles;
     public GameObject cubePrefab;
 
+	private bool createNoiseChunk;
+	private int numOfChunkX=30;
+	private int numOfChunkZ=30;
+	private int sizeOfChunk=100;
+	private int indexOfChunkX;
+	private int indexOfChunkZ;
+
     [MenuItem("BlackHole Tools/MultiplyCubes")]
     static void Init()
     {
@@ -371,6 +378,21 @@ public class MultiplyCubes : EditorWindow {
                 }
             }
         }
+
+		createNoiseChunk = EditorGUILayout.Foldout(createNoiseChunk, "Create Noise Chunk");
+		if (createNoiseChunk)
+		{
+			numOfChunkX = EditorGUILayout.IntField("Num of Chunk X", numOfChunkX);
+			numOfChunkZ = EditorGUILayout.IntField("Num of Chunk Z", numOfChunkZ);
+			sizeOfChunk = EditorGUILayout.IntField("Size Of Chunk", sizeOfChunk);
+			indexOfChunkX = EditorGUILayout.IntField("Index Of Chunk X", indexOfChunkX);
+			indexOfChunkZ = EditorGUILayout.IntField("Index Of Chunk Z", indexOfChunkZ);
+
+			if (GUILayout.Button("Start", GUILayout.ExpandWidth(true)))
+			{
+				CreateNoiseChunk ();
+			}
+		}
 
         EditorGUILayout.EndScrollView();
     }
@@ -1510,4 +1532,34 @@ public class MultiplyCubes : EditorWindow {
     {
         return new DirectoryInfo(path).Exists;
     }
+
+	private void CreateNoiseChunk(){
+		NoiseFuction noise = new NoiseFuction ();
+
+		int terrainHeight = 10;
+
+		int worldX = indexOfChunkX * sizeOfChunk;
+		int worldZ = indexOfChunkZ * sizeOfChunk;
+		float terrainSizeX = numOfChunkX * sizeOfChunk;
+		float terrainSizeZ = numOfChunkZ * sizeOfChunk;
+
+		GameObject obj = new GameObject ("Chunk["+indexOfChunkX+","+indexOfChunkZ+"]");
+		obj.SetActive (false);
+
+		int worldY;
+		for (int x = 0; x < sizeOfChunk; x++) {
+			for (int z = 0; z < sizeOfChunk; z++) {
+				//worldY = Mathf.FloorToInt(terrainHeight * noise.PerlinNoise ((worldX + x)/(float)ChunkSize, (worldZ + z)/(float)ChunkSize));
+				worldY = Mathf.FloorToInt(terrainHeight * noise.PerlinNoise ((worldX + x)/(float)terrainSizeX, (worldZ + z)/(float)terrainSizeZ));
+				GameObject cube = GameObject.CreatePrimitive (PrimitiveType.Cube);
+				if (worldY <= 5) {
+					cube.GetComponent<MeshRenderer> ().material = (Material) Resources.Load ("Materials/(26)sea");
+				} else {
+					cube.GetComponent<MeshRenderer> ().material = (Material) Resources.Load ("Materials/(25)grass");
+				}
+				cube.transform.position = new Vector3 (worldX + x, worldY, worldZ + z);
+				cube.transform.SetParent (obj.transform);
+			}
+		}
+	}
 }
