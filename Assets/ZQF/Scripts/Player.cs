@@ -200,7 +200,7 @@ public class Player : Photon.PunBehaviour
 
         PlayFootStepAudio();
         WalkAnim(speed);
-        Debug.Log("speed:" + speed);
+        //Debug.Log("speed:" + speed);
     }
 
 

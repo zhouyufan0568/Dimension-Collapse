@@ -126,6 +126,7 @@ namespace DimensionCollapse{
 			flag = new int[maxX, maxZ];
 
 			GetObjectPosition (mine,out nowX,out nowZ);
+			elapsed = (float)PhotonNetwork.time - whenToStart;
 			CreateChunk (nowX,nowZ);
 			lastX = nowX;
 			lastZ = nowZ;
@@ -151,7 +152,7 @@ namespace DimensionCollapse{
 			//----------------------------动态加载-----------------------------------
 
 			if (mine == null) {
-				return;
+				mine=PlayerManager.LocalPlayerInstance;
 			}
 
 			GetObjectPosition (mine,out nowX,out nowZ);
