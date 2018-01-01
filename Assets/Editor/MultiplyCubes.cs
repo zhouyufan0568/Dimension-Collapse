@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using System.IO;
+using UnityEngine.UI;
 
 public class MultiplyCubes : EditorWindow {
 
@@ -75,6 +76,9 @@ public class MultiplyCubes : EditorWindow {
 	private int sizeOfChunk=100;
 	private int indexOfChunkX;
 	private int indexOfChunkZ;
+
+    private bool rename;
+    private string cubeName;
 
     [MenuItem("BlackHole Tools/MultiplyCubes")]
     static void Init()
@@ -393,6 +397,14 @@ public class MultiplyCubes : EditorWindow {
 				CreateNoiseChunk ();
 			}
 		}
+
+        rename = EditorGUILayout.Foldout(rename, "Rename");
+        if (rename) {
+            cubeName = EditorGUILayout.TextField(cubeName);
+            if (GUILayout.Button("Rename", GUILayout.ExpandWidth(true))) {
+                Rename(selected,cubeName);
+            }
+        }
 
         EditorGUILayout.EndScrollView();
     }
@@ -1562,4 +1574,13 @@ public class MultiplyCubes : EditorWindow {
 			}
 		}
 	}
+
+    private void Rename(Transform[] selected,string name)
+    {
+        foreach (Transform t in selected) {
+            t.name = name;
+            //t.GetChild(0).GetComponent<DragItem>().containerImage = t.GetComponent<Image>();
+            //t.GetChild(0).GetComponent<DragItem>().receivingImage = t.GetChild(0).GetComponent<Image>();
+        }
+    }
 }

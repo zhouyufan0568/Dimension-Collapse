@@ -45,6 +45,10 @@ namespace DimensionCollapse {
 
 		public int numOfkill=0;
 
+		public GameObject[] backpack;
+		public GameObject[] equipBar;
+		public GameObject[] skills;
+
         #endregion
 
 		#region Private Variables
