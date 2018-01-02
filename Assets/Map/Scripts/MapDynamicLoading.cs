@@ -16,6 +16,8 @@ namespace DimensionCollapse{
 
 		//----------------------------安全区-------------------------------------
 
+		private ShowFPS showfps;
+
 		//收缩比例
 		public float shrinkRatio=0.8f;
 
@@ -46,22 +48,10 @@ namespace DimensionCollapse{
 
 		private static float[,] timeToFall;
 
-        //初始距离安全区出现时间
-        [HideInInspector]
-        public float originTimeToReset;
+		//----------------------------动态加载-----------------------------------
 
-        //初始距离坍塌时间
-        [HideInInspector]
-        public float originTimeToCollapse;
-
-        //初始距离坍塌完毕时间
-        [HideInInspector]
-        public float originTimeToCFinish;
-
-        //----------------------------动态加载-----------------------------------
-
-        //private GameObject[] player;
-        private GameObject[,] mapChunk;
+		//private GameObject[] player;
+		private GameObject[,] mapChunk;
 		private int[,] flag;
 
 
@@ -84,15 +74,31 @@ namespace DimensionCollapse{
 
 		public static GameObject mine;
 
-        void Awake(){
-            originTimeToReset = timeToReset;
-            originTimeToCollapse = timeToCollapse;
-            originTimeToCFinish = timeToCFinish;
+		void Awake(){
+
 		}
 
 		// Use this for initialization
 		void Start () {
+
+			showfps = transform.GetComponent<ShowFPS> ();
 			combineMesh = GetComponent<CombineMesh>();
+
+			showfps.SecondsOfWaitReset = timeToReset;
+			showfps.timeOfReset = timeToReset;
+			showfps.SecondsOfWaitCollapse = timeToCollapse;
+			showfps.timeOfCollapse = timeToReset+timeToCollapse;
+			showfps.SecondsOfCollapse= timeToCFinish;
+			showfps.timeOfFinishCollapse = timeToReset+timeToCollapse+timeToCFinish;
+
+			numOfChunk = combineMesh.ChunkCount;
+			maxX = combineMesh.Chunk_X_Max;
+			maxZ = combineMesh.Chunk_Z_Max;
+			eachChunkSize = combineMesh.ChunkSize;
+			visibleChunk = visibleScope / eachChunkSize;
+			lengthOfMap = maxX * eachChunkSize;
+			widthOfMap = maxZ * eachChunkSize;
+
 
 			//----------------------------安全区-------------------------------------
 
