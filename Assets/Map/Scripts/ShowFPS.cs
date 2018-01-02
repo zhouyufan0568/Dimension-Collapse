@@ -37,7 +37,14 @@ namespace DimensionCollapse{
 		void Start () {
 			mapdynamicloading = transform.GetComponent<MapDynamicLoading> ();
 			state = mapStates.WaitforReset;
-		}
+
+            SecondsOfWaitReset = mapdynamicloading.originTimeToReset;
+            timeOfReset = mapdynamicloading.originTimeToReset;
+            SecondsOfWaitCollapse = mapdynamicloading.originTimeToCollapse;
+            timeOfCollapse = mapdynamicloading.originTimeToReset + mapdynamicloading.originTimeToCollapse;
+            SecondsOfCollapse = mapdynamicloading.originTimeToCFinish;
+            timeOfFinishCollapse = mapdynamicloading.originTimeToReset + mapdynamicloading.originTimeToCollapse + mapdynamicloading.originTimeToCFinish;
+        }
 
 		// Update is called once per frame
 		void Update () {
