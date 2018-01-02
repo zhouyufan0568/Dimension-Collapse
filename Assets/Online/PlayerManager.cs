@@ -13,6 +13,8 @@ namespace DimensionCollapse {
         [Tooltip("The local player instance. Use this to know if the local player is represented in the Scene")]
         public static GameObject LocalPlayerInstance;
 
+        public static Camera LocalPlayerMainCamera;
+
 		[Tooltip("The current direction of our player")]
         public float Direction;
 
@@ -61,12 +63,25 @@ namespace DimensionCollapse {
 		#region MonoBehaviour Messages
 
         void Awake() {
+            
+            Camera[] cameras = gameObject.GetComponentsInChildren<Camera>();
+            foreach (var cam in cameras)
+            {
+                if (cam.tag == "MainCamera")
+                {
+                    camera = cam;
+                    break;
+                }
+            }
+
             // #Important
             // used in GameManager.cs: we keep track of the localPlayer instance to prevent instantiation when levels are synchronized
             if (photonView.isMine)
             {
                 PlayerManager.LocalPlayerInstance = this.gameObject;
+                PlayerManager.LocalPlayerMainCamera = camera;
             }
+
         }
 
         // Use this for initialization
@@ -87,15 +102,6 @@ namespace DimensionCollapse {
 				
             Direction = transform.rotation.eulerAngles.y;
 
-            Camera[] cameras = gameObject.GetComponentsInChildren<Camera>();
-            foreach (var cam in cameras)
-            {
-                if (cam.tag == "MainCamera")
-                {
-                    camera = cam;
-                    break;
-                }
-            }
         }
 
         // Update is called once per frame

@@ -3585,6 +3585,9 @@ MonoBehaviour:
   maxHealth: 200
   health: 200
   numOfkill: 0
+  backpack: []
+  equipBar: []
+  skills: []
 --- !u!114 &114111428534659050
 MonoBehaviour:
   m_ObjectHideFlags: 1

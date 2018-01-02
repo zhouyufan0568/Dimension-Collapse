@@ -173,7 +173,7 @@ GameObject:
   - component: {fileID: 33436165342730330}
   - component: {fileID: 23111380025071364}
   - component: {fileID: 114683387774024458}
-  m_Layer: 11
+  m_Layer: 8
   m_Name: MiniMapIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -679,6 +679,9 @@ MonoBehaviour:
   maxHealth: 200
   health: 0
   numOfkill: 0
+  backpack: []
+  equipBar: []
+  skills: []
 --- !u!114 &114582760623786304
 MonoBehaviour:
   m_ObjectHideFlags: 1

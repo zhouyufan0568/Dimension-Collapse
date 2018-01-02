@@ -2,26 +2,45 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UIController : MonoBehaviour {
+namespace DimensionCollapse
+{
+    public class UIController : MonoBehaviour
+    {
+        public Canvas HUDCanvas;
+        public GameObject backpack;
+        public GameObject map;
 
-	public GameObject backpack;
-	//private Animator backpackAnimator;
-	//private CanvasGroup backpackCanvasGroup;
+        private Camera player_main_camera;
+        private Camera canvasCamera;
 
-	// Use this for initialization
-	void Start () {
-		//backpackAnimator = backpack.GetComponent<Animator> ();
-		//backpackCanvasGroup = backpack.GetComponent<CanvasGroup> ();
-		backpack.SetActive(false);
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		if (Input.GetButtonDown ("Backpack")) {
-			backpack.SetActive(true);
-		}
-		if(Input.GetButtonUp("Backpack")){
-			backpack.SetActive(false);
-		}
-	}
+        // Use this for initialization
+        void Start()
+        {
+            //canvasCamera = HUDCanvas.GetComponent<Canvas>().worldCamera;
+            backpack.SetActive(false);
+            map.SetActive(false);
+
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+            if (Input.GetButtonDown("Backpack"))
+            {
+                backpack.SetActive(true);
+            }
+            if (Input.GetButtonUp("Backpack"))
+            {
+                backpack.SetActive(false);
+            }
+            if (Input.GetButtonDown("Map"))
+            {
+                map.SetActive(true);
+            }
+            if (Input.GetButtonUp("Map"))
+            {
+                map.SetActive(false);
+            }
+        }
+    }
 }
