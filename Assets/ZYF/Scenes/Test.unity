@@ -136,7 +136,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 10119109}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 250, y: -450, z: 0}
+  m_LocalPosition: {x: 150, y: -450.00003, z: 0}
   m_LocalScale: {x: 0.9999932, y: 0.9999932, z: 0.9999932}
   m_Children:
   - {fileID: 117276962}
@@ -229,8 +229,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dragOnSurfaces: 1
-  containerImage: {fileID: 1191337323}
-  receivingImage: {fileID: 82912281}
   highlightColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
 --- !u!114 &82912281
 MonoBehaviour:
@@ -313,8 +311,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dragOnSurfaces: 1
-  containerImage: {fileID: 10119111}
-  receivingImage: {fileID: 117276964}
   highlightColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
 --- !u!114 &117276964
 MonoBehaviour:
@@ -373,7 +369,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 126132114}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 450, y: -250, z: 0}
+  m_LocalPosition: {x: 350, y: -249.99997, z: 0}
   m_LocalScale: {x: 0.9999932, y: 0.9999932, z: 0.9999932}
   m_Children:
   - {fileID: 1658525541}
@@ -442,7 +438,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 133855350}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 50, y: -450, z: 0}
+  m_LocalPosition: {x: 450.00003, y: -350, z: 0}
   m_LocalScale: {x: 0.9999932, y: 0.9999932, z: 0.9999932}
   m_Children:
   - {fileID: 1418561902}
@@ -535,8 +531,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dragOnSurfaces: 1
-  containerImage: {fileID: 733349217}
-  receivingImage: {fileID: 134818129}
   highlightColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
 --- !u!114 &134818129
 MonoBehaviour:
@@ -725,8 +719,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dragOnSurfaces: 1
-  containerImage: {fileID: 179693806}
-  receivingImage: {fileID: 149568570}
   highlightColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
 --- !u!114 &149568570
 MonoBehaviour:
@@ -809,8 +801,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dragOnSurfaces: 1
-  containerImage: {fileID: 1600399321}
-  receivingImage: {fileID: 173591267}
   highlightColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
 --- !u!114 &173591267
 MonoBehaviour:
@@ -893,8 +883,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dragOnSurfaces: 1
-  containerImage: {fileID: 1954679226}
-  receivingImage: {fileID: 178707879}
   highlightColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
 --- !u!114 &178707879
 MonoBehaviour:
@@ -953,7 +941,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 179693804}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 100, y: 100, z: 0}
+  m_LocalPosition: {x: -0.000030517578, y: 99.99997, z: 0}
   m_LocalScale: {x: 1.0000042, y: 1.0000042, z: 1.0000042}
   m_Children:
   - {fileID: 149568568}
@@ -1022,7 +1010,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 192485688}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 250, y: -350, z: 0}
+  m_LocalPosition: {x: 150, y: -350, z: 0}
   m_LocalScale: {x: 0.9999932, y: 0.9999932, z: 0.9999932}
   m_Children:
   - {fileID: 433431392}
@@ -1091,7 +1079,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 194025387}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 150, y: -550, z: 0}
+  m_LocalPosition: {x: 50, y: -550, z: 0}
   m_LocalScale: {x: 0.9999932, y: 0.9999932, z: 0.9999932}
   m_Children:
   - {fileID: 2057534376}
@@ -1160,7 +1148,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 217625319}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 50, y: -250, z: 0}
+  m_LocalPosition: {x: 450.00003, y: -150, z: 0}
   m_LocalScale: {x: 0.9999932, y: 0.9999932, z: 0.9999932}
   m_Children:
   - {fileID: 1660012924}
@@ -1229,7 +1217,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 253636488}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 532.96277, z: 0}
+  m_LocalPosition: {x: 0, y: 532.88385, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 138497955}
@@ -1297,7 +1285,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 276846554}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 450, y: -350, z: 0}
+  m_LocalPosition: {x: 350, y: -350, z: 0}
   m_LocalScale: {x: 0.9999932, y: 0.9999932, z: 0.9999932}
   m_Children:
   - {fileID: 833261876}
@@ -1390,8 +1378,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dragOnSurfaces: 1
-  containerImage: {fileID: 1444549635}
-  receivingImage: {fileID: 305709528}
   highlightColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
 --- !u!114 &305709528
 MonoBehaviour:
@@ -1515,7 +1501,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 393359865}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 50, y: -150, z: 0}
+  m_LocalPosition: {x: 450.00003, y: -50, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1564584976}
@@ -1584,7 +1570,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 419019933}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 350, y: -450, z: 0}
+  m_LocalPosition: {x: 249.99991, y: -450.00003, z: 0}
   m_LocalScale: {x: 0.9999932, y: 0.9999932, z: 0.9999932}
   m_Children:
   - {fileID: 507421322}
@@ -1677,8 +1663,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dragOnSurfaces: 1
-  containerImage: {fileID: 192485690}
-  receivingImage: {fileID: 433431394}
   highlightColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
 --- !u!114 &433431394
 MonoBehaviour:
@@ -1829,8 +1813,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dragOnSurfaces: 1
-  containerImage: {fileID: 475467415}
-  receivingImage: {fileID: 447486403}
   highlightColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
 --- !u!114 &447486403
 MonoBehaviour:
@@ -1955,8 +1937,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dragOnSurfaces: 1
-  containerImage: {fileID: 963617060}
-  receivingImage: {fileID: 473767955}
   highlightColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
 --- !u!114 &473767955
 MonoBehaviour:
@@ -2015,7 +1995,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 475467413}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 350, y: -50, z: 0}
+  m_LocalPosition: {x: 249.99991, y: -50, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 447486401}
@@ -2108,8 +2088,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dragOnSurfaces: 1
-  containerImage: {fileID: 419019935}
-  receivingImage: {fileID: 507421324}
   highlightColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
 --- !u!114 &507421324
 MonoBehaviour:
@@ -2168,7 +2146,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 512621033}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 350, y: -550, z: 0}
+  m_LocalPosition: {x: 249.99991, y: -550, z: 0}
   m_LocalScale: {x: 0.9999932, y: 0.9999932, z: 0.9999932}
   m_Children:
   - {fileID: 1022385335}
@@ -2330,8 +2308,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dragOnSurfaces: 1
-  containerImage: {fileID: 1256060226}
-  receivingImage: {fileID: 542382043}
   highlightColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
 --- !u!114 &542382043
 MonoBehaviour:
@@ -2568,8 +2544,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dragOnSurfaces: 1
-  containerImage: {fileID: 1659253165}
-  receivingImage: {fileID: 655215071}
   highlightColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
 --- !u!114 &655215071
 MonoBehaviour:
@@ -2620,7 +2594,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &680643832
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2722,8 +2696,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dragOnSurfaces: 1
-  containerImage: {fileID: 2081658601}
-  receivingImage: {fileID: 687759945}
   highlightColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
 --- !u!114 &687759945
 MonoBehaviour:
@@ -2780,7 +2752,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 701413426}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 835.00006, y: -400.46277, z: 0}
+  m_LocalPosition: {x: 835.00006, y: -400.38385, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 140208227}
@@ -2914,8 +2886,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dragOnSurfaces: 1
-  containerImage: {fileID: 736474273}
-  receivingImage: {fileID: 725487729}
   highlightColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
 --- !u!114 &725487729
 MonoBehaviour:
@@ -2975,7 +2945,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 729705081}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.000061035156, y: 300.46277, z: 0}
+  m_LocalPosition: {x: -0.000061035156, y: 300.38385, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1444549634}
@@ -3096,7 +3066,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 733349215}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 450, y: -550, z: 0}
+  m_LocalPosition: {x: 350, y: -550, z: 0}
   m_LocalScale: {x: 0.9999932, y: 0.9999932, z: 0.9999932}
   m_Children:
   - {fileID: 134818127}
@@ -3165,7 +3135,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 736474271}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 50, y: -550, z: 0}
+  m_LocalPosition: {x: 450.00003, y: -450.00003, z: 0}
   m_LocalScale: {x: 0.9999932, y: 0.9999932, z: 0.9999932}
   m_Children:
   - {fileID: 725487727}
@@ -3258,8 +3228,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dragOnSurfaces: 1
-  containerImage: {fileID: 1411650899}
-  receivingImage: {fileID: 806294820}
   highlightColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
 --- !u!114 &806294820
 MonoBehaviour:
@@ -3318,7 +3286,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 814396931}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 150, y: -350, z: 0}
+  m_LocalPosition: {x: 50, y: -350, z: 0}
   m_LocalScale: {x: 0.9999932, y: 0.9999932, z: 0.9999932}
   m_Children:
   - {fileID: 1347335748}
@@ -3411,8 +3379,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dragOnSurfaces: 1
-  containerImage: {fileID: 276846556}
-  receivingImage: {fileID: 833261878}
   highlightColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
 --- !u!114 &833261878
 MonoBehaviour:
@@ -3470,7 +3436,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 850529708}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 952.50006, y: 520.46277, z: 0}
+  m_LocalPosition: {x: 952.50006, y: 520.38385, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2134707587}
@@ -3529,7 +3495,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 864763159}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 150, y: -150, z: 0}
+  m_LocalPosition: {x: 50, y: -150, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1614476651}
@@ -3622,8 +3588,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dragOnSurfaces: 1
-  containerImage: {fileID: 1739426122}
-  receivingImage: {fileID: 873827595}
   highlightColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
 --- !u!114 &873827595
 MonoBehaviour:
@@ -3706,8 +3670,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dragOnSurfaces: 1
-  containerImage: {fileID: 1901348574}
-  receivingImage: {fileID: 947037378}
   highlightColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
 --- !u!114 &947037378
 MonoBehaviour:
@@ -3766,7 +3728,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 963617058}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 250, y: -50, z: 0}
+  m_LocalPosition: {x: 150, y: -50, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 473767953}
@@ -3859,8 +3821,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dragOnSurfaces: 1
-  containerImage: {fileID: 1304487731}
-  receivingImage: {fileID: 968553421}
   highlightColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
 --- !u!114 &968553421
 MonoBehaviour:
@@ -4013,8 +3973,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dragOnSurfaces: 1
-  containerImage: {fileID: 512621035}
-  receivingImage: {fileID: 1022385337}
   highlightColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
 --- !u!114 &1022385337
 MonoBehaviour:
@@ -4131,13 +4089,14 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1038757560}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 389, y: 219, z: 0}
-  m_LocalScale: {x: 0.40520832, y: 0.40520832, z: 0.40520832}
+  m_LocalPosition: {x: 469, y: 264, z: 0}
+  m_LocalScale: {x: 0.48854163, y: 0.48854163, z: 0.48854163}
   m_Children:
   - {fileID: 138497955}
   - {fileID: 701413427}
   - {fileID: 1217628777}
   - {fileID: 850529709}
+  - {fileID: 1901165732}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4170,7 +4129,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1041490695}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 150, y: -450, z: 0}
+  m_LocalPosition: {x: 50, y: -450.00003, z: 0}
   m_LocalScale: {x: 0.9999932, y: 0.9999932, z: 0.9999932}
   m_Children:
   - {fileID: 1809557430}
@@ -4215,6 +4174,74 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1041490695}
+--- !u!1 &1066424532
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1066424533}
+  - component: {fileID: 1066424535}
+  - component: {fileID: 1066424534}
+  m_Layer: 5
+  m_Name: Image
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1066424533
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1066424532}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1901165732}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1066424534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1066424532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+--- !u!222 &1066424535
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1066424532}
 --- !u!1 &1140317654
 GameObject:
   m_ObjectHideFlags: 0
@@ -4263,8 +4290,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dragOnSurfaces: 1
-  containerImage: {fileID: 1743798429}
-  receivingImage: {fileID: 1140317657}
   highlightColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
 --- !u!114 &1140317657
 MonoBehaviour:
@@ -4323,7 +4348,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1149803116}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 250, y: -550, z: 0}
+  m_LocalPosition: {x: 150, y: -550, z: 0}
   m_LocalScale: {x: 0.9999932, y: 0.9999932, z: 0.9999932}
   m_Children:
   - {fileID: 1594875952}
@@ -4392,7 +4417,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1163425580}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 450, y: -450, z: 0}
+  m_LocalPosition: {x: 350, y: -450.00003, z: 0}
   m_LocalScale: {x: 0.9999932, y: 0.9999932, z: 0.9999932}
   m_Children:
   - {fileID: 1249549320}
@@ -4461,7 +4486,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1189412946}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 250, y: -250, z: 0}
+  m_LocalPosition: {x: 150, y: -249.99997, z: 0}
   m_LocalScale: {x: 0.9999932, y: 0.9999932, z: 0.9999932}
   m_Children:
   - {fileID: 1698593641}
@@ -4530,7 +4555,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1191337321}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 50, y: -350, z: 0}
+  m_LocalPosition: {x: 450.00003, y: -249.99997, z: 0}
   m_LocalScale: {x: 0.9999932, y: 0.9999932, z: 0.9999932}
   m_Children:
   - {fileID: 82912279}
@@ -4680,7 +4705,7 @@ Prefab:
     - target: {fileID: 224588399750198598, guid: f8ba7b95958fac640bbbcd9c70e45184,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 114309201252727958, guid: f8ba7b95958fac640bbbcd9c70e45184,
         type: 2}
@@ -4788,8 +4813,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dragOnSurfaces: 1
-  containerImage: {fileID: 1163425582}
-  receivingImage: {fileID: 1249549322}
   highlightColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
 --- !u!114 &1249549322
 MonoBehaviour:
@@ -4848,7 +4871,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1256060224}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 450, y: -50, z: 0}
+  m_LocalPosition: {x: 350, y: -50, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 542382041}
@@ -4941,8 +4964,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dragOnSurfaces: 1
-  containerImage: {fileID: 2107635792}
-  receivingImage: {fileID: 1298422158}
   highlightColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
 --- !u!114 &1298422158
 MonoBehaviour:
@@ -5001,7 +5022,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1304487729}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 250, y: -150, z: 0}
+  m_LocalPosition: {x: 150, y: -150, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 968553419}
@@ -5162,8 +5183,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dragOnSurfaces: 1
-  containerImage: {fileID: 814396933}
-  receivingImage: {fileID: 1347335750}
   highlightColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
 --- !u!114 &1347335750
 MonoBehaviour:
@@ -5223,7 +5242,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1356997991}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 50, y: -50, z: 0}
+  m_LocalPosition: {x: 25, y: -25, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 519033277}
@@ -5246,8 +5265,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dragOnSurfaces: 1
-  containerImage: {fileID: 519033278}
-  receivingImage: {fileID: 1356997994}
   highlightColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
 --- !u!114 &1356997994
 MonoBehaviour:
@@ -5380,7 +5397,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1411650897}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 450, y: -150, z: 0}
+  m_LocalPosition: {x: 350, y: -150, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 806294818}
@@ -5473,8 +5490,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dragOnSurfaces: 1
-  containerImage: {fileID: 133855352}
-  receivingImage: {fileID: 1418561904}
   highlightColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
 --- !u!114 &1418561904
 MonoBehaviour:
@@ -5533,7 +5548,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1444549633}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 50, y: -50, z: 0}
+  m_LocalPosition: {x: 0, y: -600, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 305709526}
@@ -5676,7 +5691,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1535784137}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5, y: 480.46277, z: 0}
+  m_LocalPosition: {x: 5, y: 480.38385, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 138497955}
@@ -5767,8 +5782,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dragOnSurfaces: 1
-  containerImage: {fileID: 393359867}
-  receivingImage: {fileID: 1564584978}
   highlightColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
 --- !u!114 &1564584978
 MonoBehaviour:
@@ -5851,8 +5864,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dragOnSurfaces: 1
-  containerImage: {fileID: 1149803118}
-  receivingImage: {fileID: 1594875954}
   highlightColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
 --- !u!114 &1594875954
 MonoBehaviour:
@@ -5911,7 +5922,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1600399319}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 350, y: -250, z: 0}
+  m_LocalPosition: {x: 249.99991, y: -249.99997, z: 0}
   m_LocalScale: {x: 0.9999932, y: 0.9999932, z: 0.9999932}
   m_Children:
   - {fileID: 173591265}
@@ -6004,8 +6015,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dragOnSurfaces: 1
-  containerImage: {fileID: 864763161}
-  receivingImage: {fileID: 1614476653}
   highlightColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
 --- !u!114 &1614476653
 MonoBehaviour:
@@ -6150,8 +6159,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dragOnSurfaces: 1
-  containerImage: {fileID: 126132116}
-  receivingImage: {fileID: 1658525543}
   highlightColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
 --- !u!114 &1658525543
 MonoBehaviour:
@@ -6210,7 +6217,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1659253163}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 400, y: 100, z: 0}
+  m_LocalPosition: {x: 300.00003, y: 99.99997, z: 0}
   m_LocalScale: {x: 1.0000042, y: 1.0000042, z: 1.0000042}
   m_Children:
   - {fileID: 655215069}
@@ -6303,8 +6310,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dragOnSurfaces: 1
-  containerImage: {fileID: 217625321}
-  receivingImage: {fileID: 1660012926}
   highlightColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
 --- !u!114 &1660012926
 MonoBehaviour:
@@ -6387,8 +6392,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dragOnSurfaces: 1
-  containerImage: {fileID: 1189412948}
-  receivingImage: {fileID: 1698593643}
   highlightColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
 --- !u!114 &1698593643
 MonoBehaviour:
@@ -6447,7 +6450,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1739426120}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 200, y: 100, z: 0}
+  m_LocalPosition: {x: 99.99998, y: 99.99997, z: 0}
   m_LocalScale: {x: 1.0000042, y: 1.0000042, z: 1.0000042}
   m_Children:
   - {fileID: 873827593}
@@ -6516,7 +6519,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1743798427}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 150, y: -50, z: 0}
+  m_LocalPosition: {x: 50, y: -50, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1140317655}
@@ -6585,7 +6588,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1771640254}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -500.00006, y: 300.46277, z: 0}
+  m_LocalPosition: {x: -500.00006, y: 300.38385, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2102897644}
@@ -6679,8 +6682,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dragOnSurfaces: 1
-  containerImage: {fileID: 1041490697}
-  receivingImage: {fileID: 1809557432}
   highlightColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
 --- !u!114 &1809557432
 MonoBehaviour:
@@ -6715,6 +6716,40 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1809557429}
+--- !u!1 &1901165731
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1901165732}
+  m_Layer: 5
+  m_Name: Map
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1901165732
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1901165731}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.000030517578, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1066424533}
+  m_Father: {fileID: 1038757564}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0.000030517578}
+  m_SizeDelta: {x: 1000, y: 1000}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1901348572
 GameObject:
   m_ObjectHideFlags: 0
@@ -6739,7 +6774,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1901348572}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 350, y: -150, z: 0}
+  m_LocalPosition: {x: 249.99991, y: -150, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 947037376}
@@ -6808,7 +6843,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1954679224}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 150, y: -250, z: 0}
+  m_LocalPosition: {x: 50, y: -249.99997, z: 0}
   m_LocalScale: {x: 0.9999932, y: 0.9999932, z: 0.9999932}
   m_Children:
   - {fileID: 178707877}
@@ -6901,8 +6936,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dragOnSurfaces: 1
-  containerImage: {fileID: 194025389}
-  receivingImage: {fileID: 2057534378}
   highlightColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
 --- !u!114 &2057534378
 MonoBehaviour:
@@ -6961,7 +6994,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2081658599}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 350, y: -350, z: 0}
+  m_LocalPosition: {x: 249.99991, y: -350, z: 0}
   m_LocalScale: {x: 0.9999932, y: 0.9999932, z: 0.9999932}
   m_Children:
   - {fileID: 687759943}
@@ -7099,7 +7132,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2107635790}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 300, y: 100, z: 0}
+  m_LocalPosition: {x: 199.99997, y: 99.99997, z: 0}
   m_LocalScale: {x: 1.0000042, y: 1.0000042, z: 1.0000042}
   m_Children:
   - {fileID: 1298422156}
