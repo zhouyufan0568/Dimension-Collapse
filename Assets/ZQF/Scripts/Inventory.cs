@@ -4,10 +4,11 @@ using DimensionCollapse;
 
 public class Inventory:MonoBehaviour{
 
-    private int weaponIndex = 0;
-    public int maxCount;
+    private int weaponIndex = 0;//current weapon
+    public int maxCount = 5;
     private List<GameObject> ItemList = new List<GameObject>();
     private Weapon[] EquipedWeapon;
+    private SkillItem[] m_SkillItems;
 
     public bool AddItem(GameObject item)
     {
@@ -36,4 +37,6 @@ public class Inventory:MonoBehaviour{
         return null;
     }
 	
+
+
 }
