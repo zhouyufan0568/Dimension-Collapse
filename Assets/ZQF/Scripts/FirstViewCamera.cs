@@ -1,5 +1,11 @@
 ﻿using UnityEngine;
 
+/**
+ * 
+ * make cameraDistance alterable
+ * 
+ */
+
 public class FirstViewCamera : Photon.PunBehaviour {
 
     [SerializeField] private Transform mCenter;
@@ -7,7 +13,7 @@ public class FirstViewCamera : Photon.PunBehaviour {
     [SerializeField] private Transform mRaycastor;
 
     //处理背靠墙体视角问题
-    [SerializeField] private float cameraDistance;
+    public float cameraDistance;
 
     void Update()
     {
@@ -24,7 +30,7 @@ public class FirstViewCamera : Photon.PunBehaviour {
         {
             mCamera.position = mRaycastor.position + forward.normalized * cameraDistance;
         }
-        Debug.DrawRay(mRaycastor.position, forward.normalized*cameraDistance, Color.red, 0);
+        //Debug.DrawRay(mRaycastor.position, forward.normalized*cameraDistance, Color.red, 0);
     }
 
     void Start()
@@ -34,7 +40,7 @@ public class FirstViewCamera : Photon.PunBehaviour {
             mCamera.gameObject.SetActive(false);
             this.enabled = false;
         }
-        cameraDistance = (mCamera.position - mRaycastor.position).magnitude;
+        //cameraDistance = (mCamera.position - mRaycastor.position).magnitude;
     }
 
 }
