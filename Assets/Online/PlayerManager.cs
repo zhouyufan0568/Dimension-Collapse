@@ -13,6 +13,8 @@ namespace DimensionCollapse {
         [Tooltip("The local player instance. Use this to know if the local player is represented in the Scene")]
         public static GameObject LocalPlayerInstance;
 
+        public static Camera LocalPlayerMainCamera;
+
 		[Tooltip("The current direction of our player")]
         public float Direction;
 
@@ -43,34 +45,25 @@ namespace DimensionCollapse {
 		public float maxHealth = 200;
 		public float health;
 
+		public int numOfkill=0;
 
+		public GameObject[] backpack;
+		public GameObject[] equipBar;
+		public GameObject[] skills;
 
         #endregion
 
 		#region Private Variables
+
+		private GameObject survivors;
+		private GameObject deaders;
 
 		#endregion
 
 		#region MonoBehaviour Messages
 
         void Awake() {
-            // #Important
-            // used in GameManager.cs: we keep track of the localPlayer instance to prevent instantiation when levels are synchronized
-            if (photonView.isMine)
-            {
-                PlayerManager.LocalPlayerInstance = this.gameObject;
-            }
-        }
-
-        // Use this for initialization
-        void Start() {
-			
-			if (photonView.isMine) {
-				GameObject.Find ("UIManager").SendMessage ("SetTarget", this, SendMessageOptions.RequireReceiver);
-			}
-				
-            Direction = transform.rotation.eulerAngles.y;
-
+            
             Camera[] cameras = gameObject.GetComponentsInChildren<Camera>();
             foreach (var cam in cameras)
             {
@@ -80,6 +73,35 @@ namespace DimensionCollapse {
                     break;
                 }
             }
+
+            // #Important
+            // used in GameManager.cs: we keep track of the localPlayer instance to prevent instantiation when levels are synchronized
+            if (photonView.isMine)
+            {
+                PlayerManager.LocalPlayerInstance = this.gameObject;
+                PlayerManager.LocalPlayerMainCamera = camera;
+            }
+
+        }
+
+        // Use this for initialization
+        void Start() {
+
+			survivors = GameObject.Find ("Survivors");
+			deaders = GameObject.Find ("Deaders");
+
+			if (photonView.isMine) {
+				GameObject.Find ("UIManager").SendMessage ("SetTarget", this, SendMessageOptions.RequireReceiver);
+			}
+
+			if (isAlive) {
+				gameObject.transform.SetParent (survivors.transform);
+			} else {
+				gameObject.transform.SetParent (deaders.transform);
+			}
+				
+            Direction = transform.rotation.eulerAngles.y;
+
         }
 
         // Update is called once per frame

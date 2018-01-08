@@ -20,7 +20,8 @@ namespace DimensionCollapse{
 			}
 
 			this.transform.position = player.position + new Vector3 (0, 50, 0);
-			this.transform.eulerAngles = new Vector3 (90, 0, 0);
+			Vector3 playerQuaternion = player.rotation.eulerAngles;
+			this.transform.eulerAngles = new Vector3 (90, playerQuaternion.y, playerQuaternion.z);
 		}
 	}
 

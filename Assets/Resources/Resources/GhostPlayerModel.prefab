@@ -26,7 +26,7 @@ GameObject:
   - component: {fileID: 95932953714416796}
   - component: {fileID: 114571320710391024}
   - component: {fileID: 114345913680526956}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: GhostPlayerModel
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -41,7 +41,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4434621244445362}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Center
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -58,7 +58,7 @@ GameObject:
   - component: {fileID: 4842345332904424}
   - component: {fileID: 33607992999001018}
   - component: {fileID: 23059291569591456}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Plane_MeshPart2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -73,7 +73,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4360386451233418}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Ghost
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -90,7 +90,7 @@ GameObject:
   - component: {fileID: 4744711433839546}
   - component: {fileID: 33065514770799014}
   - component: {fileID: 23286255165378622}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Plane_MeshPart1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -105,7 +105,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4561269820557216}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: RightHand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -123,7 +123,7 @@ GameObject:
   - component: {fileID: 20323478287497930}
   - component: {fileID: 81885588100027140}
   - component: {fileID: 124651136397477960}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -138,7 +138,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4783585314609436}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Raycastor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -155,7 +155,7 @@ GameObject:
   - component: {fileID: 4812823279781246}
   - component: {fileID: 33290647320386430}
   - component: {fileID: 23028105964114438}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Plane_MeshPart0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -678,6 +678,10 @@ MonoBehaviour:
   isAlive: 0
   maxHealth: 200
   health: 0
+  numOfkill: 0
+  backpack: []
+  equipBar: []
+  skills: []
 --- !u!114 &114582760623786304
 MonoBehaviour:
   m_ObjectHideFlags: 1

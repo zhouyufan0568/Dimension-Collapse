@@ -3,6 +3,12 @@ using UnityStandardAssets.CrossPlatformInput;
 using UnityStandardAssets.Utility;
 using Random = UnityEngine.Random;
 
+/**
+ * remove all codes about animation due to we create a new script for animation
+ * add function that show mouse when the 'tab' is pressed
+ * auto jump
+ */
+
 [RequireComponent(typeof (CharacterController))]
 [RequireComponent(typeof (AudioSource))]
 public class Player : Photon.PunBehaviour
@@ -43,7 +49,7 @@ public class Player : Photon.PunBehaviour
     private float m_NextStep;
     private bool m_Jumping;//是否正在跳跃
     private AudioSource m_AudioSource;
-    private Animator m_Animator;//获取人物模型中的动画组件
+    //private Animator m_Animator;//获取人物模型中的动画组件
 
     // Use this for initialization
     private void Start()
@@ -53,7 +59,6 @@ public class Player : Photon.PunBehaviour
             return;
         }
         m_CharacterController = GetComponent<CharacterController>();
-        m_Animator = GetComponent<Animator>();
         m_Camera = Camera.main;
         m_OriginalCameraPosition = mCenter.localPosition;
         m_FovKick.Setup(m_Camera);
@@ -65,36 +70,7 @@ public class Player : Photon.PunBehaviour
         m_MouseLook.Init(transform, mCenter,m_RightHand);
         //同步isJump信息
         m_PreIsJump = false;
-        //初始化人物动画
-        //m_Animator = m_PlayerModel.GetComponent<Animator>();
     }
-    
-    //动画播放
-    private void WalkAnim(float walkSpeed)
-    {
-        m_Animator.SetFloat("walkSpeed", walkSpeed);
-        //if (walkSpeed > 0.1f)
-        //{
-        //    m_Animator.SetBool("iswalk", true);
-        //}
-    }
-    private void PlayHiAnim()
-    {
-        m_Animator.SetTrigger("ishi");
-    }
-    private void PlayJumpAnim()
-    {
-
-    }
-
-    private void HiAnim()
-    {
-        if (Input.GetKey(KeyCode.H))
-        {
-            PlayHiAnim();
-        }
-    }
-
 
     // Update is called once per frame
     private void Update()
@@ -126,7 +102,6 @@ public class Player : Photon.PunBehaviour
             {
                 m_MoveDir.y = m_JumpSpeed;
                 PlayJumpSound();
-                PlayJumpAnim();
                 m_PreIsJump = true;//在m_Jump变成false之前锁定
                 m_Jump = false;
                 m_Jumping = true;
@@ -145,7 +120,6 @@ public class Player : Photon.PunBehaviour
         m_MouseLook.UpdateCursorLock();
 
         RotateView();
-        HiAnim();
         // the jump state needs to read here to make sure it is not missed
         if (!m_Jump)
         {
@@ -199,8 +173,6 @@ public class Player : Photon.PunBehaviour
         m_NextStep = m_StepCycle + m_StepInterval;
 
         PlayFootStepAudio();
-        WalkAnim(speed);
-        Debug.Log("speed:" + speed);
     }
 
 
@@ -257,7 +229,7 @@ public class Player : Photon.PunBehaviour
             m_Input.Normalize();
         }
 
-        WalkAnim(horizontal * horizontal + vertical * vertical);
+        //WalkAnim(horizontal * horizontal + vertical * vertical);
 
         // handle speed change to give an fov kick
         // only if the player is going to a run, is running and the fovkick is to be used
@@ -279,7 +251,7 @@ public class Player : Photon.PunBehaviour
 
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
-        if (hit.gameObject.tag == "stair"&&!m_Jump&& m_CharacterController.isGrounded&&!m_PreIsJump)
+        if (hit.gameObject.name=="Map"&&!m_Jump&& m_CharacterController.isGrounded&&!m_PreIsJump)
         {
             if (Vector3.Angle((hit.point - transform.position).normalized,Vector3.down)<60)
             {

@@ -1526,7 +1526,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1665066553330312}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.736, z: 0}
+  m_LocalPosition: {x: 0, y: 0.6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4217406314701590}
@@ -1773,7 +1773,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1317886556727438}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.212, z: -0.161}
+  m_LocalPosition: {x: 0, y: 0.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4049885416086630}
@@ -2661,7 +2661,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1825951873435088}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.099, z: -2.15}
+  m_LocalPosition: {x: 0, y: 0.2, z: -2.15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4049885416086630}
@@ -2791,7 +2791,7 @@ Camera:
   m_Depth: 0.1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967039
+    m_Bits: 4294964991
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -3584,6 +3584,10 @@ MonoBehaviour:
   isAlive: 1
   maxHealth: 200
   health: 200
+  numOfkill: 0
+  backpack: []
+  equipBar: []
+  skills: []
 --- !u!114 &114111428534659050
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3986,7 +3990,7 @@ MonoBehaviour:
   mCenter: {fileID: 4049885416086630}
   mCamera: {fileID: 4933917739248322}
   mRaycastor: {fileID: 4217406314701590}
-  cameraDistance: 0
+  cameraDistance: 2
 --- !u!114 &114881214863106432
 MonoBehaviour:
   m_ObjectHideFlags: 1

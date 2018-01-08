@@ -30,6 +30,10 @@ public class MouseLook
 
     public void LookRotation(Transform character, Transform camera,Transform rightHand)
     {
+        if (!m_cursorIsLocked)
+        {
+            return;//don't rotate the camera if the cursor is not locked
+        }
         float yRot = CrossPlatformInputManager.GetAxis("Mouse X") * XSensitivity;
         float xRot = CrossPlatformInputManager.GetAxis("Mouse Y") * YSensitivity;
 
@@ -81,11 +85,19 @@ public class MouseLook
 
     private void InternalLockUpdate()
     {
-        if(Input.GetKeyUp(KeyCode.Escape))
+        //if(Input.GetKeyUp(KeyCode.Escape))
+        //{
+        //    m_cursorIsLocked = false;
+        //}
+        //else if(Input.GetMouseButtonUp(0))
+        //{
+        //    m_cursorIsLocked = true;
+        //}
+        if (Input.GetKeyDown(KeyCode.Tab))
         {
             m_cursorIsLocked = false;
         }
-        else if(Input.GetMouseButtonUp(0))
+        else if(Input.GetKeyUp(KeyCode.Tab))
         {
             m_cursorIsLocked = true;
         }

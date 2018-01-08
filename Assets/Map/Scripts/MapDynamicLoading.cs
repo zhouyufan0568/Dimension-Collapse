@@ -6,6 +6,8 @@ using System;
 namespace DimensionCollapse{
 	public class MapDynamicLoading : Photon.PunBehaviour {
 
+        public PlayerUI playerUI;
+
 		[SerializeField]
 		private int visibleScope=300;
 
@@ -15,8 +17,6 @@ namespace DimensionCollapse{
 		private int numOfChunk;
 
 		//----------------------------安全区-------------------------------------
-
-		private ShowFPS showfps;
 
 		//收缩比例
 		public float shrinkRatio=0.8f;
@@ -48,10 +48,22 @@ namespace DimensionCollapse{
 
 		private static float[,] timeToFall;
 
-		//----------------------------动态加载-----------------------------------
+        //初始距离安全区出现时间
+        [HideInInspector]
+        public float originTimeToReset;
 
-		//private GameObject[] player;
-		private GameObject[,] mapChunk;
+        //初始距离坍塌时间
+        [HideInInspector]
+        public float originTimeToCollapse;
+
+        //初始距离坍塌完毕时间
+        [HideInInspector]
+        public float originTimeToCFinish;
+
+        //----------------------------动态加载-----------------------------------
+
+        //private GameObject[] player;
+        private GameObject[,] mapChunk;
 		private int[,] flag;
 
 
@@ -74,35 +86,27 @@ namespace DimensionCollapse{
 
 		public static GameObject mine;
 
-		void Awake(){
-
+        void Awake(){
+            originTimeToReset = timeToReset;
+            originTimeToCollapse = timeToCollapse;
+            originTimeToCFinish = timeToCFinish;
 		}
 
 		// Use this for initialization
 		void Start () {
-
-			showfps = transform.GetComponent<ShowFPS> ();
 			combineMesh = GetComponent<CombineMesh>();
 
-			showfps.SecondsOfWaitReset = timeToReset;
-			showfps.timeOfReset = timeToReset;
-			showfps.SecondsOfWaitCollapse = timeToCollapse;
-			showfps.timeOfCollapse = timeToReset+timeToCollapse;
-			showfps.SecondsOfCollapse= timeToCFinish;
-			showfps.timeOfFinishCollapse = timeToReset+timeToCollapse+timeToCFinish;
+            numOfChunk = combineMesh.ChunkCount;
+            maxX = combineMesh.Chunk_X_Max;
+            maxZ = combineMesh.Chunk_Z_Max;
+            eachChunkSize = combineMesh.ChunkSize;
+            visibleChunk = visibleScope / eachChunkSize;
+            lengthOfMap = maxX * eachChunkSize;
+            widthOfMap = maxZ * eachChunkSize;
 
-			numOfChunk = combineMesh.ChunkCount;
-			maxX = combineMesh.Chunk_X_Max;
-			maxZ = combineMesh.Chunk_Z_Max;
-			eachChunkSize = combineMesh.ChunkSize;
-			visibleChunk = visibleScope / eachChunkSize;
-			lengthOfMap = maxX * eachChunkSize;
-			widthOfMap = maxZ * eachChunkSize;
+            //----------------------------安全区-------------------------------------
 
-
-			//----------------------------安全区-------------------------------------
-
-			timeToFall=new float[maxX,maxZ];
+            timeToFall =new float[maxX,maxZ];
 			floor = InitializeMap ();
 			InitializeFallTime (floor);
 			Array.Sort (floor);
@@ -126,6 +130,7 @@ namespace DimensionCollapse{
 			flag = new int[maxX, maxZ];
 
 			GetObjectPosition (mine,out nowX,out nowZ);
+			elapsed = (float)PhotonNetwork.time - whenToStart;
 			CreateChunk (nowX,nowZ);
 			lastX = nowX;
 			lastZ = nowZ;
@@ -151,7 +156,7 @@ namespace DimensionCollapse{
 			//----------------------------动态加载-----------------------------------
 
 			if (mine == null) {
-				return;
+				mine=PlayerManager.LocalPlayerInstance;
 			}
 
 			GetObjectPosition (mine,out nowX,out nowZ);
@@ -440,8 +445,15 @@ namespace DimensionCollapse{
 						//Debug.Log ("fl"+"["+i+"]:"+fl[i].timeToFall);
 					}
 				}
-				//重置时间
-				timeToReset *= shrinkRatio;
+
+                if (playerUI.list_circles == null) {
+                    playerUI.list_circles = new LinkedList<Circles>();
+                }
+                playerUI.list_circles.AddLast(new Circles(new float[] { now.x, now.z, now.r }, new float[] { bef.x, bef.z, bef.r }, timeToCFinish));
+                Debug.Log(playerUI.list_circles.Last.Value.circle_now[0] + ","+ playerUI.list_circles.Last.Value.circle_now[1] + ","+ playerUI.list_circles.Last.Value.circle_now[2] + " " + playerUI.list_circles.Last.Value.circle_bef[0] + ","+ playerUI.list_circles.Last.Value.circle_bef[1] + ","+ playerUI.list_circles.Last.Value.circle_bef[2]+ " " + playerUI.list_circles.Last.Value.shrinkTime);
+
+                //重置时间
+                timeToReset *= shrinkRatio;
 				timeToCollapse *= shrinkRatio;
 				timeToCFinish *= shrinkRatio;
 			}
@@ -465,11 +477,12 @@ namespace DimensionCollapse{
 				now = new Circle(cPos.x, cPos.y, bef.r * shrinkRatio);
 				hashtable.Add ("Circle"+cnt++,new float[3]{now.x,now.z,now.r});
 			}
+            //hashtable.Add("NumOfCircle", cnt);
 			//set room customproperties
 			PhotonNetwork.room.SetCustomProperties (hashtable,null,false);
 		}
 
-		private class Circle{
+		public class Circle{
 			public float x;
 			public float z;
 			public float r;

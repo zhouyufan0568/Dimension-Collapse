@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using System.IO;
+using UnityEngine.UI;
 
 public class MultiplyCubes : EditorWindow {
 
@@ -68,6 +69,16 @@ public class MultiplyCubes : EditorWindow {
 
     private bool showReadFromFiles;
     public GameObject cubePrefab;
+
+	private bool createNoiseChunk;
+	private int numOfChunkX=30;
+	private int numOfChunkZ=30;
+	private int sizeOfChunk=100;
+	private int indexOfChunkX;
+	private int indexOfChunkZ;
+
+    private bool rename;
+    private string cubeName;
 
     [MenuItem("BlackHole Tools/MultiplyCubes")]
     static void Init()
@@ -369,6 +380,29 @@ public class MultiplyCubes : EditorWindow {
                 {
                     FilesToMap();
                 }
+            }
+        }
+
+		createNoiseChunk = EditorGUILayout.Foldout(createNoiseChunk, "Create Noise Chunk");
+		if (createNoiseChunk)
+		{
+			numOfChunkX = EditorGUILayout.IntField("Num of Chunk X", numOfChunkX);
+			numOfChunkZ = EditorGUILayout.IntField("Num of Chunk Z", numOfChunkZ);
+			sizeOfChunk = EditorGUILayout.IntField("Size Of Chunk", sizeOfChunk);
+			indexOfChunkX = EditorGUILayout.IntField("Index Of Chunk X", indexOfChunkX);
+			indexOfChunkZ = EditorGUILayout.IntField("Index Of Chunk Z", indexOfChunkZ);
+
+			if (GUILayout.Button("Start", GUILayout.ExpandWidth(true)))
+			{
+				CreateNoiseChunk ();
+			}
+		}
+
+        rename = EditorGUILayout.Foldout(rename, "Rename");
+        if (rename) {
+            cubeName = EditorGUILayout.TextField(cubeName);
+            if (GUILayout.Button("Rename", GUILayout.ExpandWidth(true))) {
+                Rename(selected,cubeName);
             }
         }
 
@@ -706,6 +740,10 @@ public class MultiplyCubes : EditorWindow {
 
     private void HollowStructure(LinkedList<Transform> structure)
     {
+        int[] offsetX = new int[] { -1, 1, 0, 0, 0, 0 };
+        int[] offsetY = new int[] { 0, 0, -1, 1, 0, 0 };
+        int[] offsetZ = new int[] { 0, 0, 0, 0, -1, 1 };
+
         Vector3 origin;
         Transform[] cubes;
         Transform[,,] cubeSpace = CreateCubeSpace(structure, out origin, out cubes);
@@ -726,21 +764,40 @@ public class MultiplyCubes : EditorWindow {
                         continue;
                     }
 
+                    bool[] visibles = new bool[6];
+
+                    for (int m = 0; m < 6; m++)
+                    {
+                        visibles[m] = true;
+
+                        int curX = i;
+                        int curY = j;
+                        int curZ = k;
+                        while (true)
+                        {
+                            curX += offsetX[m];
+                            curY += offsetY[m];
+                            curZ += offsetZ[m];
+                            if (curX < 0 || curX >= lengthX || curY < 0 || curY >= lengthY || curZ < 0 || curZ >= lengthZ)
+                            {
+                                break;
+                            }
+                            if (cubeSpace[curX, curY, curZ] != null)
+                            {
+                                visibles[m] = false;
+                                break;
+                            }
+                        }
+                    }
+
                     bool needToRemove = true;
-
-                    if (i == 0 || i == lengthX - 1 || cubeSpace[i - 1, j, k] == null || cubeSpace[i + 1, j, k] == null)
+                    for (int m = 0; m < 6; m++)
                     {
-                        needToRemove = false;
-                    }
-
-                    if (j == 0 || j == lengthY - 1 || cubeSpace[i, j - 1, k] == null || cubeSpace[i, j + 1, k] == null)
-                    {
-                        needToRemove = false;
-                    }
-
-                    if (k == 0 || k == lengthZ - 1 || cubeSpace[i, j, k - 1] == null || cubeSpace[i, j, k + 1] == null)
-                    {
-                        needToRemove = false;
+                        if (visibles[m] == true)
+                        {
+                            needToRemove = false;
+                            break;
+                        }
                     }
 
                     needToRemoves[i, j, k] = needToRemove;
@@ -1509,5 +1566,44 @@ public class MultiplyCubes : EditorWindow {
     private bool ValidateDirExists(string path)
     {
         return new DirectoryInfo(path).Exists;
+    }
+
+	private void CreateNoiseChunk(){
+		NoiseFuction noise = new NoiseFuction ();
+
+		int terrainHeight = 10;
+
+		int worldX = indexOfChunkX * sizeOfChunk;
+		int worldZ = indexOfChunkZ * sizeOfChunk;
+		float terrainSizeX = numOfChunkX * sizeOfChunk;
+		float terrainSizeZ = numOfChunkZ * sizeOfChunk;
+
+		GameObject obj = new GameObject ("Chunk["+indexOfChunkX+","+indexOfChunkZ+"]");
+		obj.SetActive (false);
+
+		int worldY;
+		for (int x = 0; x < sizeOfChunk; x++) {
+			for (int z = 0; z < sizeOfChunk; z++) {
+				//worldY = Mathf.FloorToInt(terrainHeight * noise.PerlinNoise ((worldX + x)/(float)ChunkSize, (worldZ + z)/(float)ChunkSize));
+				worldY = Mathf.FloorToInt(terrainHeight * noise.PerlinNoise ((worldX + x)/(float)terrainSizeX, (worldZ + z)/(float)terrainSizeZ));
+				GameObject cube = GameObject.CreatePrimitive (PrimitiveType.Cube);
+				if (worldY <= 5) {
+					cube.GetComponent<MeshRenderer> ().material = (Material) Resources.Load ("Materials/(26)sea");
+				} else {
+					cube.GetComponent<MeshRenderer> ().material = (Material) Resources.Load ("Materials/(25)grass");
+				}
+				cube.transform.position = new Vector3 (worldX + x, worldY, worldZ + z);
+				cube.transform.SetParent (obj.transform);
+			}
+		}
+	}
+
+    private void Rename(Transform[] selected,string name)
+    {
+        foreach (Transform t in selected) {
+            t.name = name;
+            //t.GetChild(0).GetComponent<DragItem>().containerImage = t.GetComponent<Image>();
+            //t.GetChild(0).GetComponent<DragItem>().receivingImage = t.GetChild(0).GetComponent<Image>();
+        }
     }
 }
