@@ -141,7 +141,7 @@ namespace DimensionCollapse
                     /*---------------------------------------------------------------------------------------------------------*/
 
                     //   Vector3 force = gunpoint.forward * InitialV;
-                    currentBullet.GetComponent<Rigidbody>().AddForce(force, ForceMode.Impulse);
+                    currentBullet.GetComponent<Rigidbody>().AddForce(force, ForceMode.VelocityChange);
 
                     //播放声音
                     if (Audio_Shoot != null)
