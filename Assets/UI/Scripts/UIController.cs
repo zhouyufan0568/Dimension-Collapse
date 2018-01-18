@@ -9,7 +9,6 @@ namespace DimensionCollapse
         public Canvas HUDCanvas;
         public GameObject backpack;
         public GameObject map;
-        public GameObject aimPoint;
 
         private Camera player_main_camera;
         private Camera canvasCamera;

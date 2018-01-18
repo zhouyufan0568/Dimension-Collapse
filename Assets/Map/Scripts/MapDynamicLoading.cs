@@ -34,8 +34,7 @@ namespace DimensionCollapse{
 		public float timeToCFinish=60f;
 
 		//开始计时
-        [HideInInspector]
-		public float whenToStart;
+		private float whenToStart;
 
 		[HideInInspector]
 		public float elapsed;
@@ -111,6 +110,10 @@ namespace DimensionCollapse{
 			floor = InitializeMap ();
 			InitializeFallTime (floor);
 			Array.Sort (floor);
+			if (PhotonNetwork.isMasterClient) {
+				PhotonNetwork.room.SetCustomProperties (new ExitGames.Client.Photon.Hashtable (){ { "StartTime",PhotonNetwork.time } });
+			}
+			whenToStart = (float)(double)PhotonNetwork.room.CustomProperties["StartTime"];
 
 			//----------------------------动态加载-----------------------------------
 
@@ -127,33 +130,28 @@ namespace DimensionCollapse{
 			flag = new int[maxX, maxZ];
 
 			GetObjectPosition (mine,out nowX,out nowZ);
-			
+			elapsed = (float)PhotonNetwork.time - whenToStart;
 			CreateChunk (nowX,nowZ);
 			lastX = nowX;
 			lastZ = nowZ;
 		}
 
-        // Update is called once per frame
-        void Update() {
+		// Update is called once per frame
+		void Update () {
 
-            //----------------------------安全区-------------------------------------
+			//----------------------------安全区-------------------------------------
 
-            if (GameManager.Instance.currentState == GameManager.gameStates.Gaming)
-            {
-                elapsed = (float)PhotonNetwork.time - whenToStart;
-                //Debug.Log (current+elapsed);
+			elapsed = (float)PhotonNetwork.time - whenToStart;
+			//Debug.Log (current+elapsed);
 
-                while (cnt < floor.Length && elapsed >= timeToFall[floor[cnt].x, floor[cnt].z])
-                {
-                    if (mapChunk[floor[cnt].x, floor[cnt].z] != null)
-                    {
-                        Destroy(mapChunk[floor[cnt].x, floor[cnt].z].GetComponent<Collider>());
-                        mapChunk[floor[cnt].x, floor[cnt].z].AddComponent<Rigidbody>();
-                        Destroy(mapChunk[floor[cnt].x, floor[cnt].z], 5);
-                    }
-                    cnt++;
-                }
-            }
+			while (cnt<floor.Length && elapsed >= timeToFall[floor[cnt].x,floor[cnt].z]) {
+				if (mapChunk [floor [cnt].x, floor [cnt].z] != null) {
+					Destroy (mapChunk [floor [cnt].x, floor [cnt].z].GetComponent<Collider> ());
+					mapChunk [floor [cnt].x, floor [cnt].z].AddComponent<Rigidbody> ();
+					Destroy (mapChunk [floor [cnt].x, floor [cnt].z],5);
+				}
+				cnt++;
+			}
 
 			//----------------------------动态加载-----------------------------------
 
