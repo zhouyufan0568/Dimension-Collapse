@@ -740,10 +740,6 @@ public class MultiplyCubes : EditorWindow {
 
     private void HollowStructure(LinkedList<Transform> structure)
     {
-        int[] offsetX = new int[] { -1, 1, 0, 0, 0, 0 };
-        int[] offsetY = new int[] { 0, 0, -1, 1, 0, 0 };
-        int[] offsetZ = new int[] { 0, 0, 0, 0, -1, 1 };
-
         Vector3 origin;
         Transform[] cubes;
         Transform[,,] cubeSpace = CreateCubeSpace(structure, out origin, out cubes);
@@ -764,40 +760,21 @@ public class MultiplyCubes : EditorWindow {
                         continue;
                     }
 
-                    bool[] visibles = new bool[6];
+                    bool needToRemove = true;
 
-                    for (int m = 0; m < 6; m++)
+                    if (i == 0 || i == lengthX - 1 || cubeSpace[i - 1, j, k] == null || cubeSpace[i + 1, j, k] == null)
                     {
-                        visibles[m] = true;
-
-                        int curX = i;
-                        int curY = j;
-                        int curZ = k;
-                        while (true)
-                        {
-                            curX += offsetX[m];
-                            curY += offsetY[m];
-                            curZ += offsetZ[m];
-                            if (curX < 0 || curX >= lengthX || curY < 0 || curY >= lengthY || curZ < 0 || curZ >= lengthZ)
-                            {
-                                break;
-                            }
-                            if (cubeSpace[curX, curY, curZ] != null)
-                            {
-                                visibles[m] = false;
-                                break;
-                            }
-                        }
+                        needToRemove = false;
                     }
 
-                    bool needToRemove = true;
-                    for (int m = 0; m < 6; m++)
+                    if (j == 0 || j == lengthY - 1 || cubeSpace[i, j - 1, k] == null || cubeSpace[i, j + 1, k] == null)
                     {
-                        if (visibles[m] == true)
-                        {
-                            needToRemove = false;
-                            break;
-                        }
+                        needToRemove = false;
+                    }
+
+                    if (k == 0 || k == lengthZ - 1 || cubeSpace[i, j, k - 1] == null || cubeSpace[i, j, k + 1] == null)
+                    {
+                        needToRemove = false;
                     }
 
                     needToRemoves[i, j, k] = needToRemove;
