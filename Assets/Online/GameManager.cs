@@ -19,11 +19,22 @@ namespace DimensionCollapse
 		[Tooltip("The prefab to use for representing dead state of the player")]
 		public GameObject GhostPlayerfab;
 
-		#region MonoBehaviour CallBacks
+        public MapDynamicLoading mapDynamicLoading;
 
-		void Start()
+        public enum gameStates {
+            Waiting,
+            Gaming
+        }
+        [HideInInspector]
+        public gameStates currentState;
+
+        #region MonoBehaviour CallBacks
+
+        void Start()
 		{
 			Instance = this;
+
+            currentState = gameStates.Waiting;
 
 			if (playerPrefab == null) 
 			{
@@ -33,21 +44,35 @@ namespace DimensionCollapse
 			{
                 Debug.Log("We are Instantiating LocalPlayer from " + Application.loadedLevelName);
 				// we're in a room. spawn a character for the local player. it gets synced by using PhotonNetwork.Instantiate
-				PhotonNetwork.Instantiate(this.playerPrefab.name, new Vector3(50f,50f,50f), Quaternion.identity, 0);
+				PhotonNetwork.Instantiate(this.playerPrefab.name, new Vector3(2900f,50f,50f), Quaternion.identity, 0);
 				Debug.Log(this.playerPrefab.name);
 			}
 		}
 
+        void Update()
+        {
+            if (currentState == gameStates.Waiting && PhotonNetwork.room.PlayerCount >= 3) {
 
-		#endregion
+                if (PhotonNetwork.isMasterClient)
+                {
+                    PhotonNetwork.room.SetCustomProperties(new ExitGames.Client.Photon.Hashtable() { { "StartTime", PhotonNetwork.time } });
+                }
+                mapDynamicLoading.whenToStart = (float)(double)PhotonNetwork.room.CustomProperties["StartTime"];
 
-		#region Photon Messages
+                currentState = gameStates.Gaming;
+            }
+        }
 
 
-		/// <summary>
-		/// Called when the local player left the room. We need to load the launcher scene.
-		/// </summary>
-		public override void OnLeftRoom()
+        #endregion
+
+        #region Photon Messages
+
+
+        /// <summary>
+        /// Called when the local player left the room. We need to load the launcher scene.
+        /// </summary>
+        public override void OnLeftRoom()
 		{
 			SceneManager.LoadScene(0);
 		}

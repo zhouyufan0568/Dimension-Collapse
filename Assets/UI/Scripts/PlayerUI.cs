@@ -27,6 +27,8 @@ namespace DimensionCollapse
 		[Tooltip("The number of survivors in current game")]
 		public Text Alive;
 
+        public Image AimPoint;
+
 		public GameObject survivors;
 		public GameObject deaders;
 
