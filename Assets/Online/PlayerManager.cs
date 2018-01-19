@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace DimensionCollapse {
     public class PlayerManager : Photon.PunBehaviour, IPunObservable {
@@ -167,6 +168,10 @@ namespace DimensionCollapse {
 		void DeadDecision(){
 			PhotonNetwork.Instantiate (this.GhostPlayerfab.name, transform.position, transform.rotation, 0);
 			PhotonNetwork.Destroy (this.gameObject);
+            if (photonView.isMine) {
+                PlayerUI.Instance.GameOver.transform.Find("Result").GetComponent<Text>().text="失败";
+                PlayerUI.Instance.GameOver.SetActive(true);
+            }
 		}
 
 		void Revive(){

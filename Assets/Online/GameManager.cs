@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections;
-
+using UnityEngine.UI;
 
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -22,10 +22,19 @@ namespace DimensionCollapse
 
         public MapDynamicLoading mapDynamicLoading;
 
+        public GameObject HUDCanvas;
+
+        public GameObject survivors;
+
+        public GameObject GameOver;
+
+        public GameObject deaders;
+
         public enum gameStates
         {
             Waiting,
-            Gaming
+            Gaming,
+            GameOver
         }
         [HideInInspector]
         public gameStates currentState;
@@ -53,7 +62,7 @@ namespace DimensionCollapse
 
         void Update()
         {
-            if (currentState == gameStates.Waiting && PhotonNetwork.room.PlayerCount >= 3)
+            if (currentState == gameStates.Waiting && PhotonNetwork.room.PlayerCount >= 2)
             {
 
                 if (PhotonNetwork.isMasterClient)
@@ -62,8 +71,22 @@ namespace DimensionCollapse
                 }
                 mapDynamicLoading.whenToStart = (float)(double)PhotonNetwork.room.CustomProperties["StartTime"];
 
+                PhotonNetwork.room.IsVisible = false;
                 currentState = gameStates.Gaming;
             }
+
+            if (currentState == gameStates.Gaming && survivors.transform.childCount == 1 && deaders.transform.childCount!=0 ) {
+                currentState = gameStates.GameOver;
+            }
+
+            if (currentState == gameStates.GameOver&&(GameOver.GetActive()==false)) {
+                if (PlayerManager.LocalPlayerInstance.GetComponent<PlayerManager>().isAlive) {
+                    PlayerUI.Instance.GameOver.transform.Find("Result").GetComponent<Text>().text = "胜利";
+                }
+                GameOver.SetActive(true);
+            }
+
+            Debug.Log(currentState);
         }
 
 
@@ -78,6 +101,7 @@ namespace DimensionCollapse
         public override void OnLeftRoom()
         {
             SceneManager.LoadScene(0);
+            Debug.Log("SceneManager.LoadScene(0);");
         }
 
 
@@ -89,13 +113,26 @@ namespace DimensionCollapse
 
         public void LeaveRoom()
         {
+            Debug.Log("PhotonNetwork.LeaveRoom();");
             PhotonNetwork.LeaveRoom();
         }
 
+        public void WatchGame()
+        {
+            if (survivors.transform.childCount == 1) {
+                GameOver.transform.GetChild(1).GetComponent<CanvasGroup>().interactable=false;
+            }
+            else
+            {
+                GameOver.SetActive(false);
+            }
+        }
 
         #endregion
 
         #region Private Methods
+
+
 
 
         #endregion

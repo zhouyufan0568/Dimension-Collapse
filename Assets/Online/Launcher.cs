@@ -68,7 +68,7 @@ namespace DimensionCollapse
 		/// </summary>
 		void Start()
 		{
-
+            Debug.Log("Laucher.cs");
 		}
 
 

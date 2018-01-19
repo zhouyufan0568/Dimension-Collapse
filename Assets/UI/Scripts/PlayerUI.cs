@@ -7,7 +7,9 @@ namespace DimensionCollapse
 {
 	public class PlayerUI : Photon.PunBehaviour {
 
-		#region Public Properties
+        #region Public Properties
+
+        public static PlayerUI Instance;
 
 		[Tooltip("UI Slider to display Player's Health")]
 		public Slider PlayerHealthSlider;
@@ -34,6 +36,8 @@ namespace DimensionCollapse
         public GameObject circle_red;
 
         public GameObject gameObject_map;
+
+        public GameObject GameOver;
 
         //states of map
         public enum mapStates
@@ -93,7 +97,7 @@ namespace DimensionCollapse
 
         void Awake()
 		{
-			
+            Instance = this;
 		}
 
 		// Use this for initialization
@@ -112,6 +116,7 @@ namespace DimensionCollapse
 
             circle_green.SetActive(false);
             circle_red.SetActive(false);
+            GameOver.SetActive(false);
         }
 
 		// Update is called once per frame

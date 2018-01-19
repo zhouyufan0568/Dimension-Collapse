@@ -262,7 +262,6 @@ GameObject:
   - component: {fileID: 114574838516615084}
   - component: {fileID: 114434917117425698}
   - component: {fileID: 95665549060594820}
-  - component: {fileID: 114881214863106432}
   - component: {fileID: 114115612928238616}
   - component: {fileID: 114327967152604442}
   - component: {fileID: 114092046160593534}
@@ -3991,18 +3990,6 @@ MonoBehaviour:
   mCamera: {fileID: 4933917739248322}
   mRaycastor: {fileID: 4217406314701590}
   cameraDistance: 0
---- !u!114 &114881214863106432
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1151663828921520}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9c0e32c521fe4f44186ad9614a96b928, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: 7d7cfcb468004fb47bffef0723ed0d32, type: 3}
 --- !u!114 &114911982865688186
 MonoBehaviour:
   m_ObjectHideFlags: 1
