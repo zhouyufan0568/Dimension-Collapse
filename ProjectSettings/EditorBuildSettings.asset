@@ -6,8 +6,11 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Ruanchao/LoginUI.unity
+    path: Assets/Scenes/LoginUI.unity
     guid: 8ec57fae24f123047a2238abae17c017
   - enabled: 1
     path: Assets/Scenes/Gaming.unity
     guid: dcdaa6f67f1171947b4f0713790092a7
+  - enabled: 1
+    path: Assets/Scenes/test.unity
+    guid: e7255fc7d9e2c7641bc8943097b2495f

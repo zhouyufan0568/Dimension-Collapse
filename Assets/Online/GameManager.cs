@@ -86,7 +86,7 @@ namespace DimensionCollapse
                 GameOver.SetActive(true);
             }
 
-            Debug.Log(currentState);
+            //Debug.Log(currentState);
         }
 
 
@@ -100,8 +100,8 @@ namespace DimensionCollapse
         /// </summary>
         public override void OnLeftRoom()
         {
-            SceneManager.LoadScene(0);
-            Debug.Log("SceneManager.LoadScene(0);");
+            SceneManager.LoadScene("LoginUI");
+            //Debug.Log("SceneManager.LoadScene(0);");
         }
 
 
@@ -113,7 +113,7 @@ namespace DimensionCollapse
 
         public void LeaveRoom()
         {
-            Debug.Log("PhotonNetwork.LeaveRoom();");
+            //Debug.Log("PhotonNetwork.LeaveRoom();");
             PhotonNetwork.LeaveRoom();
         }
 
