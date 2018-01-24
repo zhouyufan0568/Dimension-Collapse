@@ -367,6 +367,10 @@ public class MultiplyCubes : EditorWindow {
             {
                 MapToFiles();
             }
+            if (GUILayout.Button("Write Supply Points", GUILayout.ExpandWidth(true)))
+            {
+                SupplyPointsToFile();
+            }
         }
 
         showReadFromFiles = EditorGUILayout.Foldout(showReadFromFiles, "Read From Files");
@@ -1582,5 +1586,37 @@ public class MultiplyCubes : EditorWindow {
             //t.GetChild(0).GetComponent<DragItem>().containerImage = t.GetComponent<Image>();
             //t.GetChild(0).GetComponent<DragItem>().receivingImage = t.GetChild(0).GetComponent<Image>();
         }
+    }
+
+    private void SupplyPointsToFile()
+    {
+        GameObject[] supplyPoints = GameObject.FindGameObjectsWithTag("SupplyPoint");
+        if (supplyPoints.Length == 0)
+        {
+            return;
+        }
+
+        string rootPath = Application.streamingAssetsPath + "/Map/MapFragments";
+        if (!ValidateDirExists(rootPath))
+        {
+            Debug.LogError("Map is broken.");
+            return;
+        }
+        string supplyPointsPath = rootPath + "/supplyPoints.txt";
+        using (StreamWriter sw = new StreamWriter(supplyPointsPath, ValidateFileExists(supplyPointsPath)))
+        {
+            foreach (var point in supplyPoints)
+            {
+                System.Text.StringBuilder builder = new System.Text.StringBuilder();
+                builder.Append(point.transform.position.x);
+                builder.Append(" ");
+                builder.Append(point.transform.position.y);
+                builder.Append(" ");
+                builder.Append(point.transform.position.z);
+                sw.WriteLine(builder.ToString());
+            }
+        }
+
+        Debug.Log("共写入了" + supplyPoints.Length + "个点");
     }
 }
