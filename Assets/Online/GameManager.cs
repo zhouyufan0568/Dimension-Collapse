@@ -62,7 +62,7 @@ namespace DimensionCollapse
 
         void Update()
         {
-            if (currentState == gameStates.Waiting && PhotonNetwork.room.PlayerCount >= 2)
+            if (currentState == gameStates.Waiting && PhotonNetwork.room.PlayerCount >= 3)
             {
 
                 if (PhotonNetwork.isMasterClient)
@@ -80,8 +80,12 @@ namespace DimensionCollapse
             }
 
             if (currentState == gameStates.GameOver&&(GameOver.GetActive()==false)) {
-                if (PlayerManager.LocalPlayerInstance.GetComponent<PlayerManager>().isAlive) {
+                if (PlayerManager.LocalPlayerInstance.GetComponent<PlayerManager>().isAlive)
+                {
                     PlayerUI.Instance.GameOver.transform.Find("Result").GetComponent<Text>().text = "胜利";
+                }
+                else {
+                    PlayerUI.Instance.GameOver.transform.Find("Result").GetComponent<Text>().text = "失败";
                 }
                 GameOver.SetActive(true);
             }

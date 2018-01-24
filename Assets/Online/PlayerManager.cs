@@ -168,7 +168,7 @@ namespace DimensionCollapse {
 		void DeadDecision(){
 			PhotonNetwork.Instantiate (this.GhostPlayerfab.name, transform.position, transform.rotation, 0);
 			PhotonNetwork.Destroy (this.gameObject);
-            if (photonView.isMine) {
+            if (photonView.isMine&&GameManager.Instance.currentState==GameManager.gameStates.Gaming) {
                 PlayerUI.Instance.GameOver.transform.Find("Result").GetComponent<Text>().text="失败";
                 PlayerUI.Instance.GameOver.SetActive(true);
             }
