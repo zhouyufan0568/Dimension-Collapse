@@ -9,6 +9,7 @@ public class MapChunkIO {
     public int Chunk_Z_Max { get; private set; }
     public int ChunkSize { get; private set; }
     public int ChunkCount { get; private set; }
+    public float[,] SupplyPoints;
 
     private ChunkData[,] chunks;
 
@@ -95,6 +96,32 @@ public class MapChunkIO {
                         chunks[chunkX, chunkZ] = new ChunkData(positions, materialIds, isVisible, visibleCount);
                         ChunkCount++;
                     }
+                }
+            }
+        }
+
+        //step 4: read supply points
+        string supplyPointsPath = rootPath + "/supplyPoints.txt";
+        if (!ValidateFileExists(supplyPointsPath))
+        {
+            SupplyPoints = new float[0, 3];
+        }
+        else
+        {
+            using(StreamReader sr = new StreamReader(supplyPointsPath))
+            {
+                string supplyPointsData = sr.ReadToEnd();
+                string[] supplyPointStrs = supplyPointsData.Split('\n');
+                SupplyPoints = new float[supplyPointStrs.Length - 1, 3];
+                for (int i = 0; i < supplyPointStrs.Length - 1; i++)
+                {
+                    string[] xyz = supplyPointStrs[i].Split(' ');
+                    SupplyPoints[i, 0] = float.Parse(xyz[0]);
+                    SupplyPoints[i, 1] = float.Parse(xyz[1]);
+                    SupplyPoints[i, 2] = float.Parse(xyz[2]);
+                    Debug.Log(SupplyPoints[i, 0]);
+                    Debug.Log(SupplyPoints[i, 1]);
+                    Debug.Log(SupplyPoints[i, 2]);
                 }
             }
         }
