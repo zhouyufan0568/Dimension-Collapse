@@ -13,7 +13,7 @@ public class Pickup : MonoBehaviour
 
     private void Start()
     {
-        inventory = transform.GetComponent<PlayerManager>().inventory;
+        inventory = transform.GetComponent<Inventory>();
     }
 
     // Update is called once per frame
