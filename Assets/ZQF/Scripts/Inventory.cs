@@ -18,6 +18,19 @@ public class Inventory:MonoBehaviour{
         ItemList.Add(item);
         return true;
     }
+    public int RemoveItem(GameObject item)
+    {
+        if (ItemList.Contains(item))
+        {
+            return -1;
+        }
+        else
+        {
+            int pos = ItemList.IndexOf(item);
+            ItemList.Remove(item);
+            return pos;
+        }
+    }
     public int GetInventoryCapacity()
     {
         return ItemList.Count;

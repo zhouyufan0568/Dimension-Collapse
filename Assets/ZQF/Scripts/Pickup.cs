@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using DimensionCollapse;
 
+[RequireComponent(typeof(PlayerManager))]
 public class Pickup : MonoBehaviour
 {
-
     [SerializeField] private Transform mCenter;
     [SerializeField] private Transform mCamera;
     [SerializeField] private Transform mWeaponPanel;
@@ -13,7 +13,7 @@ public class Pickup : MonoBehaviour
 
     private void Start()
     {
-        inventory = transform.GetComponent<Inventory>();
+        inventory = transform.GetComponent<PlayerManager>().inventory;
     }
 
     // Update is called once per frame

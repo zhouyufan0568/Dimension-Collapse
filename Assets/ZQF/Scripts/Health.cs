@@ -9,12 +9,10 @@ namespace DimensionCollapse
     {
         public float maxHealth = 200;
         public float health;
-        //private PhotonView photonView;
         // Use this for initialization
         void Start()
         {
-            //photonView = GetComponent<PhotonView>();
-            health = 200;
+            health = maxHealth;
         }
 
         // Update is called once per frame

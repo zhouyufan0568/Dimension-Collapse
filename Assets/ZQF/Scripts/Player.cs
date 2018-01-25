@@ -3,12 +3,18 @@ using UnityStandardAssets.CrossPlatformInput;
 using UnityStandardAssets.Utility;
 using Random = UnityEngine.Random;
 
+/**
+ * remove all codes about animation due to we create a new script for animation
+ * add function that show mouse when the 'tab' is pressed
+ * auto jump
+ */
+
 [RequireComponent(typeof (CharacterController))]
 [RequireComponent(typeof (AudioSource))]
 public class Player : Photon.PunBehaviour
 {
-    [SerializeField] private bool m_PreIsJump;
-    [SerializeField] private bool m_IsWalking;
+    private bool m_PreIsJump;
+    private bool m_IsWalking;
     [SerializeField] private float m_WalkSpeed;
     [SerializeField] private float m_RunSpeed;
     [SerializeField] [Range(0f, 1f)] private float m_RunstepLenghten;
@@ -16,19 +22,13 @@ public class Player : Photon.PunBehaviour
     [SerializeField] private float m_StickToGroundForce;
     [SerializeField] private float m_GravityMultiplier;
     [SerializeField] private MouseLook m_MouseLook;
-    [SerializeField] private bool m_UseFovKick;
-    [SerializeField] private FOVKick m_FovKick = new FOVKick();
-    [SerializeField] private bool m_UseHeadBob;
-    [SerializeField] private CurveControlledBob m_HeadBob = new CurveControlledBob();
-    [SerializeField] private LerpControlledBob m_JumpBob = new LerpControlledBob();
     [SerializeField] private float m_StepInterval;
     [SerializeField] private AudioClip[] m_FootstepSounds;    // an array of footstep sounds that will be randomly selected from.
     [SerializeField] private AudioClip m_JumpSound;           // the sound played when character leaves the ground.
     [SerializeField] private AudioClip m_LandSound;           // the sound played when character touches back on ground.
     [SerializeField] private Transform mCenter;
     [SerializeField] private Transform m_RightHand;
-    [SerializeField] private Inventory mInventory;
-    //[SerializeField] private GameObject m_PlayerModel;//人物模型，包含动画
+    //[SerializeField] private Inventory mInventory;
 
     private Camera m_Camera;
     private bool m_Jump;//控制执行跳跃
@@ -43,7 +43,6 @@ public class Player : Photon.PunBehaviour
     private float m_NextStep;
     private bool m_Jumping;//是否正在跳跃
     private AudioSource m_AudioSource;
-    private Animator m_Animator;//获取人物模型中的动画组件
 
     // Use this for initialization
     private void Start()
@@ -53,11 +52,8 @@ public class Player : Photon.PunBehaviour
             return;
         }
         m_CharacterController = GetComponent<CharacterController>();
-        m_Animator = GetComponent<Animator>();
         m_Camera = Camera.main;
         m_OriginalCameraPosition = mCenter.localPosition;
-        m_FovKick.Setup(m_Camera);
-        m_HeadBob.Setup(m_Camera, m_StepInterval);
         m_StepCycle = 0f;
         m_NextStep = m_StepCycle/2f;
         m_Jumping = false;
@@ -65,36 +61,7 @@ public class Player : Photon.PunBehaviour
         m_MouseLook.Init(transform, mCenter,m_RightHand);
         //同步isJump信息
         m_PreIsJump = false;
-        //初始化人物动画
-        //m_Animator = m_PlayerModel.GetComponent<Animator>();
     }
-    
-    //动画播放
-    private void WalkAnim(float walkSpeed)
-    {
-        m_Animator.SetFloat("walkSpeed", walkSpeed);
-        //if (walkSpeed > 0.1f)
-        //{
-        //    m_Animator.SetBool("iswalk", true);
-        //}
-    }
-    private void PlayHiAnim()
-    {
-        m_Animator.SetTrigger("ishi");
-    }
-    private void PlayJumpAnim()
-    {
-
-    }
-
-    private void HiAnim()
-    {
-        if (Input.GetKey(KeyCode.H))
-        {
-            PlayHiAnim();
-        }
-    }
-
 
     // Update is called once per frame
     private void Update()
@@ -126,7 +93,6 @@ public class Player : Photon.PunBehaviour
             {
                 m_MoveDir.y = m_JumpSpeed;
                 PlayJumpSound();
-                PlayJumpAnim();
                 m_PreIsJump = true;//在m_Jump变成false之前锁定
                 m_Jump = false;
                 m_Jumping = true;
@@ -140,12 +106,10 @@ public class Player : Photon.PunBehaviour
         m_CollisionFlags = m_CharacterController.Move(m_MoveDir * Time.deltaTime);
 
         ProgressStepCycle(speed);
-        UpdateCameraPosition(speed);
 
         m_MouseLook.UpdateCursorLock();
 
         RotateView();
-        HiAnim();
         // the jump state needs to read here to make sure it is not missed
         if (!m_Jump)
         {
@@ -154,7 +118,6 @@ public class Player : Photon.PunBehaviour
 
         if (!m_PreviouslyGrounded && m_CharacterController.isGrounded)
         {
-            StartCoroutine(m_JumpBob.DoBobCycle());
             PlayLandingSound();
             m_MoveDir.y = 0f;
             m_Jumping = false;
@@ -166,7 +129,6 @@ public class Player : Photon.PunBehaviour
 
         m_PreviouslyGrounded = m_CharacterController.isGrounded;
     }
-
 
     private void PlayLandingSound()
     {
@@ -187,8 +149,7 @@ public class Player : Photon.PunBehaviour
     {
         if (m_CharacterController.velocity.sqrMagnitude > 0 && (m_Input.x != 0 || m_Input.y != 0))
         {
-            m_StepCycle += (m_CharacterController.velocity.magnitude + (speed*(m_IsWalking ? 1f : m_RunstepLenghten)))*
-                            Time.fixedDeltaTime;
+            m_StepCycle+=(m_CharacterController.velocity.magnitude+(speed*(m_IsWalking ? 1f:m_RunstepLenghten)))*Time.fixedDeltaTime;
         }
 
         if (!(m_StepCycle > m_NextStep))
@@ -199,8 +160,6 @@ public class Player : Photon.PunBehaviour
         m_NextStep = m_StepCycle + m_StepInterval;
 
         PlayFootStepAudio();
-        WalkAnim(speed);
-        //Debug.Log("speed:" + speed);
     }
 
 
@@ -219,20 +178,6 @@ public class Player : Photon.PunBehaviour
         m_FootstepSounds[n] = m_FootstepSounds[0];
         m_FootstepSounds[0] = m_AudioSource.clip;
     }
-
-
-    private void UpdateCameraPosition(float speed)
-    {
-        Vector3 newCameraPosition;
-        if (!m_UseHeadBob)
-        {
-            return;
-        }
-        newCameraPosition = mCenter.localPosition;
-        newCameraPosition.y = m_OriginalCameraPosition.y - m_JumpBob.Offset();
-        mCenter.localPosition = newCameraPosition;
-    }
-
 
     private void GetInput(out float speed)
     {
@@ -257,29 +202,17 @@ public class Player : Photon.PunBehaviour
             m_Input.Normalize();
         }
 
-        WalkAnim(horizontal * horizontal + vertical * vertical);
-
-        // handle speed change to give an fov kick
-        // only if the player is going to a run, is running and the fovkick is to be used
-        if (m_IsWalking != waswalking && m_UseFovKick && m_CharacterController.velocity.sqrMagnitude > 0)
-        {
-            StopAllCoroutines();
-            StartCoroutine(!m_IsWalking ? m_FovKick.FOVKickUp() : m_FovKick.FOVKickDown());
-        }
-
     }
-
 
     private void RotateView()
     {
         m_MouseLook.LookRotation(transform, mCenter,m_RightHand);
-        //m_MouseLook.LookRotation(transform, mCenter);
     }
 
 
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
-        if (hit.gameObject.tag == "stair"&&!m_Jump&& m_CharacterController.isGrounded&&!m_PreIsJump)
+        if (hit.gameObject.tag=="Map"&&!m_Jump&& m_CharacterController.isGrounded&&!m_PreIsJump)
         {
             if (Vector3.Angle((hit.point - transform.position).normalized,Vector3.down)<60)
             {
@@ -305,9 +238,11 @@ public class Player : Photon.PunBehaviour
             return;
         }
         body.AddForceAtPosition(m_CharacterController.velocity*0.1f, hit.point, ForceMode.Impulse);
+    }
 
-            
-
+    public void SetCursorLock(bool l)
+    {
+        m_MouseLook.SetCursorLock(l);
     }
 }
 
