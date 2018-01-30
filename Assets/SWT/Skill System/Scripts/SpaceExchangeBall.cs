@@ -55,5 +55,27 @@ namespace DimensionCollapse
                 cooldownTimeLeft = Mathf.Clamp(cooldownTimeLeft - Time.deltaTime, 0, CooldownTimeTotal);
             }
         }
+
+        public void OnPickedUp()
+        {
+            foreach (var particleSystem in GetComponentsInChildren<ParticleSystem>())
+            {
+                particleSystem.Stop();
+            }
+            GetComponent<Collider>().enabled = false;
+            Destroy(GetComponent<Rigidbody>());
+            Picked = true;
+        }
+
+        public void OnThrown()
+        {
+            foreach (var particleSystem in GetComponentsInChildren<ParticleSystem>())
+            {
+                particleSystem.Play();
+            }
+            GetComponent<Collider>().enabled = true;
+            gameObject.AddComponent<Rigidbody>();
+            Picked = false;
+        }
     }
 }

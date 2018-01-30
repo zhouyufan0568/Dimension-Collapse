@@ -4,9 +4,17 @@ using UnityEngine;
 using DimensionCollapse;
 
 public class Test : MonoBehaviour {
+    public GameObject prefab;
 
 	// Use this for initialization
 	async void Start () {
+        var itemManager = ItemManager.INSTANCE;
+        Debug.Log(itemManager.GetRandomItemPrefab().Name);
+        Debug.Log(itemManager.GetRandomItemPrefab().Name);
+        Debug.Log(itemManager.GetRandomItemPrefab().Name);
+
+        Debug.Log(prefab.GetComponentInChildren<Item>().ID);
+
         var manager = SupplyPointManager.INSTANCE;
 
         MySqlManagers.AccountManager accountManager = MySqlManagers.AccountManager.INSTANCE;
