@@ -66,7 +66,9 @@ public class Pickup : MonoBehaviour
                 weaponRigid.isKinematic = false;
                 weaponRigid.AddForce(forward.normalized * 100f);
                 weapon.GetComponent<Weapon>().Picked = false;
-                mWeaponPanel.GetComponent<Shoot>().weapon = null;
+                //Commented by SWT.
+                //Shoot脚本已被删除。功能移到RPCManager中了。
+                //mWeaponPanel.GetComponent<Shoot>().weapon = null;
 
                 GameObject newWeapon = inventory.GetNextWeapon();
                 if (newWeapon != null && mWeaponPanel.childCount == 0)
@@ -88,7 +90,9 @@ public class Pickup : MonoBehaviour
         weaponGO.transform.localPosition = Vector3.zero;
         weaponGO.transform.localEulerAngles = Vector3.zero;
         weaponGO.GetComponent<Item>().Picked = true;
-        mWeaponPanel.GetComponent<Shoot>().weapon = weaponGO.GetComponent<Weapon>();
+        //Commented by SWT.
+        //Shoot脚本已被删除。功能移到RPCManager中了。
+        //mWeaponPanel.GetComponent<Shoot>().weapon = weaponGO.GetComponent<Weapon>();
     }
 
 }

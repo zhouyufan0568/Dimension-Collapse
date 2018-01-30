@@ -52,6 +52,18 @@ namespace DimensionCollapse {
 		public GameObject[] equipBar;
 		public GameObject[] skills;
 
+        /// <summary>
+        /// The item in player's hands.
+        /// Add by SWT.
+        /// </summary>
+        public Item itemInHand;
+
+        /// <summary>
+        /// The skills being used.
+        /// </summary>
+        public Skill skillOne;
+        public Skill skillTwo;
+
         #endregion
 
 		#region Private Variables

@@ -43,4 +43,7 @@ MonoBehaviour:
   - RequestForPickupTimes
   - TaggedPlayer
   - ShootCore
+  - CastSkillOne
+  - CastSkillTwo
+  - UseItemInHand
   DisableAutoOpenWizard: 1
