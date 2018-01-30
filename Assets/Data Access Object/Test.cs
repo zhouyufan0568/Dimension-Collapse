@@ -7,6 +7,8 @@ public class Test : MonoBehaviour {
 
 	// Use this for initialization
 	async void Start () {
+        var manager = SupplyPointManager.INSTANCE;
+
         MySqlManagers.AccountManager accountManager = MySqlManagers.AccountManager.INSTANCE;
         accountManager.ShowAllAccountsAsync();
         Debug.Log(await accountManager.IsOnlineAsync("swt369"));
