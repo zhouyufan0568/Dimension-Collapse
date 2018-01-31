@@ -100,38 +100,37 @@ public class MultiplyCubes : EditorWindow {
         if (showTranslate)
         {
             EditorGUILayout.BeginHorizontal();
-            if (GUILayout.Button("Up", GUILayout.ExpandWidth(true)))
+            if (GUILayout.Button("y--", GUILayout.ExpandWidth(true))){
+                TranslateSelected(Vector3.down);
+            }
+            if (GUILayout.Button("y++", GUILayout.ExpandWidth(true)))
             {
                 TranslateSelected(Vector3.up);
-            }
-
-            if (GUILayout.Button("Down", GUILayout.ExpandWidth(true))){
-                TranslateSelected(Vector3.down);
             }
             EditorGUILayout.EndHorizontal();
 
 
             EditorGUILayout.BeginHorizontal();
-            if (GUILayout.Button("Left", GUILayout.ExpandWidth(true)))
+            if (GUILayout.Button("x--", GUILayout.ExpandWidth(true)))
             {
                 TranslateSelected(Vector3.left);
             }
 
-            if (GUILayout.Button("Right", GUILayout.ExpandWidth(true)))
+            if (GUILayout.Button("x++", GUILayout.ExpandWidth(true)))
             {
                 TranslateSelected(Vector3.right);
             }
             EditorGUILayout.EndHorizontal();
 
             EditorGUILayout.BeginHorizontal();
-            if (GUILayout.Button("Forward", GUILayout.ExpandWidth(true)))
-            {
-                TranslateSelected(Vector3.forward);
-            }
-
-            if (GUILayout.Button("Back", GUILayout.ExpandWidth(true)))
+            if (GUILayout.Button("z--", GUILayout.ExpandWidth(true)))
             {
                 TranslateSelected(Vector3.back);
+            }
+
+            if (GUILayout.Button("z++", GUILayout.ExpandWidth(true)))
+            {
+                TranslateSelected(Vector3.forward);
             }
             EditorGUILayout.EndHorizontal();
         }
