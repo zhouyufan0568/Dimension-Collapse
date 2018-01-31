@@ -239,6 +239,11 @@ namespace DimensionCollapse
             {
                 collider.enabled = false;
             }
+            Rigidbody[] rigidbodys = GetComponents<Rigidbody>();
+            foreach (var rigidbody in rigidbodys)
+            {
+                Destroy(rigidbody);
+            }
             Picked = true;
         }
 
@@ -254,6 +259,7 @@ namespace DimensionCollapse
             {
                 collider.enabled = true;
             }
+            gameObject.AddComponent<Rigidbody>();
             Picked = false;
         }
     }
