@@ -60,11 +60,10 @@ public class PickupManager : MonoBehaviour
                     {
                         if (playerManager.inventory.AddItem(currentItem.gameObject))
                         {
-                            item.Picked = true;
+                            ///item.Picked = true;
                             currentItem.SetActive(false);
                         }
                     }
-
                 }
             }
         }
@@ -78,13 +77,15 @@ public class PickupManager : MonoBehaviour
             //Debug.Log("throw");
             GameObject weapon = mWeaponPanel.GetChild(0).gameObject;
             mWeaponPanel.DetachChildren();
-            weapon.GetComponent<Collider>().enabled = true;
+            playerManager.itemInHand = null;
+            weapon.GetComponent<Item>().OnThrown();
+            ///weapon.GetComponent<Collider>().enabled = true;
             weapon.transform.Rotate(weapon.transform.up, -90, Space.World);
-            Rigidbody weaponRigid = weapon.AddComponent<Rigidbody>();
-            weaponRigid.useGravity = true;
-            weaponRigid.isKinematic = false;
-            weaponRigid.AddForce(forward.normalized * 100f);
-            weapon.GetComponent<Weapon>().Picked = false;
+            ///Rigidbody weaponRigid = weapon.AddComponent<Rigidbody>();
+            ///weaponRigid.useGravity = true;
+            ///weaponRigid.isKinematic = false;
+            weapon.GetComponent<Rigidbody>().AddForce(forward.normalized * 100f);
+            ///weapon.GetComponent<Weapon>().Picked = false;
             //Commented by SWT.
             //Shoot脚本已被删除。功能移到RPCManager中了。
             //mWeaponPanel.GetComponent<Shoot>().weapon = null;
@@ -101,13 +102,15 @@ public class PickupManager : MonoBehaviour
 
     private void EquipeWeapon(GameObject weaponGO)
     {
-        Destroy(weaponGO.GetComponent<Rigidbody>());
-        weaponGO.GetComponent<Collider>().enabled = false;
+        ///Destroy(weaponGO.GetComponent<Rigidbody>());
+        ///weaponGO.GetComponent<Collider>().enabled = false;
         //Debug.Log("Remove rigid");
+        weaponGO.GetComponent<Item>().OnPickedUp(playerManager);
+
         weaponGO.transform.parent = mWeaponPanel;
         weaponGO.transform.localPosition = Vector3.zero;
         weaponGO.transform.localEulerAngles = Vector3.zero;
-        weaponGO.GetComponent<Item>().Picked = true;
+        ///weaponGO.GetComponent<Item>().Picked = true;
 
         playerManager.itemInHand = weaponGO.GetComponent<Weapon>();
 
