@@ -9,11 +9,11 @@ public class Pickup : MonoBehaviour
     [SerializeField] private Transform mWeaponPanel;
     private GameObject currentItem;
     private RaycastHit hit;
-    private Inventory inventory;
+    private PlayerManager playerManager;
 
     private void Start()
     {
-        inventory = transform.GetComponent<Inventory>();
+        playerManager = transform.GetComponent<PlayerManager>();
     }
 
     // Update is called once per frame
@@ -41,7 +41,7 @@ public class Pickup : MonoBehaviour
                         }
                         else
                         {
-                            if (inventory.AddItem(currentItem.gameObject))
+                            if (playerManager.inventory.AddItem(currentItem.gameObject))
                             {
                                 item.Picked = true;
                                 currentItem.SetActive(false);
@@ -56,7 +56,7 @@ public class Pickup : MonoBehaviour
         {
             if (mWeaponPanel.childCount > 0)
             {
-                Debug.Log("throw");
+                //Debug.Log("throw");
                 GameObject weapon = mWeaponPanel.GetChild(0).gameObject;
                 mWeaponPanel.DetachChildren();
                 weapon.GetComponent<Collider>().enabled = true;
@@ -70,7 +70,7 @@ public class Pickup : MonoBehaviour
                 //Shoot脚本已被删除。功能移到RPCManager中了。
                 //mWeaponPanel.GetComponent<Shoot>().weapon = null;
 
-                GameObject newWeapon = inventory.GetNextWeapon();
+                GameObject newWeapon = playerManager.inventory.GetNextWeapon();
                 if (newWeapon != null && mWeaponPanel.childCount == 0)
                 {
                     Debug.Log("newWeapon");

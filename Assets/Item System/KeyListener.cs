@@ -26,6 +26,17 @@ namespace DimensionCollapse
             {
                 rpcManager.CastSkillOneRPC();
             }
+
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                rpcManager.PickUpItemRPC();
+            }
+
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                rpcManager.DropHandItemRPC();
+            }
+
         }
     }
 }

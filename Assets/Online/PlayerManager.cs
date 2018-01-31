@@ -47,6 +47,8 @@ namespace DimensionCollapse {
 		public float health;
 
 		public int numOfkill=0;
+        //背包
+        public Inventory inventory;
 
 		public GameObject[] backpack;
 		public GameObject[] equipBar;
@@ -86,6 +88,8 @@ namespace DimensionCollapse {
                     break;
                 }
             }
+
+            inventory = GetComponent<Inventory>();
 
             // #Important
             // used in GameManager.cs: we keep track of the localPlayer instance to prevent instantiation when levels are synchronized

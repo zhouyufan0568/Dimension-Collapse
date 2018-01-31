@@ -5,9 +5,17 @@ namespace DimensionCollapse
     public class RPCManager : Photon.PunBehaviour
     {
         private PlayerManager playerManager;
+        #region private add by ZQF
+        //拾取脚本
+        private PickupManager pickupManager;
+        #endregion
         private void Start()
         {
-             playerManager = GetComponent<PlayerManager>();
+            playerManager = GetComponent<PlayerManager>();
+
+            #region add by ZQF
+            pickupManager = GetComponent<PickupManager>();
+            #endregion
         }
 
         public void UseItemInHandRPC()
@@ -31,6 +39,22 @@ namespace DimensionCollapse
             if (photonView.isMine)
             {
                 photonView.RPC("CastSkillTwo", PhotonTargets.All);
+            }
+        }
+        
+        public void PickUpItemRPC()
+        {
+            if (photonView.isMine)
+            {
+                photonView.RPC("PickUpItem", PhotonTargets.All);
+            }
+        }
+
+        public void DropHandItemRPC()
+        {
+            if (photonView.isMine)
+            {
+                photonView.RPC("DropHandItem", PhotonTargets.All);
             }
         }
 
@@ -57,5 +81,19 @@ namespace DimensionCollapse
         {
             (skill as NondirectiveSkill).Cast();
         }
+
+        #region function add by ZQF
+        [PunRPC]
+        private void PickUpItem()
+        {
+            pickupManager.PickItem();
+        }
+        [PunRPC]
+        private void DropHandItem()
+        {
+            pickupManager.DropHandItem();
+        }
+        #endregion
+
     }
 }

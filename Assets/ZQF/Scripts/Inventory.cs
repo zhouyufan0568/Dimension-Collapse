@@ -11,6 +11,7 @@ public class Inventory:MonoBehaviour{
 
     public bool AddItem(GameObject item)
     {
+        Debug.Log("Inventory item(s):"+GetListCount());
         if (ItemList.Count>=maxCount)
         {
             return false;
@@ -31,7 +32,7 @@ public class Inventory:MonoBehaviour{
             return pos;
         }
     }
-    public int GetInventoryCapacity()
+    public int GetListCount()
     {
         return ItemList.Count;
     }
