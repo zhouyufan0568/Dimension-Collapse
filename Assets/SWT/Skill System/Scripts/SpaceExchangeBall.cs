@@ -56,7 +56,7 @@ namespace DimensionCollapse
             }
         }
 
-        public void OnPickedUp()
+        public override void OnPickedUp(PlayerManager playerManager)
         {
             foreach (var particleSystem in GetComponentsInChildren<ParticleSystem>())
             {
@@ -67,7 +67,7 @@ namespace DimensionCollapse
             Picked = true;
         }
 
-        public void OnThrown()
+        public override void OnThrown()
         {
             foreach (var particleSystem in GetComponentsInChildren<ParticleSystem>())
             {

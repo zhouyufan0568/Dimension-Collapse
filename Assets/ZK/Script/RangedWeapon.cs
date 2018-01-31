@@ -226,5 +226,35 @@ namespace DimensionCollapse
         {
             this.AlternativeCharger = this.AlternativeChargerCapacity;
         }
+
+        /// <summary>
+        /// Change the camera used for shooting.
+        /// Add by SWT.
+        /// </summary>
+        public override void OnPickedUp(PlayerManager playerManager)
+        {
+            m_Camera = playerManager.camera;
+            Collider collider = GetComponent<Collider>();
+            if (collider != null)
+            {
+                collider.enabled = false;
+            }
+            Picked = true;
+        }
+
+        /// <summary>
+        /// Set the camera to null when thrown.
+        /// Add by SWT.
+        /// </summary>
+        public override void OnThrown()
+        {
+            m_Camera = null;
+            Collider collider = GetComponent<Collider>();
+            if (collider != null)
+            {
+                collider.enabled = true;
+            }
+            Picked = false;
+        }
     }
 }
