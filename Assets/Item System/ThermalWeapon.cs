@@ -6,6 +6,8 @@ namespace DimensionCollapse
 {
     public class ThermalWeapon : Weapon
     {
+        [Tooltip("Unlimited Shoot")]
+        public bool UnlimitFire = false;
         [Tooltip("The bullet to be used")]
         public GameObject bulletPrefab;
         [Tooltip("The number of the bullets loaded.")]
@@ -60,6 +62,7 @@ namespace DimensionCollapse
             screenCenter = new Vector3(Screen.width / 2, Screen.height / 2, 0);
             raycastLayerMask = LayerMask.GetMask("Map", "Player");
 
+            bulletInMagazine = magazineCapacity;
             bulletPool = ObjectPoolManager.INSTANCE.GetObjectPool(bulletPrefab, 100, false);
             effectiveRange = bulletSpeed * bulletLifeTime;
 
@@ -81,7 +84,7 @@ namespace DimensionCollapse
 
         public override void Attack()
         {
-
+            shootStrategies[strategyUsingIndex].Fire();
         }
 
         public override void OnPickedUp(PlayerManager playerManager)
@@ -157,14 +160,14 @@ namespace DimensionCollapse
             }
         }
 
-        private bool IsMagazineEmpty()
+        public bool IsMagazineEmpty()
         {
             return bulletInMagazine <= 0 ? true : false;
         }
 
-        private void ShootSingleBullet()
+        public virtual void ShootSingleBullet()
         {
-            if (IsMagazineEmpty())
+            if (!UnlimitFire && IsMagazineEmpty())
             {
                 return;
             }
@@ -182,9 +185,14 @@ namespace DimensionCollapse
 
             GameObject bullet = bulletPool.Next(false);
             bullet.transform.position = gunpoint.position;
-            bullet.transform.rotation = Quaternion.LookRotation(gunpoint.forward);
+            bullet.transform.rotation = Quaternion.LookRotation(bulletDir);
+            bullet.GetComponent<SimpleBullet>().damage = damage;
+            Rigidbody rigidbody = bullet.GetComponent<Rigidbody>();
+            rigidbody.velocity = Vector3.zero;
+            rigidbody.angularVelocity = Vector3.zero;
             bullet.SetActive(true);
-            bullet.GetComponent<Rigidbody>().AddForce(bulletDir * bulletSpeed, ForceMode.VelocityChange);
+            rigidbody.AddForce(bullet.transform.forward * bulletSpeed, ForceMode.VelocityChange);
+
             shootSoundEffect?.Play();
             shootViewEffect.Play(true);
 
@@ -220,7 +228,7 @@ namespace DimensionCollapse
             public void Fire()
             {
                 float currentTime = Time.time;
-                if (currentTime - lastShootTime >= 0)
+                if (currentTime - lastShootTime >= interval)
                 {
                     lastShootTime = currentTime;
                     weapon.ShootSingleBullet();
@@ -247,7 +255,7 @@ namespace DimensionCollapse
             public void Fire()
             {
                 float currentTime = Time.time;
-                if (currentTime - lastBurstTime >= 0)
+                if (currentTime - lastBurstTime >= intervalBetweenBurst)
                 {
                     lastBurstTime = currentTime;
                     weapon.StartCoroutine(Burst());

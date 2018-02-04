@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace DimensionCollapse
 {
@@ -6,8 +7,6 @@ namespace DimensionCollapse
     [RequireComponent(typeof(Rigidbody))]
     public class SimpleBullet : MonoBehaviour
     {
-        public AudioClip hitSoundEffect;
-        public ParticleSystem hitViewEffect;
         [ReadOnlyInInspector]
         public float damage;
         [HideInInspector]
@@ -27,9 +26,18 @@ namespace DimensionCollapse
 
         private void OnEnable()
         {
-            rigidbody.velocity = Vector3.zero;
             lastFramePos = transform.position;
             isAggressive = true;
+        }
+
+        private void Update()
+        {
+            if (!isAggressive)
+            {
+                return;
+            }
+ 
+            lastFramePos = transform.position;
         }
 
         private void LateUpdate()
@@ -40,15 +48,30 @@ namespace DimensionCollapse
             }
 
             Vector3 vector = transform.position - lastFramePos;
-            RaycastHit hitInfo = default(RaycastHit);
-            if (Physics.Raycast(lastFramePos, vector.normalized, out hitInfo, vector.sqrMagnitude, raycastLayerMask))
+            RaycastHit[] hitInfos = Physics.RaycastAll(lastFramePos, vector.normalized, vector.sqrMagnitude, raycastLayerMask);
+            GameObject victim = null;
+            float minDist = float.MaxValue;
+            foreach (var hitInfo in hitInfos)
             {
-                OnCollisionEnterCore(hitInfo.transform.gameObject, hitInfo.point);
+                if (hitInfo.distance < minDist)
+                {
+                    victim = hitInfo.transform.gameObject;
+                    minDist = hitInfo.distance;
+                }
+            }
+            if (victim != null)
+            {
+                OnCollisionEnterCore(victim, victim.transform.position);
             }
         }
 
         private void OnCollisionEnter(Collision collision)
         {
+            if (!isAggressive)
+            {
+                return;
+            }
+
             OnCollisionEnterCore(collision.gameObject, transform.position);
         }
 
@@ -62,6 +85,7 @@ namespace DimensionCollapse
             else
             {
                 isAggressive = false;
+                gameObject.transform.position = point;
             }
         }
     }
