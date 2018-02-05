@@ -30,40 +30,61 @@ namespace DimensionCollapse
             isAggressive = true;
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
             if (!isAggressive)
             {
                 return;
             }
- 
+
+            Vector3 dir = transform.forward;
+            RaycastHit[] hitInfos = Physics.RaycastAll(lastFramePos, dir.normalized, rigidbody.velocity.sqrMagnitude * Time.fixedDeltaTime, raycastLayerMask);
+            int minDistIndex = -1;
+            for (int i = 0; i < hitInfos.Length; i++)
+            {
+                if (minDistIndex == -1 || hitInfos[i].distance < hitInfos[minDistIndex].distance)
+                {
+                    minDistIndex = i;
+                }
+            }
+            if (minDistIndex != -1)
+            {
+                OnCollisionEnterCore(hitInfos[minDistIndex].transform.gameObject, hitInfos[minDistIndex].point);
+            }
+
             lastFramePos = transform.position;
         }
 
-        private void LateUpdate()
-        {
-            if (!isAggressive)
-            {
-                return;
-            }
+        //private void FixedUpdate()
+        //{
+        //    if (!isAggressive)
+        //    {
+        //        return;
+        //    }
 
-            Vector3 vector = transform.position - lastFramePos;
-            RaycastHit[] hitInfos = Physics.RaycastAll(lastFramePos, vector.normalized, vector.sqrMagnitude, raycastLayerMask);
-            GameObject victim = null;
-            float minDist = float.MaxValue;
-            foreach (var hitInfo in hitInfos)
-            {
-                if (hitInfo.distance < minDist)
-                {
-                    victim = hitInfo.transform.gameObject;
-                    minDist = hitInfo.distance;
-                }
-            }
-            if (victim != null)
-            {
-                OnCollisionEnterCore(victim, victim.transform.position);
-            }
-        }
+        //    //Debug.Log(lastFramePos + "\n" + transform.position);
+        //    Vector3 vector = transform.position - lastFramePos;
+        //    if (vector == Vector3.zero)
+        //    {
+        //        return;
+        //    }
+        //    RaycastHit[] hitInfos = Physics.RaycastAll(lastFramePos, vector.normalized, vector.sqrMagnitude, raycastLayerMask);
+        //    int minDistIndex = -1;
+        //    for (int i = 0; i < hitInfos.Length; i++)
+        //    {
+        //        if (minDistIndex == -1 || hitInfos[i].distance < hitInfos[minDistIndex].distance)
+        //        {
+        //            minDistIndex = i;
+        //        }
+        //    }
+        //    if (minDistIndex != -1)
+        //    {
+        //        Debug.Log("here");
+        //        OnCollisionEnterCore(hitInfos[minDistIndex].transform.gameObject, hitInfos[minDistIndex].normal);
+        //    }
+
+        //    lastFramePos = transform.position;
+        //}
 
         private void OnCollisionEnter(Collision collision)
         {
@@ -72,7 +93,20 @@ namespace DimensionCollapse
                 return;
             }
 
-            OnCollisionEnterCore(collision.gameObject, transform.position);
+            OnCollisionEnterCore(collision.gameObject);
+        }
+
+        private void OnCollisionEnterCore(GameObject victim)
+        {
+            if (victim.CompareTag("Player"))
+            {
+                victim.GetComponentInChildren<PlayerManager>()?.OnAttacked((int)damage);
+                gameObject.SetActive(false);
+            }
+            else
+            {
+                isAggressive = false;
+            }
         }
 
         private void OnCollisionEnterCore(GameObject victim, Vector3 point)
@@ -85,7 +119,8 @@ namespace DimensionCollapse
             else
             {
                 isAggressive = false;
-                gameObject.transform.position = point;
+                rigidbody.velocity = Vector3.zero;
+                transform.position = Vector3.Lerp(point, transform.position, 0.15f);
             }
         }
     }

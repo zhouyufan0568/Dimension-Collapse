@@ -4779,7 +4779,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabList:
   - {fileID: 1337885163504738, guid: 4662a0efda106214db9f059611e0931b, type: 2}
-  capacityList: f4010000
+  - {fileID: 1743158217086158, guid: 9afd82db53dec044d969284db5e3d12f, type: 2}
+  capacityList: e8030000f4010000
 --- !u!4 &965736297
 Transform:
   m_ObjectHideFlags: 0

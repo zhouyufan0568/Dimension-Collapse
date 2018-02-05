@@ -63,7 +63,7 @@ namespace DimensionCollapse
             raycastLayerMask = LayerMask.GetMask("Map", "Player");
 
             bulletInMagazine = magazineCapacity;
-            bulletPool = ObjectPoolManager.INSTANCE.GetObjectPool(bulletPrefab, 100, false);
+            bulletPool = ObjectPoolManager.INSTANCE.GetObjectPool(bulletPrefab, magazineCapacity + 10, false);
             effectiveRange = bulletSpeed * bulletLifeTime;
 
             int strategyCount = 0;
@@ -167,6 +167,11 @@ namespace DimensionCollapse
 
         public virtual void ShootSingleBullet()
         {
+            if (!IsWeaponValid())
+            {
+                return;
+            }
+
             if (!UnlimitFire && IsMagazineEmpty())
             {
                 return;
@@ -194,9 +199,29 @@ namespace DimensionCollapse
             rigidbody.AddForce(bullet.transform.forward * bulletSpeed, ForceMode.VelocityChange);
 
             shootSoundEffect?.Play();
-            shootViewEffect.Play(true);
+            shootViewEffect?.Play(true);
 
             StartCoroutine(SendBackBullet(bullet));
+        }
+
+        private bool IsWeaponValid()
+        {
+            if (bulletPrefab == null)
+            {
+                Debug.Log(name + ": Bullet prefab is missing.");
+                return false;
+            }
+            if (gunpoint == null)
+            {
+                Debug.Log(name + ": Gunpoint is missing.");
+                return false;
+            }
+            if (bulletPool.IsEmpty)
+            {
+                Debug.Log(name + ": Bullet pool is empty.");
+                return false;
+            }
+            return true;
         }
 
         private IEnumerator SendBackBullet(GameObject bullet)
