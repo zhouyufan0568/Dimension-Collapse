@@ -79,7 +79,7 @@ namespace DimensionCollapse
         private void OnExplode()
         {
             Destroy(GetComponent<Rigidbody>());
-            foreach (var renderer in GetComponentsInChildren<MeshCollider>())
+            foreach (var renderer in GetComponentsInChildren<MeshRenderer>())
             {
                 renderer.enabled = false;
             }
