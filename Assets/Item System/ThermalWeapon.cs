@@ -107,6 +107,7 @@ namespace DimensionCollapse
 
         public override void OnThrown()
         {
+            ownerPlayerManager = null;
             ownerCamera = null;
             Collider collider = GetComponent<Collider>();
             if (collider != null)
@@ -155,7 +156,7 @@ namespace DimensionCollapse
                 int toBeReloaded = bulletStoreLeft >= shortage ? shortage : bulletStoreLeft;
                 bulletInMagazine += toBeReloaded;
                 bulletStoreLeft -= toBeReloaded;
-                reloadSoundEffect?.Play();
+                ItemUtils.Play(reloadSoundEffect);
                 whenReloadSucceed?.Invoke();
             }
         }
@@ -197,9 +198,10 @@ namespace DimensionCollapse
             rigidbody.angularVelocity = Vector3.zero;
             bullet.SetActive(true);
             rigidbody.AddForce(bullet.transform.forward * bulletSpeed, ForceMode.VelocityChange);
+            bulletInMagazine--;
 
-            shootSoundEffect?.Play();
-            shootViewEffect?.Play(true);
+            ItemUtils.Play(shootSoundEffect);
+            ItemUtils.Play(shootViewEffect, true);
 
             StartCoroutine(SendBackBullet(bullet));
         }

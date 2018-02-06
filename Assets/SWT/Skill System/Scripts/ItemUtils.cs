@@ -14,5 +14,31 @@ namespace DimensionCollapse {
 
             return null;
         }
+
+        public static void Play(ParticleSystem particleSystem)
+        {
+            Play(particleSystem, false);
+        }
+
+        public static void Play(ParticleSystem particleSystem, bool withChildren)
+        {
+            if (particleSystem != null)
+            {
+                particleSystem.Play(withChildren);
+            }
+        }
+
+        public static void Play(AudioSource audioSource)
+        {
+            Play(audioSource, 0);
+        }
+
+        public static void Play(AudioSource audioSource, ulong delay)
+        {
+            if (audioSource != null)
+            {
+                audioSource.Play(delay);
+            }
+        }
     }
 }

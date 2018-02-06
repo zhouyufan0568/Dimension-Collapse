@@ -38,10 +38,19 @@ public class ScaleWizard : EditorWindow {
                 capsuleCollider.radius *= scaleFactor;
                 capsuleCollider.height *= scaleFactor;
             }
+            else if (collider is SphereCollider)
+            {
+                SphereCollider sphereCollider = (SphereCollider)collider;
+                sphereCollider.center *= scaleFactor;
+                sphereCollider.radius *= scaleFactor;
+            }
 
-            GameObject child = parent.transform.GetChild(0).gameObject;
-            child.transform.localScale *= scaleFactor;
-            child.transform.localPosition *= scaleFactor;
+            for (int i = 0; i < parent.transform.childCount; i++)
+            {
+                Transform child = parent.transform.GetChild(i);
+                child.localScale *= scaleFactor;
+                child.localPosition *= scaleFactor;
+            }
         }
     }
 }

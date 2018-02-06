@@ -26,6 +26,14 @@ namespace DimensionCollapse
             }
         }
 
+        public void ThrowItemInHandRPC(Vector3 force)
+        {
+            if (photonView.isMine)
+            {
+                photonView.RPC("ThrowItemInHand", PhotonTargets.All, force);
+            }
+        }
+
         public void CastSkillOneRPC()
         {
             if (photonView.isMine)
@@ -63,6 +71,13 @@ namespace DimensionCollapse
         {
             Item item = playerManager.itemInHand;
             (item as Weapon)?.Attack();
+        }
+
+        [PunRPC]
+        private void ThrowItemInHand(Vector3 force)
+        {
+            Item item = playerManager.itemInHand;
+            (item as Missile)?.Throw(force);
         }
 
         [PunRPC]

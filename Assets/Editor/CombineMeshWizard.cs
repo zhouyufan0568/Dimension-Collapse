@@ -52,7 +52,10 @@ public class CombineMeshWizard : EditorWindow
         {
             resRenderer = selected.AddComponent<MeshRenderer>();
         }
-        resRenderer.sharedMaterial = material;
+        if (material != null)
+        {
+            resRenderer.sharedMaterial = material;
+        }
         selected.SetActive(true);
 
         MeshSaverEditor.SaveMesh(mesh, mesh.name, true, true);

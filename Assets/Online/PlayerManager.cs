@@ -41,6 +41,10 @@ namespace DimensionCollapse {
         [HideInInspector]
         public new Camera camera;
 
+        public float maxChargeTime = 3f;
+
+        public float maxChargeForce = 50f;
+
 		public bool isAlive;
 
 		public float maxHealth = 200;
