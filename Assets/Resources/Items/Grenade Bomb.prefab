@@ -402,9 +402,13 @@ MonoBehaviour:
   ID: 2001
   Picked: 0
   timeBeforeExplode: 5
+  timeBeforeDisappear: 3
   explodeSoundEffect: {fileID: 0}
   explodeViewEffect: {fileID: 198329520930371138}
   chargeTime: 0
+  effectiveRadius: 20
+  centerDamage: 50
+  impactForce: 5000
 --- !u!136 &136289274546366338
 CapsuleCollider:
   m_ObjectHideFlags: 1
