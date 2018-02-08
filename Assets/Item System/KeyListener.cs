@@ -42,10 +42,11 @@ namespace DimensionCollapse
 
             if (Input.GetMouseButtonUp(0))
             {
-                Vector3? force = (playerManager.itemInHand as Missile)?.OnChargeEnd();
-                if (force.HasValue)
+                Missile missile = playerManager.itemInHand as Missile;
+                if (missile != null)
                 {
-                    rpcManager.ThrowItemInHandRPC(force.Value);
+                    Vector3 force = missile.OnChargeEnd();
+                    rpcManager.ThrowItemInHandRPC(force);
                 }
             }
 
