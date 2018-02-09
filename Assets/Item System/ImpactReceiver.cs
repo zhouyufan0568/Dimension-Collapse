@@ -1,15 +1,16 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace DimensionCollapse
 {
     [RequireComponent(typeof(CharacterController))]
     public class ImpactReceiver : MonoBehaviour
     {
+        [Tooltip("The mass of the object attached to.")]
         public float mass = 1f;
+        [Tooltip("Force whose magnitude under it will be ignored.")]
         public float threshold = 0.2f;
-        public float attenuaion = 5f;
+        [Tooltip("The speed of the attenuation of the kinetic energy")]
+        public float attenuation = 5f;
 
         private Vector3 impact;
         private CharacterController controller;
@@ -45,7 +46,7 @@ namespace DimensionCollapse
             else
             {
                 controller.Move(impact * Time.deltaTime);
-                impact = Vector3.Lerp(impact, Vector3.zero, attenuaion * Time.deltaTime);
+                impact = Vector3.Lerp(impact, Vector3.zero, attenuation * Time.deltaTime);
             }
         }
     }
