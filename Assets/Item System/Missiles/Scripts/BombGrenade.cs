@@ -13,11 +13,18 @@ namespace DimensionCollapse
             Collider[] victims = Physics.OverlapSphere(explosionPos, effectiveRadius, LayerMask.GetMask("Default", "Player"));
             foreach (var victim in victims)
             {
-                victim.GetComponent<Rigidbody>().AddExplosionForce(impactForce, explosionPos, effectiveRadius, 2);
-                if (victim.CompareTag("Player"))
+                if (ItemUtils.IsPlayer(victim.gameObject))
                 {
-                    victim.GetComponent<PlayerManager>()
-                        .OnAttacked((int)Mathf.Lerp(centerDamage, 0, Vector3.Distance(victim.transform.position, explosionPos) / effectiveRadius));
+                    if (ItemUtils.IsMine(victim.gameObject))
+                    {
+                        victim.GetComponent<PlayerManager>().OnAttacked(
+                            (int)Mathf.Lerp(centerDamage, 0, Vector3.Distance(victim.transform.position, explosionPos) / effectiveRadius));
+                        victim.GetComponent<ImpactReceiver>().AddImpact(victim.transform.position - explosionPos, impactForce);
+                    }
+                }
+                else
+                {
+                    victim.GetComponent<Rigidbody>().AddExplosionForce(impactForce, explosionPos, effectiveRadius, 2);
                 }
             }
         }
