@@ -8,8 +8,8 @@ namespace DimensionCollapse
     {
         public GameObject framePrefab;
         public int frameCount;
+        public float damagePerSecond = 20f;
 
-        private float damagePerSecond;
         [ReadOnlyInInspector]
         public HashSet<PlayerManager> victims;
 
@@ -43,10 +43,9 @@ namespace DimensionCollapse
 
             foreach (var victim in victims)
             {
-                //(int)(Time.deltaTime * damagePerSecond)
                 if (victim != null)
                 {
-                    victim.OnAttacked(1);
+                    victim.OnAttacked(Time.deltaTime * damagePerSecond);
                 }
             }
         }

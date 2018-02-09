@@ -15,20 +15,25 @@ namespace DimensionCollapse
         private Vector3 impact;
         private CharacterController controller;
 
-        public void AddImpact(Vector3 direction, float force)
+        public void AddImpact(Vector3 force)
         {
-            if (Mathf.Approximately(force, 0f))
+            impact += (force / mass);
+        }
+
+        public void AddImpact(Vector3 direction, float magnitude)
+        {
+            if (Mathf.Approximately(magnitude, 0f))
             {
                 return;
             }
 
             direction.Normalize();
-            if (direction.y < 0)
-            {
-                direction.y *= -1;
-            }
+            //if (direction.y < 0)
+            //{
+            //    direction.y *= -1;
+            //}
 
-            impact += direction * (force / mass);
+            impact += direction * (magnitude / mass);
         }
 
         private void Start()

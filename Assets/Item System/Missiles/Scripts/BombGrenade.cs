@@ -15,16 +15,13 @@ namespace DimensionCollapse
             {
                 if (ItemUtils.IsPlayer(victim.gameObject))
                 {
-                    if (ItemUtils.IsMine(victim.gameObject))
-                    {
-                        victim.GetComponent<PlayerManager>().OnAttacked(
-                            (int)Mathf.Lerp(centerDamage, 0, Vector3.Distance(victim.transform.position, explosionPos) / effectiveRadius));
-                        victim.GetComponent<ImpactReceiver>().AddImpact(victim.transform.position - explosionPos, impactForce);
-                    }
+                    PlayerManager playerManager = victim.GetComponent<PlayerManager>();
+                    playerManager.OnAttacked(Mathf.Lerp(centerDamage, 0, Vector3.Distance(victim.transform.position, explosionPos) / effectiveRadius));
+                    playerManager.AddImpact(victim.transform.position - explosionPos, impactForce);
                 }
                 else
                 {
-                    victim.GetComponent<Rigidbody>().AddExplosionForce(impactForce, explosionPos, effectiveRadius, 2);
+                    victim.GetComponent<Rigidbody>()?.AddExplosionForce(impactForce, explosionPos, effectiveRadius, 2);
                 }
             }
         }

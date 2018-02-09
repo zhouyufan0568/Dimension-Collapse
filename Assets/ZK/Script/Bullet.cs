@@ -238,7 +238,7 @@ namespace DimensionCollapse
                     //0代表在圆心爆炸，受到满额100点伤害，1代表在边缘处爆炸，受到0点伤害
                     int currentDamage = (int)(this.damage * (1 - (Vector3.Distance(scarecrow.transform.position, center) / radius)));
                     // Debug.Log("this.damage:" + this.damage + ",distance:" + Vector3.Distance(scarecrow.transform.position, center) + ",radius:" + radius + ",percentage:" + (Vector3.Distance(scarecrow.transform.position, center) / radius));
-                    scarecrow.OnAttacked(currentDamage);
+                    scarecrow.OnAttacked((float)currentDamage);
                 }
                 //Debug.Log(colliders[i].gameObject.name);
             }

@@ -100,7 +100,7 @@ namespace DimensionCollapse
         {
             if (victim.CompareTag("Player"))
             {
-                victim.GetComponentInChildren<PlayerManager>()?.OnAttacked((int)damage);
+                victim.GetComponentInChildren<PlayerManager>()?.OnAttacked(damage);
                 gameObject.SetActive(false);
             }
             else
@@ -113,7 +113,7 @@ namespace DimensionCollapse
         {
             if (victim.CompareTag("Player"))
             {
-                victim.GetComponentInChildren<PlayerManager>()?.OnAttacked((int)damage);
+                victim.GetComponentInChildren<PlayerManager>()?.OnAttacked(damage);
                 gameObject.SetActive(false);
             }
             else
