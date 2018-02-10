@@ -31,11 +31,15 @@ namespace DimensionCollapse
             {
                 GetComponent<DragItem>().enabled = false;
             }
+        }
+
+        void Update(){
             if (PlayerManager.LocalPlayerInstance != null)
             {
                 inventory = PlayerManager.LocalPlayerInstance.GetComponent<Inventory>();
             }
-            else {
+            else
+            {
                 Debug.Log("null LocalPlayerInstance");
             }
         }
