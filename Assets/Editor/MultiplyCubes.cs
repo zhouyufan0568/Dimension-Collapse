@@ -405,7 +405,7 @@ public class MultiplyCubes : EditorWindow {
         if (rename) {
             cubeName = EditorGUILayout.TextField(cubeName);
             if (GUILayout.Button("Rename", GUILayout.ExpandWidth(true))) {
-                Rename(selected,cubeName);
+                Rename(selected);
             }
         }
 
@@ -1578,13 +1578,17 @@ public class MultiplyCubes : EditorWindow {
 		}
 	}
 
-    private void Rename(Transform[] selected,string name)
+    private void Rename(Transform[] selected)
     {
-        foreach (Transform t in selected) {
+        foreach (Transform t in selected)
+        {
             t.name = name;
             //t.GetChild(0).GetComponent<DragItem>().containerImage = t.GetComponent<Image>();
             //t.GetChild(0).GetComponent<DragItem>().receivingImage = t.GetChild(0).GetComponent<Image>();
         }
+        //for (int i = 0; i < selected[0].childCount; i++) {
+        //    selected[0].GetChild(i).GetChild(0).tag = "UIItem";
+        //}
     }
 
     private void SupplyPointsToFile()

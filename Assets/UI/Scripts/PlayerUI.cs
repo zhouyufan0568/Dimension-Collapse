@@ -192,7 +192,7 @@ namespace DimensionCollapse
 
             if (_target.isAlive == false&&dynamicUI.GetActive()==true) {
 				dynamicUI.SetActive (false);
-			}else if(_target.isAlive == true&&GameObject.Find ("DynamicUI")==false){
+			}else if(_target.isAlive == true&&dynamicUI.GetActive()==false){
 				dynamicUI.SetActive (true);
 			}
 

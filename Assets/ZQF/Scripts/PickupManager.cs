@@ -113,6 +113,7 @@ public class PickupManager : MonoBehaviour
         ///weaponGO.GetComponent<Item>().Picked = true;
 
         playerManager.itemInHand = weaponGO.GetComponent<Weapon>();
+        playerManager.inventory.ItemList.Add(weaponGO);
 
         //Commented by SWT.
         //Shoot脚本已被删除。功能移到RPCManager中了。

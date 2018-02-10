@@ -19,15 +19,6 @@ namespace DimensionCollapse {
 		[Tooltip("The current direction of our player")]
         public float Direction;
 
-		[Tooltip("The current equipbar of our player")]
-		public GameObject[] equipbar;
-
-		[Tooltip("The current equipbar of our player")]
-		public GameObject[] skillbar;
-
-		[Tooltip("The current equipbar of our player")]
-		public GameObject[] itembar;
-
 		[Tooltip("The prefab to use for representing the player")]
 		public GameObject playerPrefab;
 
@@ -49,10 +40,6 @@ namespace DimensionCollapse {
 		public int numOfkill=0;
         //背包
         public Inventory inventory;
-
-		public GameObject[] backpack;
-		public GameObject[] equipBar;
-		public GameObject[] skills;
 
         /// <summary>
         /// The item in player's hands.
