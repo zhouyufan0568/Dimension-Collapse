@@ -113,6 +113,8 @@ public class PickupManager : MonoBehaviour
         weaponGO.transform.localEulerAngles = Vector3.zero;
         ///weaponGO.GetComponent<Item>().Picked = true;
 
+		playerManager.itemInHand = weaponGO.GetComponent<Item> ();
+
         //Commented by SWT.
         //Shoot脚本已被删除。功能移到RPCManager中了。
         //mWeaponPanel.GetComponent<Shoot>().weapon = weaponGO.GetComponent<Weapon>();
