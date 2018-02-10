@@ -48,4 +48,5 @@ MonoBehaviour:
   - UseItemInHand
   - DropHandItem
   - PickUpItem
+  - ThrowItemInHand
   DisableAutoOpenWizard: 1

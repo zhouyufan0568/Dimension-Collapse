@@ -52,7 +52,8 @@ public class PickupManager : MonoBehaviour
                 Item item = currentItem.GetComponent<Item>();
                 if (item != null && !item.Picked)
                 {
-                    if (item is Weapon && mWeaponPanel.childCount == 0)
+                    ///Modified by SWT
+                    if ((item is Weapon || item is Missile) && mWeaponPanel.childCount == 0)
                     {
                         EquipeWeapon(currentItem.gameObject);
                     }
@@ -111,9 +112,6 @@ public class PickupManager : MonoBehaviour
         weaponGO.transform.localPosition = Vector3.zero;
         weaponGO.transform.localEulerAngles = Vector3.zero;
         ///weaponGO.GetComponent<Item>().Picked = true;
-
-        playerManager.itemInHand = weaponGO.GetComponent<Weapon>();
-        playerManager.inventory.ItemList.Add(weaponGO);
 
         //Commented by SWT.
         //Shoot脚本已被删除。功能移到RPCManager中了。
