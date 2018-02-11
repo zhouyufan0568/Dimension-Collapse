@@ -23,6 +23,7 @@ namespace DimensionCollapse
         public Vector3[] SupplyPoints;
 
         private Dictionary<int, int> supplyPointIndexToItemId;
+        private Item[] items;
 
         private void Awake()
         {
@@ -78,46 +79,59 @@ namespace DimensionCollapse
 
         private void Start()
         {
+            ItemManager.INSTANCE.ResetItemCollection();
             if (PhotonNetwork.isMasterClient)
             {
-                supplyPointIndexToItemId = new Dictionary<int, int>(SupplyPoints.Length);
                 for (int i = 0; i < SupplyPoints.Length; i++)
                 {
-                    supplyPointIndexToItemId[i] = ItemManager.INSTANCE.GetRandomItemPrefab().ID;
+                    Vector3 position = SupplyPoints[i];
+                    Quaternion rotation = Quaternion.identity;
+                    string itemName = ItemManager.INSTANCE.GetRandomItemName();
+                    ItemManager.INSTANCE.AddIntoItemCollection(PhotonNetwork.InstantiateSceneObject(itemName, position, rotation, 0, null));
                 }
+            }
+            //if (PhotonNetwork.isMasterClient)
+            //{
+            //    supplyPointIndexToItemId = new Dictionary<int, int>(SupplyPoints.Length);
+            //    for (int i = 0; i < SupplyPoints.Length; i++)
+            //    {
+            //        supplyPointIndexToItemId[i] = ItemManager.INSTANCE.GetRandomItemPrefab().ID;
+            //    }
 
-                ExitGames.Client.Photon.Hashtable hashtable = new ExitGames.Client.Photon.Hashtable
-                {
-                    { KEY, supplyPointIndexToItemId }
-                };
-                PhotonNetwork.room.SetCustomProperties(hashtable);
-            }
-            else
-            {
-                try
-                {
-                    supplyPointIndexToItemId = (Dictionary<int, int>)Convert.ChangeType(PhotonNetwork.room.CustomProperties[KEY], typeof(Dictionary<int, int>));
-                }
-                catch (Exception e)
-                {
-                    Debug.Log("Can't obtain items to be spawn. There will be no item in the map of current client.");
-                    supplyPointIndexToItemId = new Dictionary<int, int>(SupplyPoints.Length);
-                    for (int i = 0; i < SupplyPoints.Length; i++)
-                    {
-                        supplyPointIndexToItemId[i] = -1;
-                    }
-                }
-            }
+            //    ExitGames.Client.Photon.Hashtable hashtable = new ExitGames.Client.Photon.Hashtable
+            //    {
+            //        { KEY, supplyPointIndexToItemId }
+            //    };
+            //    PhotonNetwork.room.SetCustomProperties(hashtable);
+            //}
+            //else
+            //{
+            //    try
+            //    {
+            //        supplyPointIndexToItemId = (Dictionary<int, int>)Convert.ChangeType(PhotonNetwork.room.CustomProperties[KEY], typeof(Dictionary<int, int>));
+            //    }
+            //    catch (Exception e)
+            //    {
+            //        Debug.Log("Can't obtain items to be spawn. There will be no item in the map of current client.");
+            //        supplyPointIndexToItemId = new Dictionary<int, int>(SupplyPoints.Length);
+            //        for (int i = 0; i < SupplyPoints.Length; i++)
+            //        {
+            //            supplyPointIndexToItemId[i] = -1;
+            //        }
+            //    }
+            //}
 
-            ItemManager.INSTANCE.ResetItemCollection();
-            for (int i = 0; i < SupplyPoints.Length; i++)
-            {
-                Item item = ItemManager.INSTANCE.InstantiateItemById(supplyPointIndexToItemId[i]);
-                item.transform.SetPositionAndRotation(
-                    SupplyPoints[i],
-                    Quaternion.Euler(0, UnityEngine.Random.Range(0, 360), 0)
-                    );
-            }
+            //ItemManager.INSTANCE.ResetItemCollection();
+            //items = new Item[SupplyPoints.Length];
+            //for (int i = 0; i < SupplyPoints.Length; i++)
+            //{
+            //    Item item = ItemManager.INSTANCE.InstantiateItemById(supplyPointIndexToItemId[i]);
+            //    item.transform.SetPositionAndRotation(
+            //        SupplyPoints[i],
+            //        Quaternion.Euler(0, UnityEngine.Random.Range(0, 360), 0)
+            //        );
+            //    items[i] = item;
+            //}
         }
     }
 }
