@@ -22,7 +22,7 @@ namespace DimensionCollapse
 
         private ItemManager()
         {
-            Item[] items = Resources.LoadAll<Item>("Items");
+            Item[] items = Resources.LoadAll<Item>("Items/Resources");
             StringBuilder builder = new StringBuilder("Item list:\n");
             foreach (var item in items)
             {
@@ -44,6 +44,11 @@ namespace DimensionCollapse
             return idToItemPrefab.ContainsKey(id) ? idToItemPrefab[id] : null;
         }
 
+        public string GetItemNameById(int id)
+        {
+            return GetItemPrefabById(id).name;
+        }
+
         public int GetItemCount()
         {
             return idToItemPrefab.Keys.Count;
@@ -52,6 +57,11 @@ namespace DimensionCollapse
         public Item GetRandomItemPrefab()
         {
             return idToItemPrefab.Values.ElementAt(random.Next(0, GetItemCount()));
+        }
+
+        public string GetRandomItemName()
+        {
+            return GetRandomItemPrefab().name;
         }
 
         public Item GetRandomItemPrefabNullable(float pForNull)
@@ -69,23 +79,9 @@ namespace DimensionCollapse
             itemCollection = new GameObject("Items");
         }
 
-        public void AddIntoItemCollection(Item item)
+        public void AddIntoItemCollection(GameObject item)
         {
             item.transform.parent = itemCollection.transform;
-        }
-
-        public Item InstantiateItemById(int id)
-        {
-            if (idToItemPrefab.ContainsKey(id))
-            {
-                Item item = Object.Instantiate(idToItemPrefab[id]);
-                AddIntoItemCollection(item);
-                return item;
-            }
-            else
-            {
-                return null;
-            }
         }
     }
 }

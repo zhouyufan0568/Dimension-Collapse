@@ -64,6 +64,7 @@ namespace DimensionCollapse
             {
                 rigidbody = gameObject.AddComponent<Rigidbody>();
             }
+            rigidbody.constraints = RigidbodyConstraints.None;
             rigidbody.AddForce(force, ForceMode.Impulse);
 
             StartCoroutine(ExplodeCoroutine());
@@ -73,7 +74,8 @@ namespace DimensionCollapse
         {
             yield return new WaitForSeconds(timeBeforeExplode - chargeTime);
             OnExplode();
-            Destroy(gameObject, timeBeforeDisappear);
+            yield return new WaitForSeconds(timeBeforeDisappear);
+            PhotonNetwork.Destroy(gameObject);
         }
 
         private void OnExplode()
@@ -106,7 +108,7 @@ namespace DimensionCollapse
             Rigidbody[] rigidbodys = GetComponents<Rigidbody>();
             foreach (var rigidbody in rigidbodys)
             {
-                Destroy(rigidbody);
+                ItemUtils.FreezeRigidbody(rigidbody);
             }
             Picked = true;
         }
@@ -118,7 +120,7 @@ namespace DimensionCollapse
             {
                 collider.enabled = true;
             }
-            gameObject.AddComponent<Rigidbody>();
+            ItemUtils.FreezeRigidbodyWithoutPositionY(GetComponent<Rigidbody>());
             Picked = false;
         }
     }

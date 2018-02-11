@@ -51,5 +51,16 @@ namespace DimensionCollapse {
         {
             return obj.CompareTag("Player");
         }
+
+        public static void FreezeRigidbody(Rigidbody rigidbody)
+        {
+            rigidbody.velocity = Vector3.zero;
+            rigidbody.constraints = RigidbodyConstraints.FreezeAll;
+        }
+
+        public static void FreezeRigidbodyWithoutPositionY(Rigidbody rigidbody)
+        {
+            rigidbody.constraints = RigidbodyConstraints.FreezeAll ^ RigidbodyConstraints.FreezePositionY;
+        }
     }
 }
