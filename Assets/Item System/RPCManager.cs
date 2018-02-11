@@ -49,7 +49,15 @@ namespace DimensionCollapse
                 photonView.RPC("CastSkillTwo", PhotonTargets.All);
             }
         }
-        
+
+        public void SpaceGunAttackEndRPC()
+        {
+            if (photonView.isMine)
+            {
+                photonView.RPC("SpaceGunAttackEnd", PhotonTargets.All);
+            }
+        }
+
         public void PickUpItemRPC()
         {
             if (photonView.isMine)
@@ -78,6 +86,12 @@ namespace DimensionCollapse
         {
             Item item = playerManager.itemInHand;
             (item as Missile)?.Throw(force);
+        }
+
+        [PunRPC]
+        private void SpaceGunAttackEnd()
+        {
+            (playerManager.itemInHand as SpaceGun)?.AttackEnd();
         }
 
         [PunRPC]

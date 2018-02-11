@@ -16,14 +16,14 @@ namespace DimensionCollapse {
 
         public static Camera LocalPlayerMainCamera;
 
-		[Tooltip("The current direction of our player")]
+        [Tooltip("The current direction of our player")]
         public float Direction;
 
-		[Tooltip("The prefab to use for representing the player")]
-		public GameObject playerPrefab;
+        [Tooltip("The prefab to use for representing the player")]
+        public GameObject playerPrefab;
 
-		[Tooltip("The prefab to use for representing dead state of the player")]
-		public GameObject GhostPlayerfab;
+        [Tooltip("The prefab to use for representing dead state of the player")]
+        public GameObject GhostPlayerfab;
 
         /// <summary>
         /// The main camera of this player.
@@ -36,12 +36,12 @@ namespace DimensionCollapse {
 
         public float maxChargeForce = 50f;
 
-		public bool isAlive;
+        public bool isAlive;
 
-		public float maxHealth = 200;
-		public float health;
+        public float maxHealth = 200;
+        public float health;
 
-		public int numOfkill=0;
+        public int numOfkill = 0;
         //背包
         public Inventory inventory;
 
@@ -56,6 +56,12 @@ namespace DimensionCollapse {
         /// </summary>
         public Skill skillOne;
         public Skill skillTwo;
+
+        public static Dictionary<GameObject, PlayerManager> playerToPlayerManager;
+        static PlayerManager()
+        {
+            playerToPlayerManager = new Dictionary<GameObject, PlayerManager>();
+        }
 
         #endregion
 
@@ -93,6 +99,7 @@ namespace DimensionCollapse {
                 PlayerManager.LocalPlayerMainCamera = camera;
             }
 
+            playerToPlayerManager.Add(gameObject, this);
         }
 
         // Use this for initialization
