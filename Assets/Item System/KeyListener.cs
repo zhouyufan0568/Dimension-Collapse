@@ -48,6 +48,12 @@ namespace DimensionCollapse
                     Vector3 force = missile.OnChargeEnd();
                     rpcManager.ThrowItemInHandRPC(force);
                 }
+
+                SpaceGun spaceGun = playerManager.itemInHand as SpaceGun;
+                if (spaceGun != null)
+                {
+                    rpcManager.SpaceGunAttackEndRPC();
+                }
             }
 
             if (Input.GetKeyDown(KeyCode.J))

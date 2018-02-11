@@ -1,0 +1,170 @@
+fileFormatVersion: 2
+guid: 2ef119ac0109e1f4988d866d59d4bd50
+timeCreated: 1518333470
+licenseType: Free
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: Capsule001
+    100002: ChamferBox001
+    100004: ChamferCyl001
+    100006: Cone001
+    100008: Cone002
+    100010: //RootNode
+    100012: Sphere001
+    100014: Sphere002
+    100016: Sphere003
+    100018: Sphere004
+    100020: Torus001
+    100022: Torus002
+    100024: Torus003
+    100026: Tube001
+    100028: Tube002
+    100030: Tube003
+    400000: Capsule001
+    400002: ChamferBox001
+    400004: ChamferCyl001
+    400006: Cone001
+    400008: Cone002
+    400010: //RootNode
+    400012: Sphere001
+    400014: Sphere002
+    400016: Sphere003
+    400018: Sphere004
+    400020: Torus001
+    400022: Torus002
+    400024: Torus003
+    400026: Tube001
+    400028: Tube002
+    400030: Tube003
+    2100000: 01 - Default
+    2100002: 02 - Default
+    2100004: No Name
+    2100006: 03 - Default
+    2100008: 07 - Default
+    2100010: 08 - Default
+    2300000: Capsule001
+    2300002: ChamferBox001
+    2300004: ChamferCyl001
+    2300006: Cone001
+    2300008: Cone002
+    2300010: Sphere001
+    2300012: Sphere002
+    2300014: Sphere003
+    2300016: Sphere004
+    2300018: Torus001
+    2300020: Torus002
+    2300022: Torus003
+    2300024: Tube001
+    2300026: Tube002
+    2300028: Tube003
+    3300000: Capsule001
+    3300002: ChamferBox001
+    3300004: ChamferCyl001
+    3300006: Cone001
+    3300008: Cone002
+    3300010: Sphere001
+    3300012: Sphere002
+    3300014: Sphere003
+    3300016: Sphere004
+    3300018: Torus001
+    3300020: Torus002
+    3300022: Torus003
+    3300024: Tube001
+    3300026: Tube002
+    3300028: Tube003
+    4300000: Sphere001
+    4300002: Cone001
+    4300004: Tube001
+    4300006: Torus001
+    4300008: Torus002
+    4300010: Torus003
+    4300012: Tube002
+    4300014: Sphere002
+    4300016: Capsule001
+    4300018: ChamferCyl001
+    4300020: ChamferBox001
+    4300022: Tube003
+    4300024: Sphere003
+    4300026: Cone002
+    4300028: Sphere004
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

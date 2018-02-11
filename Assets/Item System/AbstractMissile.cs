@@ -33,11 +33,11 @@ namespace DimensionCollapse
             if (isCharging)
             {
                 chargeTime += Time.deltaTime;
-                if (chargeTime >= maxChargeTime)
-                {
-                    chargeTime = maxChargeTime;
-                    OnChargeEnd();
-                }
+                //if (chargeTime >= maxChargeTime)
+                //{
+                //    chargeTime = maxChargeTime;
+                //    OnChargeEnd();
+                //}
             }
         }
 
