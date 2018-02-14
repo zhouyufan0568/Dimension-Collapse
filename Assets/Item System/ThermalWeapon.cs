@@ -179,6 +179,7 @@ namespace DimensionCollapse
             }
 
             Ray raycastDir = ownerCamera.ScreenPointToRay(screenCenter);
+            Debug.DrawRay(gunpoint.position, raycastDir.direction * 1000);
             Vector3 bulletDir = Vector3.zero;
             if (Physics.Raycast(raycastDir, out hitInfo, effectiveRange, raycastLayerMask))
             {
@@ -186,13 +187,22 @@ namespace DimensionCollapse
             }
             else
             {
-                bulletDir = raycastDir.direction.normalized;
+                bulletDir = ownerCamera.transform.forward;
             }
 
             GameObject bullet = bulletPool.Next(false);
             bullet.transform.position = gunpoint.position;
             bullet.transform.rotation = Quaternion.LookRotation(bulletDir);
-            bullet.GetComponent<SimpleBullet>().damage = damage;
+            SimpleBullet simpleBullet = bullet.GetComponent<SimpleBullet>();
+            if (simpleBullet != null)
+            {
+                simpleBullet.damage = damage;
+            }
+            SimpleBall simpleBall = bullet.GetComponent<SimpleBall>();
+            if (simpleBall != null)
+            {
+                simpleBall.damage = damage;
+            }
             Rigidbody rigidbody = bullet.GetComponent<Rigidbody>();
             rigidbody.velocity = Vector3.zero;
             rigidbody.angularVelocity = Vector3.zero;
@@ -235,8 +245,14 @@ namespace DimensionCollapse
             }
         }
 
+        public override bool CanAttack()
+        {
+            return shootStrategies[strategyUsingIndex].CanShoot();
+        }
+
         private interface IShootStrategy
         {
+            bool CanShoot();
             void Fire();
         }
 
@@ -252,12 +268,17 @@ namespace DimensionCollapse
                 lastShootTime = -interval;
             }
 
-            public void Fire()
+            public bool CanShoot()
             {
                 float currentTime = Time.time;
-                if (currentTime - lastShootTime >= interval)
+                return currentTime - lastShootTime >= interval;
+            }
+
+            public void Fire()
+            {
+                if (CanShoot())
                 {
-                    lastShootTime = currentTime;
+                    lastShootTime = Time.time;
                     weapon.ShootSingleBullet();
                 }
             }
@@ -279,12 +300,17 @@ namespace DimensionCollapse
                 lastBurstTime = -intervalBetweenBurst;
             }
 
-            public void Fire()
+            public bool CanShoot()
             {
                 float currentTime = Time.time;
-                if (currentTime - lastBurstTime >= intervalBetweenBurst)
+                return currentTime - lastBurstTime >= intervalBetweenBurst;
+            }
+
+            public void Fire()
+            {
+                if (CanShoot())
                 {
-                    lastBurstTime = currentTime;
+                    lastBurstTime = Time.time;
                     weapon.StartCoroutine(Burst());
                 }
             }
@@ -297,14 +323,6 @@ namespace DimensionCollapse
                     yield return new WaitForSeconds(intervalBetweenShoot);
                     weapon.ShootSingleBullet();
                 }
-            }
-        }
-
-        private class FullAutomaticShootStrategy : IShootStrategy
-        {
-            public void Fire()
-            {
-                throw new System.NotImplementedException();
             }
         }
     }

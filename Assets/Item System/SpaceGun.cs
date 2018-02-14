@@ -48,10 +48,7 @@ namespace DimensionCollapse
             lineRenderer.SetPosition(0, gunpoint.position);
             lineRenderer.SetPosition(1, lazerEnd);
 
-            if (soundEffect != null)
-            {
-                soundEffect.Play();
-            }
+            ItemUtils.Play(soundEffect);
         }
 
         public void AttackEnd()
@@ -88,6 +85,11 @@ namespace DimensionCollapse
             }
             ItemUtils.FreezeRigidbodyWithoutPositionY(GetComponent<Rigidbody>());
             Picked = false;
+        }
+
+        public override bool CanAttack()
+        {
+            return true;
         }
     }
 }

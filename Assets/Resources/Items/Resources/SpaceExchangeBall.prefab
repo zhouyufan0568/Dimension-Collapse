@@ -259,7 +259,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: Space Exchange Ball
-  ID: 5002
+  ID: 2
   Picked: 0
   cooldownTimeTotal: 10
   ball: {fileID: 1711370382243056, guid: 2d8b73d94248da746b401dfaab6437c6, type: 2}

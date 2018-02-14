@@ -164,7 +164,7 @@ namespace DimensionCollapse
         {
             private readonly TwinArray<GameObject> pool;
             private readonly GameObject prefab;
-            public ObjectPool(GameObject prefab, int capacity, bool instantFill = false)
+            public ObjectPool(GameObject prefab, int capacity, bool instantFill = false, GameObject parent = null)
             {
                 if (prefab == null || capacity <= 0)
                 {
@@ -179,7 +179,10 @@ namespace DimensionCollapse
                 else
                 {
                     GameObject[] objs = new GameObject[capacity];
-                    GameObject parent = new GameObject("Object Pool(" + prefab.name + " * " + capacity + ")");
+                    if (parent == null)
+                    {
+                        parent = new GameObject("Object Pool(" + prefab.name + " * " + capacity + ")");
+                    }
                     for (int i = 0; i < capacity; i++)
                     {
                         GameObject obj = Instantiate(prefab);

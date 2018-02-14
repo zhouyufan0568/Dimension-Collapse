@@ -158,6 +158,7 @@ namespace DimensionCollapse {
 
 		public void OnAttacked(float primaryDamage)
 		{
+            CountVisualizeManager.INSTANCE.ShowDamageCount(primaryDamage, transform);
 			if (!photonView.isMine)
 			{
 				return;
@@ -183,6 +184,11 @@ namespace DimensionCollapse {
         /// <param name="interval">治愈间隔</param>
         public void OnHeal(float healing, float duration, float interval)
         {
+            if (Mathf.Approximately(duration, 0f) || Mathf.Approximately(interval, 0f))
+            {
+                CountVisualizeManager.INSTANCE.ShowHealingCount(healing, transform);
+            }
+
             if (!photonView.isMine)
             {
                 return;
@@ -200,11 +206,11 @@ namespace DimensionCollapse {
 
         private IEnumerator HealCoroutine(float healingPerInterval, float interval, int count)
         {
-            this.health += healingPerInterval;
-            while (--count > 0)
+            while (count-- > 0)
             {
-                yield return new WaitForSeconds(interval);
                 this.health += healingPerInterval;
+                CountVisualizeManager.INSTANCE.ShowHealingCount(healingPerInterval, transform);
+                yield return new WaitForSeconds(interval);
             }
         }
 

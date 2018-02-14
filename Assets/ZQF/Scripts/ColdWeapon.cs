@@ -9,4 +9,9 @@ public class ColdWeapon : Weapon
     {
         throw new System.NotImplementedException();
     }
+
+    public override bool CanAttack()
+    {
+        throw new System.NotImplementedException();
+    }
 }
