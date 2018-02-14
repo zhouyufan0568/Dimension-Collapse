@@ -29,13 +29,18 @@ namespace DimensionCollapse
             {
                 if (playerManager.itemInHand != null)
                 {
-                    if (!(playerManager.itemInHand is Missile))
-                    {
-                        rpcManager.UseItemInHandRPC();
-                    }
-                    else
+                    if (playerManager.itemInHand is Missile)
                     {
                         (playerManager.itemInHand as Missile)?.OnCharge();
+                        
+                    }
+                    else if (playerManager.itemInHand is Weapon)
+                    {
+                        Weapon weapon = playerManager.itemInHand as Weapon;
+                        if (weapon.CanAttack())
+                        {
+                            rpcManager.UseItemInHandRPC();
+                        }
                     }
                 }
             }

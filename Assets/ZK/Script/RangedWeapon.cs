@@ -101,7 +101,7 @@ namespace DimensionCollapse
         {
 
             //当前间隔大于武器射速间隔时，才进行射击
-            if (currentInterval > Interval)
+            if (CanAttack())
             {
                 //且现有子弹大于0
                 if (CurrentChanger > 0)
@@ -261,6 +261,11 @@ namespace DimensionCollapse
             }
             ItemUtils.FreezeRigidbodyWithoutPositionY(GetComponent<Rigidbody>());
             Picked = false;
+        }
+
+        public override bool CanAttack()
+        {
+            return currentInterval > Interval;
         }
     }
 }
