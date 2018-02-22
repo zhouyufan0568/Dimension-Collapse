@@ -50,4 +50,5 @@ MonoBehaviour:
   - PickUpItem
   - ThrowItemInHand
   - SpaceGunAttackEnd
+  - SwitchItemInHand
   DisableAutoOpenWizard: 1

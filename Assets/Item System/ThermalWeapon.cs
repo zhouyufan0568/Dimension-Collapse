@@ -203,6 +203,11 @@ namespace DimensionCollapse
             {
                 simpleBall.damage = damage;
             }
+            ExplosiveBall explosiveBall = bullet.GetComponent<ExplosiveBall>();
+            if (explosiveBall != null)
+            {
+                explosiveBall.centerDamage = damage;
+            }
             Rigidbody rigidbody = bullet.GetComponent<Rigidbody>();
             rigidbody.velocity = Vector3.zero;
             rigidbody.angularVelocity = Vector3.zero;

@@ -22,26 +22,11 @@ public class PickupManager : MonoBehaviour
         mCamera = mCenter.Find("Camera");
     }
 
-    // Update is called once per frame
-    //void Update()
-    //{
-        
-    //    if (Input.GetKeyDown(KeyCode.E))
-    //    {
-    //        PickItem();
-    //    }
-    //    if (Input.GetKeyUp(KeyCode.Q))
-    //    {
-    //        DropHandItem();
-    //    }
-    //}
-
-    public void PickItem()
+    public int PickItem()
     {
         Vector3 forward = mCamera.TransformDirection(Vector3.forward);
         if (Physics.Raycast(mCamera.position, forward, out hit, 5f))
         {
-
             Debug.DrawLine(mCamera.position, hit.point, Color.red);//划出射线，只有在scene视图中才能看到
             Vector3 forward2 = mCenter.TransformDirection(Vector3.forward);
             if (Physics.Raycast(mCenter.position, forward2, out hit, 7f))
@@ -52,19 +37,39 @@ public class PickupManager : MonoBehaviour
                 Item item = currentItem.GetComponent<Item>();
                 if (item != null && !item.Picked)
                 {
-                    ///Modified by SWT
-                    if ((item is Weapon || item is Missile) && mWeaponPanel.childCount == 0)
+                    PhotonView photonView = item.GetComponent<PhotonView>();
+                    if (photonView != null)
                     {
-                        EquipeWeapon(currentItem.gameObject);
+                        return photonView.viewID;
                     }
-                    else
-                    {
-                        if (playerManager.inventory.AddItem(currentItem.gameObject))
-                        {
-                            ///item.Picked = true;
-                            currentItem.SetActive(false);
-                        }
-                    }
+                }
+            }
+        }
+        return -1;
+    }
+
+    public void PickItemCore(int photonViewId)
+    {
+        PhotonView photonView = PhotonView.Find(photonViewId);
+        if (photonView != null)
+        {
+            Item item = photonView.GetComponent<Item>();
+            if (item == null)
+            {
+                return;
+            }
+
+            item.OnPickedUp(playerManager);
+
+            if ((item is Weapon || item is Missile) && mWeaponPanel.childCount == 0)
+            {
+                EquipeWeapon(currentItem.gameObject);
+            }
+            else
+            {
+                if (playerManager.inventory.AddItem(currentItem.gameObject))
+                {
+                    currentItem.SetActive(false);
                 }
             }
         }
@@ -80,16 +85,8 @@ public class PickupManager : MonoBehaviour
             mWeaponPanel.DetachChildren();
             playerManager.itemInHand = null;
             weapon.GetComponent<Item>().OnThrown();
-            ///weapon.GetComponent<Collider>().enabled = true;
             weapon.transform.Rotate(weapon.transform.up, -90, Space.World);
-            ///Rigidbody weaponRigid = weapon.AddComponent<Rigidbody>();
-            ///weaponRigid.useGravity = true;
-            ///weaponRigid.isKinematic = false;
             weapon.GetComponent<Rigidbody>().AddForce(forward.normalized * 100f);
-            ///weapon.GetComponent<Weapon>().Picked = false;
-            //Commented by SWT.
-            //Shoot脚本已被删除。功能移到RPCManager中了。
-            //mWeaponPanel.GetComponent<Shoot>().weapon = null;
 
             GameObject newWeapon = playerManager.inventory.GetNextWeapon();
             if (newWeapon != null && mWeaponPanel.childCount == 0)
@@ -101,23 +98,12 @@ public class PickupManager : MonoBehaviour
         }
     }
 
-    private void EquipeWeapon(GameObject weaponGO)
+    public void EquipeWeapon(GameObject weaponGO)
     {
-        ///Destroy(weaponGO.GetComponent<Rigidbody>());
-        ///weaponGO.GetComponent<Collider>().enabled = false;
-        //Debug.Log("Remove rigid");
-        weaponGO.GetComponent<Item>().OnPickedUp(playerManager);
-
         weaponGO.transform.parent = mWeaponPanel;
         weaponGO.transform.localPosition = Vector3.zero;
         weaponGO.transform.localEulerAngles = Vector3.zero;
-        ///weaponGO.GetComponent<Item>().Picked = true;
 
 		playerManager.itemInHand = weaponGO.GetComponent<Item> ();
-
-        //Commented by SWT.
-        //Shoot脚本已被删除。功能移到RPCManager中了。
-        //mWeaponPanel.GetComponent<Shoot>().weapon = weaponGO.GetComponent<Weapon>();
     }
-
 }

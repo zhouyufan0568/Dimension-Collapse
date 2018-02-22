@@ -62,7 +62,11 @@ namespace DimensionCollapse
         {
             if (photonView.isMine)
             {
-                photonView.RPC("PickUpItem", PhotonTargets.All);
+                int photonViewId = pickupManager.PickItem();
+                if (photonViewId != -1)
+                {
+                    photonView.RPC("PickUpItem", PhotonTargets.All, photonViewId);
+                }
             }
         }
 
@@ -71,6 +75,14 @@ namespace DimensionCollapse
             if (photonView.isMine)
             {
                 photonView.RPC("DropHandItem", PhotonTargets.All);
+            }
+        }
+
+        public void SwitchItemInHandRPC()
+        {
+            if (photonView.isMine)
+            {
+                photonView.RPC("SwitchItemInHand", PhotonTargets.All);
             }
         }
 
@@ -111,11 +123,17 @@ namespace DimensionCollapse
             (skill as NondirectiveSkill).Cast();
         }
 
+        [PunRPC]
+        private void SwitchItemInHand()
+        {
+            playerManager.SwitchItemInHand();
+        }
+
         #region function add by ZQF
         [PunRPC]
-        private void PickUpItem()
+        private void PickUpItem(int photonViewId)
         {
-            pickupManager.PickItem();
+            pickupManager.PickItemCore(photonViewId);
         }
         [PunRPC]
         private void DropHandItem()

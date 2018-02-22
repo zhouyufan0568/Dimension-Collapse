@@ -89,7 +89,7 @@ GameObject:
   - component: {fileID: 198311945890952450}
   - component: {fileID: 135659704473094296}
   - component: {fileID: 54552476191068800}
-  - component: {fileID: 114235805378846886}
+  - component: {fileID: 114473940469376420}
   - component: {fileID: 114332139227762108}
   m_Layer: 10
   m_Name: Flower Wand Bullet
@@ -244,20 +244,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &114235805378846886
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1775891710288658}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 80f5cd997d28ac64b86d266c7a9e6abe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 0
-  hitViewEffect: {fileID: 198008751093909530, guid: a92a42a2125977345a54e9b8306b5880,
-    type: 2}
 --- !u!114 &114332139227762108
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -270,6 +256,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeOutDuration: 0.3
+--- !u!114 &114473940469376420
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1775891710288658}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77e0ad7ac38d1bc4aa86644dfb6bb65a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  centerDamage: 0
+  effectiveRadius: 2.5
+  impactForce: 0
+  hitViewEffect: {fileID: 198008751093909530, guid: a92a42a2125977345a54e9b8306b5880,
+    type: 2}
 --- !u!135 &135659704473094296
 SphereCollider:
   m_ObjectHideFlags: 1
