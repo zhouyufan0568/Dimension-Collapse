@@ -74,6 +74,14 @@ namespace DimensionCollapse
             }
         }
 
+        public void SwitchItemInHandRPC()
+        {
+            if (photonView.isMine)
+            {
+                photonView.RPC("SwitchItemInHand", PhotonTargets.All);
+            }
+        }
+
         [PunRPC]
         private void UseItemInHand()
         {
@@ -109,6 +117,12 @@ namespace DimensionCollapse
         private void CastSkill(Skill skill)
         {
             (skill as NondirectiveSkill).Cast();
+        }
+
+        [PunRPC]
+        private void SwitchItemInHand()
+        {
+            playerManager.SwitchItemInHand();
         }
 
         #region function add by ZQF

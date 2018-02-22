@@ -43,7 +43,10 @@ namespace DimensionCollapse {
 
         public int numOfkill = 0;
         //背包
+        [ReadOnlyInInspector]
         public Inventory inventory;
+        [ReadOnlyInInspector]
+        public PickupManager pickupManager;
 
         /// <summary>
         /// The item in player's hands.
@@ -88,6 +91,8 @@ namespace DimensionCollapse {
             }
 
             inventory = GetComponent<Inventory>();
+
+            pickupManager = GetComponent<PickupManager>();
 
             impactReceiver = GetComponent<ImpactReceiver>();
 
@@ -236,6 +241,21 @@ namespace DimensionCollapse {
             if (photonView.isMine)
             {
                 impactReceiver.AddImpact(direction, magnitude);
+            }
+        }
+
+        public void SwitchItemInHand()
+        {
+            GameObject next = inventory.GetNextItem();
+            if (next != null)
+            {
+                if (itemInHand != null)
+                {
+                    itemInHand.gameObject.SetActive(false);
+                    inventory.AddItem(itemInHand.gameObject);
+                }
+                next.SetActive(true);
+                pickupManager.EquipeWeapon(next);
             }
         }
 		#endregion

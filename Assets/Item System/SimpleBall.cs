@@ -13,14 +13,8 @@ namespace DimensionCollapse
         public ParticleSystem hitViewEffect;
 
         private new Collider collider;
-        private new Rigidbody rigidbody;
 
         private bool IsAggressive;
-
-        private void Awake()
-        {
-            rigidbody = GetComponent<Rigidbody>();
-        }
 
         private void OnEnable()
         {

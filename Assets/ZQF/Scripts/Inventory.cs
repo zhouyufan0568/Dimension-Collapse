@@ -28,6 +28,7 @@ namespace DimensionCollapse
             ItemList.Add(item);
             return true;
         }
+
         public int RemoveItem(GameObject item)
         {
             if (ItemList.Contains(item))
@@ -41,10 +42,24 @@ namespace DimensionCollapse
                 return pos;
             }
         }
+
         public int GetListCount()
         {
             return ItemList.Count;
         }
+
+        public GameObject GetNextItem()
+        {
+            if (ItemList.Capacity > 0)
+            {
+                GameObject item = ItemList[0];
+                ItemList.RemoveAt(0);
+                return item;
+            }
+
+            return null;
+        }
+
         public GameObject GetNextWeapon()
         {
             for (int i = 0; i < ItemList.Count; i++)
