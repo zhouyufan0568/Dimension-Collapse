@@ -62,7 +62,11 @@ namespace DimensionCollapse
         {
             if (photonView.isMine)
             {
-                photonView.RPC("PickUpItem", PhotonTargets.All);
+                int photonViewId = pickupManager.PickItem();
+                if (photonViewId != -1)
+                {
+                    photonView.RPC("PickUpItem", PhotonTargets.All, photonViewId);
+                }
             }
         }
 
@@ -127,9 +131,9 @@ namespace DimensionCollapse
 
         #region function add by ZQF
         [PunRPC]
-        private void PickUpItem()
+        private void PickUpItem(int photonViewId)
         {
-            pickupManager.PickItem();
+            pickupManager.PickItemCore(photonViewId);
         }
         [PunRPC]
         private void DropHandItem()

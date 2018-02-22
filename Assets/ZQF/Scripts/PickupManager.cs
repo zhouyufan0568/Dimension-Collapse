@@ -22,7 +22,7 @@ public class PickupManager : MonoBehaviour
         mCamera = mCenter.Find("Camera");
     }
 
-    public void PickItem()
+    public int PickItem()
     {
         Vector3 forward = mCamera.TransformDirection(Vector3.forward);
         if (Physics.Raycast(mCamera.position, forward, out hit, 5f))
@@ -37,20 +37,39 @@ public class PickupManager : MonoBehaviour
                 Item item = currentItem.GetComponent<Item>();
                 if (item != null && !item.Picked)
                 {
-                    ///Modified by SWT
-                    item.OnPickedUp(playerManager);
+                    PhotonView photonView = item.GetComponent<PhotonView>();
+                    if (photonView != null)
+                    {
+                        return photonView.viewID;
+                    }
+                }
+            }
+        }
+        return -1;
+    }
 
-                    if ((item is Weapon || item is Missile) && mWeaponPanel.childCount == 0)
-                    {
-                        EquipeWeapon(currentItem.gameObject);
-                    }
-                    else
-                    {
-                        if (playerManager.inventory.AddItem(currentItem.gameObject))
-                        {
-                            currentItem.SetActive(false);
-                        }
-                    }
+    public void PickItemCore(int photonViewId)
+    {
+        PhotonView photonView = PhotonView.Find(photonViewId);
+        if (photonView != null)
+        {
+            Item item = photonView.GetComponent<Item>();
+            if (item == null)
+            {
+                return;
+            }
+
+            item.OnPickedUp(playerManager);
+
+            if ((item is Weapon || item is Missile) && mWeaponPanel.childCount == 0)
+            {
+                EquipeWeapon(currentItem.gameObject);
+            }
+            else
+            {
+                if (playerManager.inventory.AddItem(currentItem.gameObject))
+                {
+                    currentItem.SetActive(false);
                 }
             }
         }
