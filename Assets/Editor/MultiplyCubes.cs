@@ -1567,10 +1567,32 @@ public class MultiplyCubes : EditorWindow {
 				//worldY = Mathf.FloorToInt(terrainHeight * noise.PerlinNoise ((worldX + x)/(float)ChunkSize, (worldZ + z)/(float)ChunkSize));
 				worldY = Mathf.FloorToInt(terrainHeight * noise.PerlinNoise ((worldX + x)/(float)terrainSizeX, (worldZ + z)/(float)terrainSizeZ));
 				GameObject cube = GameObject.CreatePrimitive (PrimitiveType.Cube);
-				if (worldY <= 5) {
+                if (worldY <= 11) {
 					cube.GetComponent<MeshRenderer> ().material = (Material) Resources.Load ("Materials/(26)sea");
-				} else {
-					cube.GetComponent<MeshRenderer> ().material = (Material) Resources.Load ("Materials/(25)grass");
+                }
+                else 
+                {
+                    int t = Random.Range(0, 10);
+                    switch (t)
+                    {
+                        case 0:
+                            {
+                                cube.GetComponent<MeshRenderer>().material = (Material)Resources.Load("Materials/(29)grass_path_top_s");
+                                break;
+                            }
+                        case 1:
+                            {
+                                cube.GetComponent<MeshRenderer>().material = (Material)Resources.Load("Materials/(28)grass_path_top_deep");
+                                break;
+                            }
+                        default:
+                            {
+                                cube.GetComponent<MeshRenderer>().material = (Material)Resources.Load("Materials/(27)grass_path_top");
+                                break;
+                            }
+
+                    }
+                    
 				}
 				cube.transform.position = new Vector3 (worldX + x, worldY, worldZ + z);
 				cube.transform.SetParent (obj.transform);
