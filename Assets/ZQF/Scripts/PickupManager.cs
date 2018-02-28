@@ -63,13 +63,13 @@ public class PickupManager : MonoBehaviour
 
             if ((item is Weapon || item is Missile) && mWeaponPanel.childCount == 0)
             {
-                EquipeWeapon(currentItem.gameObject);
+                EquipeWeapon(item.gameObject);
             }
             else
             {
-                if (playerManager.inventory.AddItem(currentItem.gameObject))
+                if (playerManager.inventory.AddItem(item.gameObject))
                 {
-                    currentItem.SetActive(false);
+                    item.gameObject.SetActive(false);
                 }
             }
         }
