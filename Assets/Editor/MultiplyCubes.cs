@@ -84,6 +84,7 @@ public class MultiplyCubes : EditorWindow {
     private int capacity = 0;
     private GameObject[] decorations;
     private float[] probabilities;
+    private bool[,] isSth;
 
 
     [MenuItem("BlackHole Tools/MultiplyCubes")]
@@ -441,6 +442,10 @@ public class MultiplyCubes : EditorWindow {
                 probabilities[i] = EditorGUILayout.FloatField(probabilities[i]);
                 EditorGUILayout.EndHorizontal();
             }
+            if(GUILayout.Button("Create",GUILayout.ExpandWidth(true))){
+                RandomDecoration();
+            }
+            
         }
 
         EditorGUILayout.EndScrollView();
@@ -1678,7 +1683,65 @@ public class MultiplyCubes : EditorWindow {
 
         Debug.Log("共写入了" + supplyPoints.Length + "个点");
     }
+    private void RandomDecoration() {
+        LinkedList<Transform> structure = GetAllChildrenFromSelected();
+        GameObject obj=new GameObject("RandomDecoration");
+        obj.transform.position = new Vector3(0, 0, 0);
+        Vector3 origin;
+        Transform[] cubes;
+        Transform[,,] cubespace;
+        cubespace=CreateCubeSpace(structure, out origin, out cubes);
+        Debug.Log(cubespace == null);
+        isSth = new bool[cubespace.GetLength(0), cubespace.GetLength(2)];
+        float[] p = new float[capacity];
+        p[0] = probabilities[0];
+        for (int m = 1; m < capacity; m++)
+        {
+            p[m] = p[m - 1] + probabilities[m];
+        }
+        for (int i = 0; i < cubespace.GetLength(0); i++) {
+            for (int j = 0; j < cubespace.GetLength(2); j++) {
+                if (NothingSurround(i,j))
+                {
+                    float randomNum = Random.Range(0, 1f);
+                    for (int m = 0; m < capacity; m++) {
+                        if (randomNum < p[m]) {
+                            for (int l = 0; l < cubespace.GetLength(1); l++)
+                            {
+                                if (cubespace[i, l, j] != null)
+                                {
+                                    GameObject createObj = Instantiate(decorations[m], obj.transform);
+                                    createObj.transform.position = new Vector3(i, l + 1, j) + origin;
+                                    isSth[i, j] = true;
+                                    break;
+                                }
+                            }
+                            break;
+                        }
+                    }  
+                }
+            }
+        }
+        foreach (Transform t in structure) {
+            t.position += origin;
+        }
+    }
 
+    private bool NothingSurround(int x, int z)
+    {
+        for (int i = x - 3; i < x + 3; i++)
+        {
+            for (int j = z - 3; j < z + 3; j++)
+            {
+                if (i < 0 || j < 0 || i >= isSth.GetLength(0) || j >= isSth.GetLength(1)) continue;
+                if (isSth[i, j] == true)
+                {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
     private void BorderCorrupt()
     {
         LinkedList<Transform> structure = GetAllChildrenFromSelected();
