@@ -365,6 +365,11 @@ public class MultiplyCubes : EditorWindow {
                 MoveSelectedToOrigin();
             }
 
+            if (GUILayout.Button("Border Corrupt", GUILayout.ExpandWidth(true)))
+            {
+                BorderCorrupt();
+            }
+
             //if (GUILayout.Button("Remove Rotations", GUILayout.ExpandWidth(true)))
             //{
             //    RemoveRotationOfSelected();
@@ -1672,5 +1677,125 @@ public class MultiplyCubes : EditorWindow {
         }
 
         Debug.Log("共写入了" + supplyPoints.Length + "个点");
+    }
+
+    private void BorderCorrupt()
+    {
+        LinkedList<Transform> structure = GetAllChildrenFromSelected();
+        if (structure.Count == 0)
+        {
+            return;
+        }
+        Vector3 origin;
+        Transform[] cubes;
+        Transform[,,] cubespace = CreateCubeSpace(structure, out origin, out cubes);
+
+        int lengthX = cubespace.GetLength(0);
+        int lengthZ = cubespace.GetLength(2);
+        int[] certernXs = new int[] { 1, 0, -1, 0 };
+        int[] certernZs = new int[] { 0, 1, 0, -1};
+        int[] maybeXs = new int[] { 0, -1, 0, 1};
+        int[] maybeZs = new int[] { 1, 0, -1, 0};
+        float[] ps = new float[] { 0.5f, 0.5f, 0.5f, 0.5f };
+        int[] startXs = new int[] { -1, lengthX - 1, lengthX, 0 };
+        int[] startZs = new int[] { 0, -1, lengthZ - 1, lengthZ };
+        int[] lengths = new int[] { lengthX, lengthZ, lengthX, lengthZ };
+
+        for (int i = 0; i < 4; i++)
+        {
+            int curX = startXs[i];
+            int curZ = startZs[i];
+            int[] path = new int[lengths[i]];
+            int stepLeft = lengths[i];
+            for (int j = 0; j < stepLeft; j++)
+            {
+                curX += certernXs[i];
+                curZ += certernZs[i];
+
+                if (Random.Range(0, 1f) < ps[i])
+                {
+                    curX += maybeXs[i];
+                    curZ += maybeZs[i];
+                }
+                else
+                {
+                    curX -= maybeXs[i];
+                    curZ -= maybeZs[i];
+                }
+
+                if (i == 0 || i == 2)
+                {
+                    path[j] = curZ;
+                }
+                else
+                {
+                    path[j] = curX;
+                }
+            }
+
+            switch (i)
+            {
+                case 0:
+                    for (int j = 0; j < lengthX; j++)
+                    {
+                        for (int k = 0; k < path[j]; k++)
+                        {
+                            DestroyByXZ(cubespace, j, k);
+                        }
+                    }
+                    break;
+                case 1:
+                    for (int j = 0; j < lengthZ; j++)
+                    {
+                        for (int k = path[j]; k < lengthX; k++)
+                        {
+                            DestroyByXZ(cubespace, k, j);
+                        }
+                    }
+                    break;
+                case 2:
+                    for (int j = 0; j < lengthX; j++)
+                    {
+                        for (int k = path[j]; k < lengthZ; k++)
+                        {
+                            DestroyByXZ(cubespace, j, k);
+                        }
+                    }
+                    break;
+                case 3:
+                    for (int j = 0; j < lengthZ; j++)
+                    {
+                        for (int k = 0; k < path[j]; k++)
+                        {
+                            DestroyByXZ(cubespace, k, j);
+                        }
+                    }
+                    break;
+            }
+        }
+
+        foreach (var cube in structure)
+        {
+            if (cube != null)
+            {
+                cube.position += origin;
+            }
+        }
+    }
+
+    private void DestroyByXZ(Transform[,,] cubespace, int x, int z)
+    {
+        if (x < 0 || z < 0 || x >= cubespace.GetLength(0) || z >= cubespace.GetLength(2))
+        {
+            return;
+        }
+
+        for (int i = 0; i < cubespace.GetLength(1); i++)
+        {
+            if (cubespace[x, i, z] != null)
+            {
+                DestroyImmediate(cubespace[x, i, z].gameObject);
+            }
+        }
     }
 }
