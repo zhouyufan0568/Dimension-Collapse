@@ -80,10 +80,22 @@ public class MultiplyCubes : EditorWindow {
     private bool rename;
     private string cubeName;
 
+    private bool randomDecoration;
+    private int capacity = 0;
+    private GameObject[] decorations;
+    private float[] probabilities;
+
+
     [MenuItem("BlackHole Tools/MultiplyCubes")]
     static void Init()
     {
         GetWindow(typeof(MultiplyCubes));
+    }
+
+    private void OnEnable()
+    {
+        decorations = new GameObject[100];
+        probabilities = new float[100];
     }
 
     private void OnGUI()
@@ -406,6 +418,23 @@ public class MultiplyCubes : EditorWindow {
             cubeName = EditorGUILayout.TextField(cubeName);
             if (GUILayout.Button("Rename", GUILayout.ExpandWidth(true))) {
                 Rename(selected);
+            }
+        }
+
+        randomDecoration = EditorGUILayout.Foldout(randomDecoration, "Random Decoration");
+        if (randomDecoration)
+        {
+            capacity = EditorGUILayout.IntField(capacity);
+            EditorGUILayout.BeginHorizontal();
+            EditorGUILayout.LabelField("Decoration");
+            EditorGUILayout.LabelField("Probability");
+            EditorGUILayout.EndHorizontal();
+            for (int i = 0; i < capacity; i++)
+            {
+                EditorGUILayout.BeginHorizontal();
+                decorations[i] = (GameObject)EditorGUILayout.ObjectField(decorations[i], typeof(GameObject), true);
+                probabilities[i] = EditorGUILayout.FloatField(probabilities[i]);
+                EditorGUILayout.EndHorizontal();
             }
         }
 
