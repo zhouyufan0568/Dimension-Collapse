@@ -366,9 +366,24 @@ public class MultiplyCubes : EditorWindow {
                 MoveSelectedToOrigin();
             }
 
-            if (GUILayout.Button("Border Corrupt", GUILayout.ExpandWidth(true)))
+            if (GUILayout.Button("Border Corrupt Left", GUILayout.ExpandWidth(true)))
             {
-                BorderCorrupt();
+                BorderCorrupt(0);
+            }
+
+            if (GUILayout.Button("Border Corrupt Top", GUILayout.ExpandWidth(true)))
+            {
+                BorderCorrupt(3);
+            }
+
+            if (GUILayout.Button("Border Corrupt Right", GUILayout.ExpandWidth(true)))
+            {
+                BorderCorrupt(2);
+            }
+
+            if (GUILayout.Button("Border Corrupt Bottom", GUILayout.ExpandWidth(true)))
+            {
+                BorderCorrupt(1);
             }
 
             //if (GUILayout.Button("Remove Rotations", GUILayout.ExpandWidth(true)))
@@ -1570,6 +1585,10 @@ public class MultiplyCubes : EditorWindow {
                         int visiblePlaneCount;
                         visiblePlaneCount = br.ReadInt32();
                     }
+                    if (chunk.transform.childCount == 0)
+                    {
+                        DestroyImmediate(chunk);
+                    }
                 }
             }
         }
@@ -1742,7 +1761,7 @@ public class MultiplyCubes : EditorWindow {
         }
         return true;
     }
-    private void BorderCorrupt()
+    private void BorderCorrupt(int side)
     {
         LinkedList<Transform> structure = GetAllChildrenFromSelected();
         if (structure.Count == 0)
@@ -1766,6 +1785,11 @@ public class MultiplyCubes : EditorWindow {
 
         for (int i = 0; i < 4; i++)
         {
+            if (i != side)
+            {
+                continue;
+            }
+
             int curX = startXs[i];
             int curZ = startZs[i];
             int[] path = new int[lengths[i]];
@@ -1817,7 +1841,7 @@ public class MultiplyCubes : EditorWindow {
                     }
                     break;
                 case 2:
-                    for (int j = 0; j < lengthX; j++)
+                    for (int j = lengthX - 1; j >= 0; j--)
                     {
                         for (int k = path[j]; k < lengthZ; k++)
                         {
@@ -1826,7 +1850,7 @@ public class MultiplyCubes : EditorWindow {
                     }
                     break;
                 case 3:
-                    for (int j = 0; j < lengthZ; j++)
+                    for (int j = lengthZ - 1; j >= 0; j--)
                     {
                         for (int k = 0; k < path[j]; k++)
                         {
