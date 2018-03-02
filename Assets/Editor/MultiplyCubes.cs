@@ -992,6 +992,11 @@ public class MultiplyCubes : EditorWindow {
         int index = 0;
         foreach (Transform cube in structure)
         {
+            if (cube.GetComponent<MeshRenderer>() == null || cube.GetComponent<Collider>() == null)
+            {
+                continue;
+            }
+
             cubes[index++] = cube;
         }
         Transform[,,] cubeSpace = CreateCubeSpace(cubes, out origin);
