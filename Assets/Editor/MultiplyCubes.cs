@@ -386,6 +386,14 @@ public class MultiplyCubes : EditorWindow {
                 BorderCorrupt(1);
             }
 
+            if (GUILayout.Button("Land", GUILayout.ExpandWidth(true)))
+            {
+                foreach (var obj in Selection.gameObjects)
+                {
+                    Land(obj);
+                }
+            }
+
             //if (GUILayout.Button("Remove Rotations", GUILayout.ExpandWidth(true)))
             //{
             //    RemoveRotationOfSelected();
@@ -988,7 +996,7 @@ public class MultiplyCubes : EditorWindow {
 
     private Transform[,,] CreateCubeSpace(LinkedList<Transform> structure, out Vector3 origin, out Transform[] cubes)
     {
-        cubes = new Transform[structure.Count];
+        Transform[] cubesTemp = new Transform[structure.Count];
         int index = 0;
         foreach (Transform cube in structure)
         {
@@ -997,7 +1005,13 @@ public class MultiplyCubes : EditorWindow {
                 continue;
             }
 
-            cubes[index++] = cube;
+            cubesTemp[index++] = cube;
+        }
+
+        cubes = new Transform[index];
+        for (int i = 0; i < index; i++)
+        {
+            cubes[i] = cubesTemp[i];
         }
         Transform[,,] cubeSpace = CreateCubeSpace(cubes, out origin);
         return cubeSpace;
@@ -1888,6 +1902,34 @@ public class MultiplyCubes : EditorWindow {
             {
                 DestroyImmediate(cubespace[x, i, z].gameObject);
             }
+        }
+    }
+
+    private void Land(GameObject obj)
+    {
+        LinkedList<Transform> list = new LinkedList<Transform>();
+        GetAllChildren(obj.transform, list);
+        Transform lowest = null;
+        float min = float.MaxValue;
+        foreach (var child in list)
+        {
+            if (child.transform.position.y < min)
+            {
+                min = child.transform.position.y;
+                lowest = child.transform;
+            }
+        }
+
+        if (lowest == null)
+        {
+            return;
+        }
+
+        RaycastHit hitInfo;
+        if (Physics.Raycast(lowest.transform.position - Vector3.down * 0.5f, Vector3.down, out hitInfo, 1000f))
+        {
+            Vector3 victimPos = hitInfo.collider.transform.position;
+            obj.transform.position -= (lowest.position - victimPos - Vector3.up);
         }
     }
 }

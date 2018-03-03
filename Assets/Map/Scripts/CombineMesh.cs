@@ -148,6 +148,7 @@ public class CombineMesh : MonoBehaviour {
 
 				//mat
 				int curMaterialId = materialIds[i];
+                //Debug.Log(curMaterialId);
 				BlockUVCoordinates uvCoordinates = m_BlockUVCoordinates[curMaterialId];
 
 				for (int j = 0; j < 6; j++)
@@ -266,6 +267,9 @@ public class CombineMesh : MonoBehaviour {
 		WorldTextureAtlas.Apply();
 		materialPrefab.mainTexture = WorldTextureAtlas;
 		GenerateUVCoordinatesForAllBlocks();
+        foreach (var v in m_BlockUVCoordinates) {
+            Debug.Log("Key:"+v.Key);
+        }
 	}
 
     public void GenerateUVCoordinatesForAllBlocks()
@@ -298,6 +302,59 @@ public class CombineMesh : MonoBehaviour {
 		SetBlockUVCoordinates(BlockType.Wool_colored_pink, 24, 24, 24);
 		SetBlockUVCoordinates(BlockType.grass, 25, 27, 27);
 		SetBlockUVCoordinates(BlockType.sea, 26, 26, 26);
+
+        SetBlockUVCoordinates(BlockType.grass_path_top, 28, 29, 28);
+        SetBlockUVCoordinates(BlockType.grass_path_top_deep, 30, 31, 30);
+        SetBlockUVCoordinates(BlockType.grass_path_top_s, 32, 33, 32);
+        SetBlockUVCoordinates(BlockType.stonebrick_mossy, 34, 34, 34);
+        SetBlockUVCoordinates(BlockType.door_iron_upper_s, 35, 35, 35);
+        SetBlockUVCoordinates(BlockType.Tnt, 37, 36, 38);
+        SetBlockUVCoordinates(BlockType.wheat_stage_3, 39, 39, 39);
+        SetBlockUVCoordinates(BlockType.sandstone_carved, 40, 40, 40);
+        SetBlockUVCoordinates(BlockType.brick1, 41, 41, 41);
+        SetBlockUVCoordinates(BlockType.brick2, 42, 42, 42);
+        SetBlockUVCoordinates(BlockType.brickside, 43, 43, 43);
+        SetBlockUVCoordinates(BlockType.cobblestone, 44, 44, 44);
+        SetBlockUVCoordinates(BlockType.Concrete_cyan, 45, 45, 45);
+        SetBlockUVCoordinates(BlockType.Concrete_powder_light_blue, 46, 46, 46);
+        SetBlockUVCoordinates(BlockType.Concrete_lime , 47, 47, 47);
+        SetBlockUVCoordinates(BlockType.Concrete_powder_orange, 48, 48, 48);
+        SetBlockUVCoordinates(BlockType.Concrete_powder_yellow, 49, 49, 49);
+        SetBlockUVCoordinates(BlockType.Crafting_table_top, 50, 50, 50);
+        SetBlockUVCoordinates(BlockType.Daylight_detector_top, 51, 51, 51);
+        SetBlockUVCoordinates(BlockType.Dispenser_front_horizontal, 52, 52, 52);
+        SetBlockUVCoordinates(BlockType.Door_wood_upper, 53, 53, 53);
+        SetBlockUVCoordinates(BlockType.end_stone, 54, 54, 54);
+        SetBlockUVCoordinates(BlockType.grass_top, 55, 55, 55);
+        SetBlockUVCoordinates(BlockType.hardened_clay_stained_brown, 56, 56, 56);
+        SetBlockUVCoordinates(BlockType.hopper_top, 57, 57, 57);
+        SetBlockUVCoordinates(BlockType.leaves_acacia, 58, 58, 58);
+        SetBlockUVCoordinates(BlockType.leaves_jungle_opaque, 59, 59, 59);
+        SetBlockUVCoordinates(BlockType.dropper_front_horizontal, 59, 59, 59);
+        SetBlockUVCoordinates(BlockType.liie_oak_gate_side, 60, 60, 60);
+        SetBlockUVCoordinates(BlockType.log_oak, 61, 61, 61);
+        SetBlockUVCoordinates(BlockType.log_oak1, 62, 62, 62);
+        SetBlockUVCoordinates(BlockType.observer_front, 63, 63, 63);
+        SetBlockUVCoordinates(BlockType.obsidian, 64, 64, 64);
+        SetBlockUVCoordinates(BlockType.planks_oak, 65, 65, 65);
+        SetBlockUVCoordinates(BlockType.purpur_block, 66, 66, 66);
+        SetBlockUVCoordinates(BlockType.stone, 67, 67, 67);
+        SetBlockUVCoordinates(BlockType.stonebrick_carved, 68, 68, 68);
+        SetBlockUVCoordinates(BlockType.stonebrick_cracked, 69, 69, 69);
+        SetBlockUVCoordinates(BlockType.tnt_top1, 70, 71, 72);
+        SetBlockUVCoordinates(BlockType.wheat_stage_7, 73, 73, 73);
+        SetBlockUVCoordinates(BlockType.wool_colored_brown, 74, 74, 74);
+        SetBlockUVCoordinates(BlockType.wool_colored_cyan, 75, 75, 75);
+        SetBlockUVCoordinates(BlockType.wool_colored_gray, 76, 76, 76);
+        SetBlockUVCoordinates(BlockType.wool_colored_orange, 77, 77, 77);
+        SetBlockUVCoordinates(BlockType.wool_colored_red, 78, 78, 78);
+        SetBlockUVCoordinates(BlockType.wool_colored_yellow, 79, 79, 79);
+        SetBlockUVCoordinates(BlockType.Concrete_green1, 5, 5, 5);
+        SetBlockUVCoordinates(BlockType.Concrete_red1, 8, 8, 8);
+        SetBlockUVCoordinates(BlockType.Tnt_side, 5, 5, 5);
+        SetBlockUVCoordinates(BlockType.Tnt_bottom, 8, 8, 8);
+
+
     }
 
     private void SetBlockUVCoordinates(BlockType blockType, int topIndex, int sideIndex, int bottomIndex)
