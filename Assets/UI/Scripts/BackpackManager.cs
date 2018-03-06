@@ -35,14 +35,9 @@ namespace DimensionCollapse
         // Update is called once per frame
         void Update()
         {
+			Debug.Log ("itemList.Count:"+itemList.Count);
             for(int i=0;i<itemList.Count;i++) {
                 backpackStore.transform.GetChild(i).transform.GetChild(0).GetComponent<Image>().sprite = GetSpriteByID(itemList[i].GetComponent<Item>().ID);
-            }
-            for (int i = 0; i < equipedWeapon.Length; i++) {
-                if (equipedWeapon[i] != null)
-                {
-                    equipBar.transform.GetChild(i).transform.GetChild(0).GetComponent<Image>().sprite = GetSpriteByID(equipedWeapon[i].GetComponent<Item>().ID);
-                }
             }
         }
 
@@ -55,7 +50,17 @@ namespace DimensionCollapse
         }
 
         void initItemSprite() {
-            ItemSprite.Add(3, Resources.Load("ItemSprite/Weapon/Wiley", typeof(Sprite)) as Sprite);
+            ItemSprite.Add(3003, Resources.Load("ItemSprite/Weapon/FlowerWand", typeof(Sprite)) as Sprite);
+			ItemSprite.Add(2001, Resources.Load("ItemSprite/Weapon/BombGrenade", typeof(Sprite)) as Sprite);
+			ItemSprite.Add(7001, Resources.Load("ItemSprite/Weapon/M16A4", typeof(Sprite)) as Sprite);
+			ItemSprite.Add(6001, Resources.Load("ItemSprite/Weapon/MAC11", typeof(Sprite)) as Sprite);
+			ItemSprite.Add(2003, Resources.Load("ItemSprite/Weapon/MedicalGrenade", typeof(Sprite)) as Sprite);
+			ItemSprite.Add(2002, Resources.Load("ItemSprite/Weapon/Molotov", typeof(Sprite)) as Sprite);
+			ItemSprite.Add(6002, Resources.Load("ItemSprite/Weapon/MP5", typeof(Sprite)) as Sprite);
+			ItemSprite.Add(8001, Resources.Load("ItemSprite/Weapon/SpaceGun", typeof(Sprite)) as Sprite);
+			ItemSprite.Add(2, Resources.Load("ItemSprite/Weapon/SpaceExchangeBall", typeof(Sprite)) as Sprite);
+			ItemSprite.Add(3002, Resources.Load("ItemSprite/Weapon/StarMagicWand", typeof(Sprite)) as Sprite);
+			ItemSprite.Add(3001, Resources.Load("ItemSprite/Weapon/Wiley", typeof(Sprite)) as Sprite);
         }
 
         Sprite GetSpriteByID(int id) {

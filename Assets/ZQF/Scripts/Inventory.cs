@@ -101,5 +101,11 @@ namespace DimensionCollapse
             //将物品从装备栏移动到背包内时，直接加到链表结尾。
             //将物品从背包内移动到装备栏时，如果目的装备栏有物品，则将其进行交换。
         }
+
+        public bool PickItem(GameObject item) {
+            if (item.GetComponent<Item>() is Weapon) {
+                
+            }
+        }
     }
 }
