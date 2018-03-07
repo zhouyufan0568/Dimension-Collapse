@@ -17,36 +17,28 @@ namespace DimensionCollapse
         private Color normalColor;
         public Color highlightColor = Color.yellow;
 
-        private Sprite nullItem;
-
         private Image image;
 
         private Inventory inventory;
+        private RPCManager rpcManager;
 
         void Start()
         {
-            nullItem = Resources.Load("Textures/bag_item_null", typeof(Sprite)) as Sprite;
             image = GetComponent<Image>();
-            if (image.sprite == nullItem)
-            {
-                GetComponent<DragItem>().enabled = false;
-            }
+            
+            inventory = PlayerManager.LocalPlayerInstance.GetComponent<Inventory>();
+            rpcManager = PlayerManager.LocalPlayerInstance.GetComponent<RPCManager>();
         }
 
         void Update(){
-            if (PlayerManager.LocalPlayerInstance != null)
-            {
-                inventory = PlayerManager.LocalPlayerInstance.GetComponent<Inventory>();
-            }
-            else
-            {
-                Debug.Log("null LocalPlayerInstance");
-            }
+
         }
 
         //开始拖动时
         public void OnBeginDrag(PointerEventData eventData)
         {
+            if (transform.GetComponent<Image>().sprite == null&&transform.tag== "UIDropable") return;
+
             var canvas = FindInParents<Canvas>(gameObject);
             if (canvas == null)
                 return;
@@ -62,19 +54,22 @@ namespace DimensionCollapse
             group.blocksRaycasts = false;
 
             image.sprite = GetComponent<Image>().sprite;
-            GetComponent<Image>().sprite = nullItem;
+            GetComponent<Image>().sprite = null;
+            transform.tag = "Untagged";
 
             if (dragOnSurfaces)
                 m_DraggingPlanes[eventData.pointerId] = transform as RectTransform;
             else
                 m_DraggingPlanes[eventData.pointerId] = canvas.transform as RectTransform;
 
-            SetDraggedPosition(eventData);
+            //SetDraggedPosition(eventData);
         }
 
         //拖动发生时一直同步位置和旋转
         public void OnDrag(PointerEventData eventData)
         {
+            if (transform.GetComponent<Image>().sprite == null && transform.tag == "UIDropable") return;
+
             if (m_DraggingIcons[eventData.pointerId] != null)
                 SetDraggedPosition(eventData);
         }
@@ -82,6 +77,8 @@ namespace DimensionCollapse
         //设置被拖动图片的位置和旋转
         private void SetDraggedPosition(PointerEventData eventData)
         {
+            if (transform.GetComponent<Image>().sprite == null && transform.tag == "UIDropable") return;
+
             if (dragOnSurfaces && eventData.pointerEnter != null && eventData.pointerEnter.transform as RectTransform != null)
                 m_DraggingPlanes[eventData.pointerId] = eventData.pointerEnter.transform as RectTransform;
 
@@ -97,58 +94,64 @@ namespace DimensionCollapse
         //结束拖动时
         public void OnEndDrag(PointerEventData eventData)
         {
+            if (transform.GetComponent<Image>().sprite == null && transform.tag == "UIDropable") return;
+
             GameObject dropObj = eventData.pointerEnter;
+            Debug.Log(this.name);
             string[] itemtypeindex = this.name.Split('(');
             string itemtype = itemtypeindex[0];
             int itemindex = int.Parse(itemtypeindex[1].Split(')')[0]);
+            Debug.Log(itemtype+" "+ itemindex);
 
             Inventory.ItemType itemType = StringToItemtype(itemtype);
 
             if (dropObj == null)
             {
-                inventory.RemoveItem(itemType, itemindex);
+                Debug.Log(itemType + " " + itemindex);
+                rpcManager.DropItem(itemType, itemindex);
                 DestroyItem(eventData);
-                return;
             }
-            else if (dropObj.tag!="UIItem")
+            else
             {
+                if (dropObj.tag == "UIDropable")
+                {
+                    string[] toitemtypeindex = dropObj.name.Split('(');
+                    string toitemtype = toitemtypeindex[0];
+                    int toitemindex = int.Parse(toitemtypeindex[1].Split(')')[0]);
+
+                    Inventory.ItemType toitemType = StringToItemtype(toitemtype);
+
+                    rpcManager.SwapItem(itemType, itemindex, toitemType, toitemindex);
+                }
 
                 GetComponent<Image>().sprite = m_DraggingIcons[eventData.pointerId].GetComponent<Image>().sprite;
 
                 DestroyItem(eventData);
-
-                return;
             }
 
-            string[] toitemtypeindex = dropObj.name.Split('(');
-            string toitemtype = itemtypeindex[0];
-            int toitemindex = int.Parse(itemtypeindex[1].Split(')')[0]);
+            transform.tag = "UIDropable";
 
-            Inventory.ItemType toitemType = StringToItemtype(toitemtype);
+            //Sprite dropSprite = dropObj.GetComponent<Image>().sprite;
 
-            inventory.MoveItem(itemType, itemindex, toitemType, toitemindex);
+            //if (dropSprite != null)
+            //{
+            //    GetComponent<Image>().sprite = dropSprite;
+            //}
 
-            Sprite dropSprite = dropObj.GetComponent<Image>().sprite;
+            //dropObj.transform.parent.GetComponent<Image>().color = normalColor;
 
-            if (dropSprite != null)
-            {
-                GetComponent<Image>().sprite = dropSprite;
-            }
+            //dropObj.GetComponent<Image>().sprite = m_DraggingIcons[eventData.pointerId].GetComponent<Image>().sprite;
+            //if (dropObj.GetComponent<Image>().sprite != nullItem)
+            //{
+            //    dropObj.GetComponent<DragItem>().enabled = true;
+            //}
 
-            dropObj.transform.parent.GetComponent<Image>().color = normalColor;
+            //DestroyItem(eventData);
 
-            dropObj.GetComponent<Image>().sprite = m_DraggingIcons[eventData.pointerId].GetComponent<Image>().sprite;
-            if (dropObj.GetComponent<Image>().sprite != nullItem)
-            {
-                dropObj.GetComponent<DragItem>().enabled = true;
-            }
-
-            DestroyItem(eventData);
-
-            if (image.sprite == nullItem)
-            {
-                GetComponent<DragItem>().enabled = false;
-            }
+            //if (image.sprite == nullItem)
+            //{
+            //    GetComponent<DragItem>().enabled = false;
+            //}
         }
 
         //找到对象带有Canvas组件的父对象
@@ -220,27 +223,24 @@ namespace DimensionCollapse
             transform.parent.GetComponent<Image>().color = normalColor;
         }
 
-        Inventory.ItemType StringToItemtype(string itemtype) {
-            Inventory.ItemType itemType;
-            switch (itemtype)
+        Inventory.ItemType StringToItemtype(string itemtype) {  
+            if (itemtype.Equals("Drag_Equiped"))
             {
-                case "Drag_Equiped":
-                    {
-                        itemType = Inventory.ItemType.Equiped;
-                        break;
-                    }
-                case "Drag_Item":
-                    {
-                        itemType = Inventory.ItemType.Backpack;
-                        break;
-                    }
-                default:
-                    {
-                        itemType = Inventory.ItemType.Backpack;
-                        break;
-                    }
+                return Inventory.ItemType.Equiped;
             }
-            return itemType;
+            else if (itemtype.Equals("Drag_Item"))
+            {
+                return Inventory.ItemType.Backpack;
+            }
+            else if (itemtype.Equals("Drag_Skill"))
+            {
+                return Inventory.ItemType.Skill;
+            }
+            else {
+                Debug.Log("Bug!!");
+                Debug.Log(itemtype);
+                return Inventory.ItemType.Backpack;
+            }
         }
     }
 }

@@ -51,4 +51,7 @@ MonoBehaviour:
   - ThrowItemInHand
   - SpaceGunAttackEnd
   - SwitchItemInHand
+  - EquipeWeaponByButton
+  - DropItemByUI
+  - SwapItemByUI
   DisableAutoOpenWizard: 1

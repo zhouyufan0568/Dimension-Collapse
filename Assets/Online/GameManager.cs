@@ -41,7 +41,7 @@ namespace DimensionCollapse
 
         #region MonoBehaviour CallBacks
 
-        void Start()
+        private void Awake()
         {
             Instance = this;
 
@@ -58,6 +58,11 @@ namespace DimensionCollapse
                 PhotonNetwork.Instantiate(this.playerPrefab.name, new Vector3(50f, 50f, 50f), Quaternion.identity, 0);
                 Debug.Log(this.playerPrefab.name);
             }
+        }
+
+        void Start()
+        {
+            
         }
 
         void Update()

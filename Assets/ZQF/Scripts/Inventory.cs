@@ -10,8 +10,10 @@ namespace DimensionCollapse
         private int weaponIndex = 0;
         public int maxCount;
         public List<GameObject> ItemList = new List<GameObject>();
-        public GameObject[] EquipedWeapon = new GameObject[5];
-        public Skill[] skills = new Skill[2];
+        public GameObject[] Weapon = new GameObject[2];
+		public GameObject[] Missile=new GameObject[1];
+		public GameObject[] Remedy = new GameObject[2];
+        public GameObject[] Skills = new GameObject[2];
 
         public enum ItemType
         {
@@ -82,8 +84,14 @@ namespace DimensionCollapse
         {
             switch (it)
             {
-                case ItemType.Backpack: { break; }
-                case ItemType.Equiped: { break; }
+                case ItemType.Backpack: {
+                        ItemList.RemoveAt(index);
+                        break;
+                    }
+                case ItemType.Equiped: {
+
+                        break;
+                    }
                 case ItemType.Skill: { break; }
                 default: break;
             }
@@ -103,8 +111,233 @@ namespace DimensionCollapse
         }
 
         public bool PickItem(GameObject item) {
-            if (item.GetComponent<Item>() is Weapon) {
-                
+			if (item.GetComponent<Item> () is Weapon) {
+				return PickEquiped(Weapon,item);
+			} else if (item.GetComponent<Item> () is Skill) {
+				return PickEquiped(Skills,item);
+			} else if (item.GetComponent<Item> () is Missile) {
+				return PickEquiped(Missile,item);
+			} else {
+				return AddItem (item);
+			}
+        }
+
+        private bool PickEquiped(GameObject[] it,GameObject item){
+			for (int i = 0; i < it.Length; i++) {
+				if (it[i] == null) {
+					it[i] = item;
+					return true;
+				}
+			}
+			return AddItem (item);
+		}
+
+        public void RemoveReference(GameObject item) {
+            if (item.GetComponent<Item>() is Weapon)
+            {
+                for (int i = 0; i < Weapon.Length; i++) {
+                    if (Weapon[i] == item) {
+                        AutoEquipe<Weapon>(ref Weapon[i]);
+                        return;
+                    }
+                }
+            }
+            else if (item.GetComponent<Item>() is Skill)
+            {
+                for (int i = 0; i < Skills.Length; i++)
+                {
+                    if (Skills[i] == item)
+                    {
+                        AutoEquipe<Skill>(ref Skills[i]);
+                        return;
+                    }
+                }
+            }
+            else if (item.GetComponent<Item>() is Missile)
+            {
+                for (int i = 0; i < Missile.Length; i++)
+                {
+                    if (Missile[i] == item)
+                    {
+                        AutoEquipe<Missile>(ref Missile[i]);
+                        return;
+                    }
+                }
+            }
+            else
+            {
+                Debug.Log("丢弃的东西是其他");
+            }
+            for (int i = 0; i < ItemList.Count; i++) {
+                if (ItemList[i] == item)
+                {
+                    ItemList.RemoveAt(i);
+                    return;
+                }
+            }
+        }
+
+        public void AutoEquipe<T>(ref GameObject item) {
+            item = FindFirstInInventory<T>();
+            if (item != null)
+            {
+                ItemList.Remove(item);
+            }
+        }
+
+        private GameObject FindFirstInInventory<T>() {
+            for (int i = 0; i < ItemList.Count; i++) {
+                if (ItemList[i].GetComponent<Item>() is T) {
+                    return ItemList[i];
+                }
+            }
+            return null;
+        }
+
+        public void FindItemByTypeAndIndex(Inventory.ItemType type, int index,ref GameObject obj) {
+            switch (type) {
+                case ItemType.Equiped: {
+                        switch (index)
+                        {
+                            case 0:
+                            case 1:
+                                {
+                                    obj = Weapon[index];
+                                    break;
+                                }
+                            case 2:
+                                {
+                                    obj = Missile[index - 2];
+                                    break;
+                                }
+                            case 3:
+                            case 4:
+                                {
+                                    obj = Remedy[index - 3];
+                                    break;
+                                }
+                            default: { break; }
+                        }
+                        break;
+                    }
+                case ItemType.Skill: {
+                        obj = Skills[index];
+                        break;
+                    }
+                case ItemType.Backpack: {
+                        if (index < ItemList.Count)
+                        {
+                            obj = ItemList[index];
+                            break;
+                        }
+                        else {
+                            obj = null;
+                            break;
+                        }
+                    }
+                default: { break; }
+            }
+        }
+
+        public void SwapItem(Inventory.ItemType itemType, int itemindex, Inventory.ItemType toitemType, int toitemindex) {
+
+            GameObject[] a = null;
+            int aIndex=-1;
+            GameObject[] b = null;
+            int bIndex=-1;
+
+            GetItemInfo(itemType, itemindex, ref a, ref aIndex);
+            GetItemInfo(toitemType, toitemindex, ref b, ref bIndex);
+
+            GameObject temp;
+
+            if (a != null && b != null)
+            { 
+                temp = a[aIndex];
+                a[aIndex] = b[bIndex];
+                b[bIndex] = temp;
+            }
+            else if (a == null && b != null) {
+                temp = ItemList[aIndex];
+                ItemList[aIndex] = b[bIndex];
+                b[bIndex] = temp;
+            } else if (a != null && b == null) {
+                temp = a[aIndex];
+                a[aIndex] = ItemList[bIndex];
+                ItemList[bIndex] = temp;
+            } else {
+                temp = ItemList[aIndex];
+                ItemList[aIndex] = ItemList[bIndex];
+                ItemList[bIndex] = temp;
+            }
+
+        }
+
+        public void GetItemInfo(Inventory.ItemType itemType, int itemindex, ref GameObject[] a,ref int aIndex) {
+            switch (itemType)
+            {
+                case ItemType.Equiped:
+                    {
+                        switch (itemindex)
+                        {
+                            case 0:
+                            case 1:
+                                {
+                                    a = Weapon;
+                                    aIndex = itemindex;
+                                    break;
+                                }
+                            case 2:
+                                {
+                                    a = Missile;
+                                    aIndex = itemindex - 2;
+                                    break;
+                                }
+                            case 3:
+                            case 4:
+                                {
+                                    a = Remedy;
+                                    aIndex = itemindex - 3;
+                                    break;
+                                }
+                            default: { break; }
+                        }
+                        break;
+                    }
+                case ItemType.Skill:
+                    {
+                        a = Skills;
+                        aIndex = itemindex;
+                        break;
+                    }
+                case ItemType.Backpack:
+                    {
+                        a = null;
+                        aIndex = itemindex;
+                        break;
+                    }
+            }
+        }
+
+        public void AddToInventory(GameObject item) {
+            RemoveReference(item);
+            if (AddItem(item))
+            {
+
+            }
+            else
+            {
+                Debug.Log("空间不足");
+            }
+        }
+
+        public void EquipeItem(ItemType toitemType, int toitemindex,GameObject item) {
+            GameObject[] array = null;
+            int index = -1;
+            GetItemInfo(toitemType, toitemindex, ref array, ref index);
+            if ((array == Weapon && item.GetComponent<Item>() is Weapon) || (array == Missile && item.GetComponent<Item>() is Missile) || (array == Remedy && item.GetComponent<Item>() is Remedy) || (array == Skills && item.GetComponent<Item>() is Skill)) {
+                RemoveReference(item);
+                array[index] = item;
             }
         }
     }

@@ -53,7 +53,7 @@ namespace DimensionCollapse
                     Vector3 force = missile.OnChargeEnd();
                     rpcManager.ThrowItemInHandRPC(force);
                     playerManager.itemInHand = null;
-                    playerManager.SwitchItemInHand();
+                    playerManager.GetComponent<Inventory>().RemoveReference(missile.gameObject);
                 }
 
                 SpaceGun spaceGun = playerManager.itemInHand as SpaceGun;
@@ -63,24 +63,48 @@ namespace DimensionCollapse
                 }
             }
 
-            if (Input.GetKeyDown(KeyCode.J))
+            if (Input.GetKeyDown(KeyCode.Q))
             {
                 rpcManager.CastSkillOneRPC();
             }
 
             if (Input.GetKeyDown(KeyCode.E))
             {
+                rpcManager.CastSkillTwoRPC();
+            }
+
+            if (Input.GetKeyDown(KeyCode.F))
+            {
                 rpcManager.PickUpItemRPC();
             }
 
-            if (Input.GetKeyDown(KeyCode.Q))
+            if (Input.GetKeyDown(KeyCode.G))
             {
                 rpcManager.DropHandItemRPC();
             }
 
-            if (Input.GetKeyDown(KeyCode.T))
+            if (Input.GetButton("MainWeapon1")) {
+                rpcManager.EquipeWeapon(0);
+            }
+
+            if (Input.GetButton("MainWeapon2"))
             {
-                rpcManager.SwitchItemInHandRPC();
+                rpcManager.EquipeWeapon(1);
+            }
+
+            if (Input.GetButton("Missile"))
+            {
+                rpcManager.EquipeWeapon(2);
+            }
+
+            if (Input.GetButton("Remedy1"))
+            {
+                rpcManager.EquipeWeapon(3);
+            }
+
+            if (Input.GetButton("Remedy2"))
+            {
+                rpcManager.EquipeWeapon(4);
             }
         }
     }

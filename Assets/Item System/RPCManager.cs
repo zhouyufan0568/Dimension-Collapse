@@ -86,6 +86,27 @@ namespace DimensionCollapse
             }
         }
 
+        public void EquipeWeapon(int index) {
+            if (photonView.isMine)
+            {
+                photonView.RPC("EquipeWeaponByButton", PhotonTargets.All,index);
+            }
+        }
+
+        public void DropItem(Inventory.ItemType it, int index) {
+            if (photonView.isMine)
+            {
+                photonView.RPC("DropItemByUI", PhotonTargets.All, it,index);
+            }
+        }
+
+        public void SwapItem(Inventory.ItemType itemType, int itemindex, Inventory.ItemType toitemType, int toitemindex) {
+            if (photonView.isMine)
+            {
+                photonView.RPC("SwapItemByUI", PhotonTargets.All, itemType, itemindex, toitemType, toitemindex);
+            }
+        }
+
         [PunRPC]
         private void UseItemInHand()
         {
@@ -140,7 +161,25 @@ namespace DimensionCollapse
         {
             pickupManager.DropHandItem();
         }
-        #endregion
 
+        [PunRPC]
+        private void EquipeWeaponByButton(int index)
+        {
+            pickupManager.EquipeWeaponByButton(index);
+        }
+
+        [PunRPC]
+        private void DropItemByUI(Inventory.ItemType it, int index)
+        {
+            pickupManager.DropItemByUI(it,index);
+        }
+
+        [PunRPC]
+        private void SwapItemByUI(Inventory.ItemType itemType, int itemindex, Inventory.ItemType toitemType, int toitemindex)
+        {
+            pickupManager.SwapItemByUI(itemType, itemindex, toitemType, toitemindex);
+        }
+        #endregion
+        
     }
 }

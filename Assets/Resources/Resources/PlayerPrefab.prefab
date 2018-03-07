@@ -570,6 +570,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1475363115807424
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4437746762528744}
+  m_Layer: 12
+  m_Name: ItemStorage
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1475426888363308
 GameObject:
   m_ObjectHideFlags: 1
@@ -1584,6 +1599,19 @@ Transform:
   m_Father: {fileID: 4368860833678898}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4437746762528744
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1475363115807424}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.523, y: 0.417, z: 0.45}
+  m_LocalScale: {x: 2.215377, y: 2.215378, z: 2.215378}
+  m_Children: []
+  m_Father: {fileID: 4467382873442606}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4449867821374964
 Transform:
   m_ObjectHideFlags: 1
@@ -1613,6 +1641,7 @@ Transform:
   - {fileID: 4790274831972654}
   - {fileID: 4153947724937704}
   - {fileID: 4694389087070028}
+  - {fileID: 4437746762528744}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2273,7 +2302,6 @@ Camera:
   m_TargetEye: 3
   m_HDR: 0
   m_AllowMSAA: 1
-  m_AllowDynamicResolution: 0
   m_ForceIntoRT: 0
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
@@ -2515,6 +2543,7 @@ MonoBehaviour:
   health: 200
   numOfkill: 0
   inventory: {fileID: 0}
+  pickupManager: {fileID: 0}
   itemInHand: {fileID: 0}
   skillOne: {fileID: 114079826097064592}
   skillTwo: {fileID: 0}
@@ -2733,13 +2762,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxCount: 20
   ItemList: []
-  EquipedWeapon:
+  Weapon:
   - {fileID: 0}
   - {fileID: 0}
+  Missile:
+  - {fileID: 0}
+  Remedy:
   - {fileID: 0}
   - {fileID: 0}
-  - {fileID: 0}
-  skills:
+  Skills:
   - {fileID: 0}
   - {fileID: 0}
 --- !u!114 &114486509302948198
@@ -2755,6 +2786,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mCenter: {fileID: 4049885416086630}
   mWeaponPanel: {fileID: 4790274831972654}
+  itemStorage: {fileID: 4437746762528744}
   playerManager: {fileID: 114092046160593534}
 --- !u!114 &114673452778056714
 MonoBehaviour:

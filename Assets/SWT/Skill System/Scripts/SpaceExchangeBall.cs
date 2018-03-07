@@ -63,7 +63,7 @@ namespace DimensionCollapse
                 particleSystem.Stop();
             }
             GetComponent<Collider>().enabled = false;
-            Destroy(GetComponent<Rigidbody>());
+            ItemUtils.FreezeRigidbody(GetComponent<Rigidbody>());
             Picked = true;
         }
 
@@ -74,7 +74,7 @@ namespace DimensionCollapse
                 particleSystem.Play();
             }
             GetComponent<Collider>().enabled = true;
-            gameObject.AddComponent<Rigidbody>();
+            ItemUtils.FreezeRigidbodyWithoutPositionY(GetComponent<Rigidbody>());
             Picked = false;
         }
     }

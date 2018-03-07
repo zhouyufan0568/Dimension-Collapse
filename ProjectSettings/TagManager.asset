@@ -8,6 +8,7 @@ TagManager:
   - gameItem
   - Map
   - SupplyPoint
+  - UIDropable
   layers:
   - Default
   - TransparentFX

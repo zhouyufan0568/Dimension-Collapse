@@ -14,8 +14,11 @@ namespace DimensionCollapse
         public GameObject skillBar;
         private PlayerManager playerManager;
         public List<GameObject> itemList;
-        public GameObject[] equipedWeapon;
-        public Skill[] skills;
+        public GameObject[] Weapon;
+        public GameObject[] Missile;
+        public GameObject[] Remedy;
+        public GameObject[] Skills;
+        int lastcnt = 0;
 
         public Dictionary<int, Sprite> ItemSprite=new Dictionary<int,Sprite>();
 
@@ -28,17 +31,16 @@ namespace DimensionCollapse
         {
             playerManager = PlayerManager.LocalPlayerInstance.GetComponent<PlayerManager>();
             itemList = playerManager.inventory.ItemList;
-            equipedWeapon = playerManager.inventory.EquipedWeapon;
-            skills = playerManager.inventory.skills;
+            Weapon = playerManager.inventory.Weapon;
+            Skills = playerManager.inventory.Skills;
+            Missile = playerManager.inventory.Missile;
+            Remedy = playerManager.inventory.Remedy;
         }
 
         // Update is called once per frame
         void Update()
         {
-			Debug.Log ("itemList.Count:"+itemList.Count);
-            for(int i=0;i<itemList.Count;i++) {
-                backpackStore.transform.GetChild(i).transform.GetChild(0).GetComponent<Image>().sprite = GetSpriteByID(itemList[i].GetComponent<Item>().ID);
-            }
+            UpdateInspire();
         }
 
         void OnDisable()
@@ -65,6 +67,80 @@ namespace DimensionCollapse
 
         Sprite GetSpriteByID(int id) {
             return ItemSprite.ContainsKey(id) ? ItemSprite[id] : null;
+        }
+
+        /// <summary>
+        /// update inspire of item
+        /// </summary>
+        /// <param name="st"></param>
+        /// <param name="cnt"></param>
+        /// <param name="obj"></param>
+        private void UpdateInspire() {
+            int cnt = 0;
+
+            for (int i = 0; i < Weapon.Length; i++)
+            {
+                if (equipBar.transform.GetChild(cnt).GetChild(0).tag != "Untagged"&&Weapon[i] != null)
+                {
+                    equipBar.transform.GetChild(cnt).GetChild(0).GetComponent<Image>().sprite = GetSpriteByID(Weapon[i].GetComponent<Item>().ID);
+                }
+                else
+                {
+                    equipBar.transform.GetChild(cnt).GetChild(0).GetComponent<Image>().sprite = null;
+                }
+                cnt++;
+            }
+
+            for (int i = 0; i < Missile.Length; i++)
+            {
+                if (equipBar.transform.GetChild(cnt).GetChild(0).tag != "Untagged" && Missile[i] != null)
+                {
+                    equipBar.transform.GetChild(cnt).GetChild(0).GetComponent<Image>().sprite = GetSpriteByID(Missile[i].GetComponent<Item>().ID);
+                }
+                else
+                {
+                    equipBar.transform.GetChild(cnt).GetChild(0).GetComponent<Image>().sprite = null;
+                }
+                cnt++;
+            }
+
+            for (int i = 0; i < Remedy.Length; i++)
+            {
+                if (equipBar.transform.GetChild(cnt).GetChild(0).tag != "Untagged" && Remedy[i] != null)
+                {
+                    equipBar.transform.GetChild(cnt).GetChild(0).GetComponent<Image>().sprite = GetSpriteByID(Remedy[i].GetComponent<Item>().ID);
+                }
+                else
+                {
+                    equipBar.transform.GetChild(cnt).GetChild(0).GetComponent<Image>().sprite = null;
+                }
+                cnt++;
+            }
+
+            for (int i = 0; i < Skills.Length; i++) {
+                if (skillBar.transform.GetChild(i).GetChild(0).tag != "Untagged" && Skills[i] != null)
+                {
+                    skillBar.transform.GetChild(i).GetChild(0).GetComponent<Image>().sprite = GetSpriteByID(Skills[i].GetComponent<Item>().ID);
+                }
+                else
+                {
+                    skillBar.transform.GetChild(i).GetChild(0).GetComponent<Image>().sprite = null;
+                }
+            }
+
+            for (int i = 0; i < itemList.Count; i++)
+            {
+                if (backpackStore.transform.GetChild(i).transform.GetChild(0).tag != "Untagged")
+                {
+                    backpackStore.transform.GetChild(i).transform.GetChild(0).GetComponent<Image>().sprite = GetSpriteByID(itemList[i].GetComponent<Item>().ID);
+                }
+            }
+
+            while (lastcnt >itemList.Count) {
+                backpackStore.transform.GetChild(lastcnt-- - 1).transform.GetChild(0).GetComponent<Image>().sprite = null;
+            }
+
+            lastcnt = itemList.Count;
         }
     }
 }

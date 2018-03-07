@@ -267,9 +267,6 @@ public class CombineMesh : MonoBehaviour {
 		WorldTextureAtlas.Apply();
 		materialPrefab.mainTexture = WorldTextureAtlas;
 		GenerateUVCoordinatesForAllBlocks();
-        foreach (var v in m_BlockUVCoordinates) {
-            Debug.Log("Key:"+v.Key);
-        }
 	}
 
     public void GenerateUVCoordinatesForAllBlocks()
