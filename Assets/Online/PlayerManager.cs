@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace DimensionCollapse {
-    public class PlayerManager : Photon.PunBehaviour, IPunObservable {
+namespace DimensionCollapse
+{
+    public class PlayerManager : Photon.PunBehaviour, IPunObservable
+    {
 
         #region Public Variables
 
@@ -68,18 +70,19 @@ namespace DimensionCollapse {
 
         #endregion
 
-		#region Private Variables
+        #region Private Variables
 
-		private GameObject survivors;
-		private GameObject deaders;
+        private GameObject survivors;
+        private GameObject deaders;
         private ImpactReceiver impactReceiver;
 
-		#endregion
+        #endregion
 
-		#region MonoBehaviour Messages
+        #region MonoBehaviour Messages
 
-        void Awake() {
-            
+        void Awake()
+        {
+
             Camera[] cameras = gameObject.GetComponentsInChildren<Camera>();
             foreach (var cam in cameras)
             {
@@ -108,69 +111,84 @@ namespace DimensionCollapse {
         }
 
         // Use this for initialization
-        void Start() {
+        void Start()
+        {
 
-			survivors = GameObject.Find ("Survivors");
-			deaders = GameObject.Find ("Deaders");
+            survivors = GameObject.Find("Survivors");
+            deaders = GameObject.Find("Deaders");
 
-			if (photonView.isMine) {
-				GameObject.Find ("UIManager").SendMessage ("SetTarget", this, SendMessageOptions.RequireReceiver);
-			}
+            if (photonView.isMine)
+            {
+                GameObject.Find("UIManager").SendMessage("SetTarget", this, SendMessageOptions.RequireReceiver);
+            }
 
-			if (isAlive) {
-				gameObject.transform.SetParent (survivors.transform);
-			} else {
-				gameObject.transform.SetParent (deaders.transform);
-			}
-				
+            if (isAlive)
+            {
+                gameObject.transform.SetParent(survivors.transform);
+            }
+            else
+            {
+                gameObject.transform.SetParent(deaders.transform);
+            }
+
             Direction = transform.rotation.eulerAngles.y;
 
         }
 
         // Update is called once per frame
-        void Update() {
+        void Update()
+        {
 
-			if (!photonView.isMine)
-			{
-				return;
-			}
-			if (health < 0)
-			{
-				DeadDecision ();
-			}
-			if (Input.GetKeyDown(KeyCode.E))
-			{
-				if(isAlive==false){Revive ();}
-			}
+            if (!photonView.isMine)
+            {
+                return;
+            }
+            if (health < 0)
+            {
+                DeadDecision();
+            }
+            if (transform.position.y < -25)
+            {
+                if (isAlive)
+                {
+                    isAlive = false;
+                    DeadDecision();
+                }
+
+            }
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                if (isAlive == false) { Revive(); }
+            }
 
             Direction = transform.rotation.eulerAngles.y;
-            Health = health/maxHealth;
-    	}
+            Health = health / maxHealth;
+        }
 
-		#endregion
+        #endregion
 
-		#region Public Method
-		public void OnAttacked(float primaryDamage, Vector3 contact)
-		{
-			if (!photonView.isMine)
-			{
-				return;
-			}
-			//Debug.Log(primaryDamage + "受到的伤害");
-			this.health -= primaryDamage;
-			//Debug.Log("Hash: " + this.gameObject.GetHashCode() + ", health is: " + health);
-		}
+        #region Public Method
+        public void OnAttacked(float primaryDamage, Vector3 contact)
+        {
+            if (!photonView.isMine)
+            {
+                return;
+            }
+            //Debug.Log(primaryDamage + "受到的伤害");
+            this.health -= primaryDamage;
+            //Debug.Log("Hash: " + this.gameObject.GetHashCode() + ", health is: " + health);
+        }
 
-		public void OnAttacked(float primaryDamage)
-		{
+        public void OnAttacked(float primaryDamage)
+        {
             CountVisualizeManager.INSTANCE.ShowDamageCount(primaryDamage, transform);
-			if (!photonView.isMine)
-			{
-				return;
-			}
-			//Debug.Log(primaryDamage + "受到的伤害");
-			this.health -= primaryDamage;
-		}
+            if (!photonView.isMine)
+            {
+                return;
+            }
+            //Debug.Log(primaryDamage + "受到的伤害");
+            this.health -= primaryDamage;
+        }
 
         /// <summary>
         /// 恢复生命值
@@ -258,36 +276,39 @@ namespace DimensionCollapse {
                 pickupManager.EquipeWeapon(next);
             }
         }
-		#endregion
+        #endregion
 
-		#region IPunObservable implementation
-		public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-		{
-			if (stream.isWriting)
-			{
-				stream.SendNext(health);
-			}
-			else
-			{
-				this.health = (float)stream.ReceiveNext();
-			}
-		}
-		#endregion
+        #region IPunObservable implementation
+        public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+        {
+            if (stream.isWriting)
+            {
+                stream.SendNext(health);
+            }
+            else
+            {
+                this.health = (float)stream.ReceiveNext();
+            }
+        }
+        #endregion
 
-		#region Private Method
-		void DeadDecision(){
-			PhotonNetwork.Instantiate (this.GhostPlayerfab.name, transform.position, transform.rotation, 0);
-			PhotonNetwork.Destroy (this.gameObject);
-            if (photonView.isMine&&GameManager.Instance.currentState==GameManager.gameStates.Gaming) {
-                PlayerUI.Instance.GameOver.transform.Find("Result").GetComponent<Text>().text="失败";
+        #region Private Method
+        void DeadDecision()
+        {
+            PhotonNetwork.Instantiate(this.GhostPlayerfab.name, transform.position, transform.rotation, 0);
+            PhotonNetwork.Destroy(this.gameObject);
+            if (photonView.isMine && GameManager.Instance.currentState == GameManager.gameStates.Gaming)
+            {
+                PlayerUI.Instance.GameOver.transform.Find("Result").GetComponent<Text>().text = "失败";
                 PlayerUI.Instance.GameOver.SetActive(true);
             }
-		}
+        }
 
-		void Revive(){
-			PhotonNetwork.Instantiate (this.playerPrefab.name, transform.position, new Quaternion(), 0);
-			PhotonNetwork.Destroy (this.gameObject);
-		}
-		#endregion
+        void Revive()
+        {
+            PhotonNetwork.Instantiate(this.playerPrefab.name, transform.position, new Quaternion(), 0);
+            PhotonNetwork.Destroy(this.gameObject);
+        }
+        #endregion
     }
 }
