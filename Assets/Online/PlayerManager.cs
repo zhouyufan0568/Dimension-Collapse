@@ -176,6 +176,7 @@ namespace DimensionCollapse
             }
             //Debug.Log(primaryDamage + "受到的伤害");
             this.health -= primaryDamage;
+            BloodUI.Instance.displayBlood();
             //Debug.Log("Hash: " + this.gameObject.GetHashCode() + ", health is: " + health);
         }
 
@@ -187,6 +188,7 @@ namespace DimensionCollapse
                 return;
             }
             //Debug.Log(primaryDamage + "受到的伤害");
+            BloodUI.Instance.displayBlood();
             this.health -= primaryDamage;
         }
 
