@@ -78,7 +78,9 @@ public enum BlockType : byte
     wool_colored_gray=73,
     wool_colored_orange=74,
     wool_colored_red=75,
-    wool_colored_yellow=76
+    wool_colored_yellow=76,
+    grass_deep=77,
+    grass_s=78
 }
 
 public enum BlockFace : byte

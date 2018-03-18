@@ -1483,6 +1483,10 @@ public class MultiplyCubes : EditorWindow {
                             for (int direction = 0; direction < 6; direction++)
                             {
                                 isVisible[direction] = true;
+                                if ((indexXInCubeSpace == minX || indexOfChunkX == maxX) || (indexOfChunkZ == minZ || indexOfChunkZ == maxZ))
+                                {
+                                    continue;
+                                }
                                 int adjacentX = indexXInCubeSpace + offsetX[direction];
                                 int adjacentY = indexYInCubeSpace + offsetY[direction];
                                 int adjacentZ = indexZInCubeSpace + offsetZ[direction];
@@ -1494,11 +1498,11 @@ public class MultiplyCubes : EditorWindow {
                                     isVisible[direction] = false;
                                     visiblePlaneCount--;
                                 }
-                                if (direction == 2 && lowestCubeY[indexXInCubeSpace, indexZInCubeSpace] == indexYInCubeSpace)
-                                {
-                                    isVisible[direction] = false;
-                                    visiblePlaneCount--;
-                                }
+                                //if (direction == 2 && lowestCubeY[indexXInCubeSpace, indexZInCubeSpace] == indexYInCubeSpace)
+                                //{
+                                //    isVisible[direction] = false;
+                                //    visiblePlaneCount--;
+                                //}
                             }
                             byte encodedVisible = MapChunkIO.EncodeVisible(isVisible);
                             bw.Write(encodedVisible);
@@ -1654,17 +1658,17 @@ public class MultiplyCubes : EditorWindow {
                     {
                         case 0:
                             {
-                                cube.GetComponent<MeshRenderer>().material = (Material)Resources.Load("Materials/(29)grass_path_top_s");
+                                cube.GetComponent<MeshRenderer>().material = (Material)Resources.Load("Materials/(77)grass_deep");
                                 break;
                             }
                         case 1:
                             {
-                                cube.GetComponent<MeshRenderer>().material = (Material)Resources.Load("Materials/(28)grass_path_top_deep");
+                                cube.GetComponent<MeshRenderer>().material = (Material)Resources.Load("Materials/(78)grass_s");
                                 break;
                             }
                         default:
                             {
-                                cube.GetComponent<MeshRenderer>().material = (Material)Resources.Load("Materials/(27)grass_path_top");
+                                cube.GetComponent<MeshRenderer>().material = (Material)Resources.Load("Materials/(25)grass");
                                 break;
                             }
 
