@@ -56,6 +56,8 @@ namespace DimensionCollapse
         /// </summary>
         public Item itemInHand;
 
+        public GameObject itemStore;
+
         /// <summary>
         /// The skills being used.
         /// </summary>
@@ -297,8 +299,10 @@ namespace DimensionCollapse
         #region Private Method
         void DeadDecision()
         {
+            DropItemOnDead();
             PhotonNetwork.Instantiate(this.GhostPlayerfab.name, transform.position, transform.rotation, 0);
             PhotonNetwork.Destroy(this.gameObject);
+
             if (photonView.isMine && GameManager.Instance.currentState == GameManager.gameStates.Gaming)
             {
                 PlayerUI.Instance.GameOver.transform.Find("Result").GetComponent<Text>().text = "失败";
@@ -311,6 +315,21 @@ namespace DimensionCollapse
             PhotonNetwork.Instantiate(this.playerPrefab.name, transform.position, new Quaternion(), 0);
             PhotonNetwork.Destroy(this.gameObject);
         }
+
+        void DropItemOnDead()
+        {
+            if (itemStore) {
+                Debug.Log(itemStore.transform.childCount);
+                for (int i = itemStore.transform.childCount-1 ; i >= 0; i--) {
+                    pickupManager.DropItem(itemStore.transform.GetChild(i).gameObject);
+                }
+            }
+            if (itemInHand) {
+                Debug.Log("exe");
+                pickupManager.DropItem(itemInHand.gameObject);
+            }
+        }
+
         #endregion
     }
 }

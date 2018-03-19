@@ -2545,6 +2545,7 @@ MonoBehaviour:
   inventory: {fileID: 0}
   pickupManager: {fileID: 0}
   itemInHand: {fileID: 0}
+  itemStore: {fileID: 1475363115807424}
   skillOne: {fileID: 114079826097064592}
   skillTwo: {fileID: 0}
 --- !u!114 &114115612928238616
