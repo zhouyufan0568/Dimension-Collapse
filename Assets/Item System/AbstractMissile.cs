@@ -43,7 +43,7 @@ namespace DimensionCollapse
 
         public override Vector3 OnChargeEnd()
         {
-            return camera.ScreenPointToRay(new Vector3(0.5f, 0.5f, 0)).direction.normalized * (chargeTime / maxChargeTime) * maxForce;
+            return camera.transform.forward.normalized * (chargeTime / maxChargeTime) * maxForce;
         }
 
         public override void Throw(Vector3 force)
