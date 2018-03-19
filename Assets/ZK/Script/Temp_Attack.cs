@@ -6,6 +6,7 @@ public class Temp_Attack : MonoBehaviour
 {
     public RangedWeapon gun;
     public RangedWeapon gun2;
+    public RangedWeaponChanger gun3;
 
     // Use this for initialization
     void Start()
@@ -27,6 +28,20 @@ public class Temp_Attack : MonoBehaviour
                 gun2.Attack();
             }
 
+        }
+        if (Input.GetMouseButtonDown(0))
+        {
+            if (gun3 != null)
+            {
+                gun3.Attack(true);
+            }
+        }
+        if (Input.GetMouseButtonUp(0))
+        {
+            if (gun3 != null)
+            {
+                gun3.Attack(false);
+            }
         }
 
         //临时代码
@@ -52,6 +67,10 @@ public class Temp_Attack : MonoBehaviour
         if (gun2 != null)
         {
             GUILayout.TextArea(gun2.CurrentChanger + "/" + gun2.AlternativeCharger, 200);
+        }
+        if (gun3 != null)
+        {
+            GUILayout.TextArea(gun3.CurrentChanger + "/" + gun3.AlternativeCharger, 200);
         }
 
     }

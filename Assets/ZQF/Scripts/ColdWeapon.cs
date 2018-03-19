@@ -14,4 +14,8 @@ public class ColdWeapon : Weapon
     {
         throw new System.NotImplementedException();
     }
+
+    public override void Attack(bool b){
+        return;
+    }
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace DimensionCollapse
 {
-    public class Bullet : MonoBehaviour
+    public class BulletCharge : MonoBehaviour
     {
         public String BulletName; //子弹的名称
         public int ID; //子弹的ID
@@ -13,18 +13,26 @@ namespace DimensionCollapse
         private int damage;   //子弹的伤害值，由枪赋予
         private float currentBulletLifeTime; //用于记录当前子弹生命时间
         private bool isFirst; //用于记录这个子弹是否处于即将发射状态
-        private LinkedList<Bullet> bulletList; //这个链表和RangedWeapon中武器子弹列表相同，用于更新子弹状态
+        private LinkedList<BulletCharge> bulletList; //这个链表和RangedWeapon中武器子弹列表相同，用于更新子弹状态
         private Rigidbody bulletRigidbody; //辅助归零子弹速度和角速度，节省系统开销
         private Transform flying; //子弹飞行特效，如果有的话在子弹飞行中显示
         private Transform explosion; //子弹爆炸特效，如果有的话在子弹碰撞到其他物体时显示
         [SerializeField]
         protected float BulletRealLifeTime;    //子弹的实际生命周期，如果子弹在碰撞后还需要显示爆炸动画的话，那么需要将子弹的原始生命周期加上这个动画的持续时间
+        [SerializeField]
         private Boolean isDead; //记录子弹是否已经死亡，防止因超过生命周期而删除的子弹重复多次显示渲染粒子特效
         private AudioSource audioExplosion;   //子弹爆炸特效，如果有的话在执行爆炸特效时播放
         private Vector3 lastPosition = new Vector3(float.MaxValue, float.MaxValue, float.MaxValue); //此条记录上一次的位置点，辅助实现防止子弹越过物体
         private Ray ray;    //此值是从上一帧（FixedUpdate）的位置到现在的位置所发的射线
         private float rayLength;    //此长度为上述射线的长度
         private int thisHash;   //此物品的Hash值，用于防止上述射线检测检测到自己
+
+        // private const float HIGH_SPEED = 50; //超过这个速度的加入射线检测，防止穿过物体。由于地图没有厚度，此判定暂时搁置
+
+        // int cursor = 0; //此游标用来测试射线发射是否正常
+        private ParticleSystem ChargeParticle; //充能特效
+        public bool isCharging;
+
 
         // private const float HIGH_SPEED = 50; //超过这个速度的加入射线检测，防止穿过物体。由于地图没有厚度，此判定暂时搁置
 
@@ -39,13 +47,21 @@ namespace DimensionCollapse
             //子弹没有碰撞体的话，警告!
             if (this.gameObject.GetComponent<Collider>() == null)
             {
-                this.GetComponent<Collider>().enabled = false;
                 Debug.Log("子弹没有添加碰撞体！");
             }
             //子弹没有刚体的话，警告！
             if (this.gameObject.GetComponent<Rigidbody>() == null)
             {
                 Debug.Log("子弹没有添加刚体！");
+            }
+            try
+            {
+                ChargeParticle = this.transform.Find("Particle_Charge").gameObject.GetComponent<ParticleSystem>();
+                ChargeParticle.Stop();
+            }
+            catch (System.NullReferenceException e)
+            {
+                Debug.Log("此充能武器的子弹：" + name + " 不含ChargeParticle，也即没有充能特效。 " + e);
             }
             bulletRigidbody = GetComponent<Rigidbody>();
 
@@ -58,7 +74,7 @@ namespace DimensionCollapse
             {
                 explosion.GetComponent<Rigidbody>().isKinematic = true; //不设置遵循动力学的话，不能发射
                 explosion.GetComponent<Collider>().enabled = false;
-                BulletRealLifeTime = BulletLifeTime + explosion.GetComponent<ParticleSystem>().main.duration;
+                BulletRealLifeTime = BulletLifeTime + explosion.GetComponent<ParticleSystem>().main.duration * 1.5f; //粒子实际持续时间有点难算，直接*1.5算了。
             }
             else
             {
@@ -66,17 +82,21 @@ namespace DimensionCollapse
                 //Debug.Log(BulletRealLifeTime);
             }
             this.thisHash = this.gameObject.GetHashCode();
+            this.isCharging = false;
             this.gameObject.SetActive(false);
 
         }
-
         //测试证明调用SetActive(true)不会重新调用Start()
         void Start()
         {
             //Debug.Log("Start调用！");
         }
-        void FixedUpdate()
+        private void FixedUpdate()
         {
+            if (this.isCharging)
+            {
+                return;
+            }
             //Debug.Log("Update调用");
             if (isFirst)
             { //如果这个子弹是即将发射状态，那么初始化它的生命周期，并显示飞行特效
@@ -94,45 +114,45 @@ namespace DimensionCollapse
             {
                 //射出射线判断碰撞函数
 
-                    //此判断用于跳过Position是初始值的第一次情况；
+                //此判断用于跳过Position是初始值的第一次情况；
 
-                    if (lastPosition.x < float.MaxValue)
+                if (lastPosition.x < float.MaxValue)
+                {
+                    ray = new Ray(lastPosition, this.transform.position - lastPosition);
+                    rayLength = (transform.position - lastPosition).magnitude;
+                    RaycastHit hitInfo;
+
+                    /* 
+                    cursor++;
+                    if (cursor == 3)
                     {
-                        ray = new Ray(lastPosition, this.transform.position - lastPosition);
-                        rayLength = (transform.position - lastPosition).magnitude;
-                        RaycastHit hitInfo;
+                        cursor = 0;
+                    }
+                    switch (cursor)
+                    {
+                        case 0:
+                            Debug.DrawLine(lastPosition, this.transform.position, Color.green, 2000);
+                            break;
+                        case 1:
+                            Debug.DrawLine(lastPosition, this.transform.position, Color.yellow, 2000);
+                            break;
+                        case 2:
+                            Debug.DrawLine(lastPosition, this.transform.position, Color.red, 2000);
+                            break;
+                    }
+                    */
 
-                        /* 
-                        cursor++;
-                        if (cursor == 3)
+                    //发出一条射线~~~~~~~~~~
+                    if (Physics.Raycast(ray, out hitInfo, rayLength))
+                    {
+                        //防止子弹发出的射线碰到自己
+                        if (hitInfo.collider.gameObject.GetHashCode() != this.thisHash)
                         {
-                            cursor = 0;
-                        }
-                        switch (cursor)
-                        {
-                            case 0:
-                                Debug.DrawLine(lastPosition, this.transform.position, Color.green, 2000);
-                                break;
-                            case 1:
-                                Debug.DrawLine(lastPosition, this.transform.position, Color.yellow, 2000);
-                                break;
-                            case 2:
-                                Debug.DrawLine(lastPosition, this.transform.position, Color.red, 2000);
-                                break;
-                        }
-                        */
-
-                        //发出一条射线~~~~~~~~~~
-                        if (Physics.Raycast(ray, out hitInfo, rayLength))
-                        {
-                            //防止子弹发出的射线碰到自己
-                            if (hitInfo.collider.gameObject.GetHashCode() != this.thisHash)
-                            {
-                                BulletOnCollisionEnter(hitInfo.collider, hitInfo.point, bulletRigidbody.mass * bulletRigidbody.velocity);//使用动量定理，默认物体接触时间为1秒
-                            }
+                            BulletOnCollisionEnter(hitInfo.collider, hitInfo.point, bulletRigidbody.mass * bulletRigidbody.velocity);//使用动量定理，默认物体接触时间为1秒
                         }
                     }
-                    lastPosition = this.transform.position;
+                }
+                lastPosition = this.transform.position;
                 isOverLifeTime(); //检测是否超过生命周期  
             }
             //Debug.Log("子弹速度为：" + this.GetComponent<Rigidbody>().velocity);
@@ -151,6 +171,7 @@ namespace DimensionCollapse
                     StopFlyingAndExplode();
                 }
                 StartCoroutine(delayDelete(BulletRealLifeTime - BulletLifeTime));
+                Debug.Log("over time");
                 //Debug.Log("超过生命周期而删除");
             }
         }
@@ -166,60 +187,67 @@ namespace DimensionCollapse
         //other：被碰到的物体，position：被碰到的位置
         private void BulletOnCollisionEnter(Collider other, Vector3 position, Vector3 impulse)
         {
+            //Debug.Log("collision enter");
             //此判断是为了防止子弹在某些情况下能触发两个碰撞（比如把枪口伸到物体里面），就会调用两次本函数，那么第二次的碰撞就会因为物体是非激活状态而引发错误
             if (this.gameObject.activeInHierarchy == true)
             {
+                //Debug.Log("Hierarchy");
+                //此判断语句在射线检测碰撞时会调用，用来实现模拟碰撞的物理效果
+                if (impulse != Vector3.zero)
                 {
-                    //此判断语句在射线检测碰撞时会调用，用来实现模拟碰撞的物理效果
-                    if (impulse != Vector3.zero)
+                    Rigidbody otherRigidbody = other.GetComponent<Rigidbody>();
+                    if (otherRigidbody != null)
                     {
-                        Rigidbody otherRigidbody = other.GetComponent<Rigidbody>();
-                        if (otherRigidbody != null)
-                        {
-                            otherRigidbody.AddForce(impulse, ForceMode.Impulse);
-                            // Debug.Log("By means of ray mode to add this impuse: " + impulse);
-                        }
+                        otherRigidbody.AddForce(impulse, ForceMode.Impulse);
+                        // Debug.Log("By means of ray mode to add this impuse: " + impulse);
                     }
-                    //Debug.Log("by normal means");
-
-                    //让子弹停止,很关键的代码~不然要加很多的代码来让爆炸位置不动,就算没有爆炸，这条语句也不会引发错误  
-                    bulletRigidbody.isKinematic = true;
-
-                    PlayerManager player = other.gameObject.GetComponent<PlayerManager>();
-                    if (flying != null)
-                    {
-                        StopFlyingAndExplode();
-
-                        if (explosion != null)
-                        {
-                            SphereCollider thisSphereCollider = explosion.GetComponent<SphereCollider>();
-                            //此函数用于判断爆炸范围内有无玩家，有的话就进行扣血
-                            explosionDamage(thisSphereCollider.transform.TransformPoint(thisSphereCollider.center), thisSphereCollider.bounds.size.x / 2);
-
-                            /* 精确测试爆炸范围代码 
-                            GameObject testSphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-                            testSphere.GetComponent<Collider>().enabled = false;
-                            testSphere.transform.localScale = thisSphereCollider.bounds.size ;
-                            testSphere.transform.position =  thisSphereCollider.transform.TransformPoint(thisSphereCollider.center);
-                            */
-                        }
-                    }
-                    else
-                    {
-                        //临时扣血代码
-                        if (player != null)
-                        {
-                            player.OnAttacked(this.damage, position);
-                            //Debug.Log("OnAttacked执行！");
-                            player = null;
-                        }
-                    }
-                    StartCoroutine(delayDelete(BulletRealLifeTime - BulletLifeTime));
                 }
+                //Debug.Log("by normal means");
+
+                //让子弹停止,很关键的代码~不然要加很多的代码来让爆炸位置不动,就算没有爆炸，这条语句也不会引发错误  
+                bulletRigidbody.isKinematic = true;
+
+                PlayerManager player = other.gameObject.GetComponent<PlayerManager>();
+                if (flying != null)
+                {
+                    StopFlyingAndExplode();
+
+                    if (explosion != null)
+                    {
+                        SphereCollider thisSphereCollider = explosion.GetComponent<SphereCollider>();
+                        //此函数用于判断爆炸范围内有无玩家，有的话就进行扣血
+                        explosionDamage(thisSphereCollider.transform.TransformPoint(thisSphereCollider.center), thisSphereCollider.bounds.size.x / 2);
+
+                        /* 精确测试爆炸范围代码 
+                        GameObject testSphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+                        testSphere.GetComponent<Collider>().enabled = false;
+                        testSphere.transform.localScale = thisSphereCollider.bounds.size ;
+                        testSphere.transform.position =  thisSphereCollider.transform.TransformPoint(thisSphereCollider.center);
+                        */
+                    }
+                }
+                else
+                {
+                    //临时扣血代码
+                    if (player != null)
+                    {
+                        player.OnAttacked(this.damage, position);
+                        //Debug.Log("OnAttacked执行！");
+                        player = null;
+                    }
+                }
+                StartCoroutine(delayDelete(BulletRealLifeTime - BulletLifeTime));
+            }
+            else
+            {
+                //Debug.Log("this.gameObject.activeInHierarchy: " + this.gameObject.activeInHierarchy);
             }
             isDead = true;
         }
-
+        public float getBulletRealLifeTime()
+        {
+            return BulletRealLifeTime;
+        }
         //此函数用于判断爆炸范围内有无玩家，有的话就进行扣血, 参数：center-圆心坐标（世界坐标系），radius-半径
         private void explosionDamage(Vector3 center, float radius)
         {
@@ -252,41 +280,30 @@ namespace DimensionCollapse
             {
                 yield return 0;
             }
-
-            Bullet tempBullet = this;
+            this.transform.localScale = new Vector3(1,1,1);
+            BulletCharge tempBullet = this;
             bulletList.RemoveLast();
             bulletList.AddFirst(tempBullet);
+            Debug.Log("addFirst");
             this.gameObject.SetActive(false);
+            Debug.Log("delayDelete");
         }
-        public void setInitTransformAndDamage(Transform initTransform, int damage)
+        // 充能特殊初始话脚本，不同之处在与充能状态下只显示充能特效
+
+        private IEnumerator explosionCollisionController()
         {
-            this.gameObject.SetActive(true);
-
-            this.damage = damage;
-
-            this.transform.position = initTransform.position;
-            this.transform.rotation = initTransform.rotation;
-            this.transform.eulerAngles = initTransform.eulerAngles;
-
-            this.GetComponent<Collider>().enabled = true; //启用物体本身的碰撞体            
-
-            bulletRigidbody.velocity = Vector3.zero;
-            bulletRigidbody.angularVelocity = Vector3.zero;
-            bulletRigidbody.isKinematic = false; //让子弹可以受力而运动
-            if (flying != null)
+            this.GetComponent<Collider>().enabled = false; //禁用物体本身的碰撞体
+            explosion.GetComponent<Collider>().enabled = true; //启动爆炸的碰撞体
+            for (float i = 0; i < 0.1; i += Time.deltaTime)
             {
-                flying.gameObject.SetActive(true);
+                // Debug.Log("explosion Exist");
+                yield return 0;
             }
-            isDead = false;
-            isFirst = true;
-            lastPosition = this.transform.position;
+            explosion.GetComponent<Collider>().enabled = false; //消除爆炸的碰撞体
         }
-        //获取子弹生命周期，给武器调用
-        public float getBulletRealLifeTime()
-        {
-            return BulletRealLifeTime;
-        }
-        public void setBulletList(LinkedList<Bullet> bulletList)
+
+
+        public void setBulletList(LinkedList<BulletCharge> bulletList)
         {
             this.bulletList = bulletList;
         }
@@ -311,16 +328,49 @@ namespace DimensionCollapse
 
         }
 
-        private IEnumerator explosionCollisionController()
+        public void setInitTransformAndDamageForCharge(Transform initTransform, int damage, bool isCharging, int initDamage)
         {
-            this.GetComponent<Collider>().enabled = false; //禁用物体本身的碰撞体
-            explosion.GetComponent<Collider>().enabled = true; //启动爆炸的碰撞体
-            for (float i = 0; i < 0.1; i += Time.deltaTime)
+            this.isCharging = isCharging;
+            //this.gameObject.SetActive(true);
+            this.damage = damage;
+
+            this.transform.position = initTransform.position;
+            this.transform.rotation = initTransform.rotation;
+            this.transform.eulerAngles = initTransform.eulerAngles;
+            //Debug.Log(isCharging);
+            if (this.isCharging)
             {
-                // Debug.Log("explosion Exist");
-                yield return 0;
+                if (!ChargeParticle.isPlaying)
+                {
+                    this.gameObject.SetActive(true);
+                    ChargeParticle.Play();
+                }
+                // Debug.Log("play");
+                return;
             }
-            explosion.GetComponent<Collider>().enabled = false; //消除爆炸的碰撞体
+            else
+            {
+                //Debug.Log("stop");
+                ChargeParticle.Stop();
+                // Debug.Log("damage:" + damage + "init:" + initDamage);
+                float scaleMutiple = (float)(damage)/(float)(initDamage) * (1f);
+                this.transform.localScale = new Vector3(scaleMutiple,scaleMutiple,scaleMutiple);
+                Debug.Log("this.transform.localScale"+ this.transform.localScale);
+            }
+
+            this.GetComponent<Collider>().enabled = true; //启用物体本身的碰撞体            
+
+            bulletRigidbody.velocity = Vector3.zero;
+            bulletRigidbody.angularVelocity = Vector3.zero;
+            bulletRigidbody.isKinematic = false; //让子弹可以受力而运动
+            if (flying != null)
+            {
+                flying.gameObject.SetActive(true);
+            }
+            isDead = false;
+            isFirst = true;
+            lastPosition = this.transform.position;
         }
+
     }
 }

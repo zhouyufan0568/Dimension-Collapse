@@ -10,5 +10,9 @@ namespace DimensionCollapse
 		public abstract void Attack();  //武器攻击函数，由人物来调用进行攻击
 
         public abstract bool CanAttack();
+
+        public virtual void Attack(bool charging){ //充能武器攻击函数，charging代表是是否正在充能
+            throw new System.NotImplementedException();
+        }
     }
 }
