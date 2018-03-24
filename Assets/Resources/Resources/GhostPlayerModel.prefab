@@ -567,7 +567,7 @@ Animator:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1828405944946750}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 587ddf02631578949a8ede1729549fae, type: 2}
   m_CullingMode: 0
@@ -726,8 +726,8 @@ MonoBehaviour:
   - {fileID: 114930587680861384}
   - {fileID: 0}
   ObservedComponentsFoldoutOpen: 1
-  viewIdField: 15
-  instantiationId: 15
+  viewIdField: 0
+  instantiationId: -1
   currentMasterID: -1
   isRuntimeInstantiated: 0
 --- !u!114 &114683387774024458
