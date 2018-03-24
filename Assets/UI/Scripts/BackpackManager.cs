@@ -76,6 +76,16 @@ namespace DimensionCollapse
         /// <param name="cnt"></param>
         /// <param name="obj"></param>
         private void UpdateInspire() {
+
+            if (playerManager == null) {
+                playerManager = PlayerManager.LocalPlayerInstance.GetComponent<PlayerManager>();
+                itemList = playerManager.inventory.ItemList;
+                Weapon = playerManager.inventory.Weapon;
+                Skills = playerManager.inventory.Skills;
+                Missile = playerManager.inventory.Missile;
+                Remedy = playerManager.inventory.Remedy;
+            }
+
             int cnt = 0;
 
             for (int i = 0; i < Weapon.Length; i++)
