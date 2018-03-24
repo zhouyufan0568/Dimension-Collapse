@@ -20,6 +20,10 @@ namespace DimensionCollapse
                 return;
             }
 
+            if (Input.GetButton("Backpack")) {
+                return;
+            }
+
             if (Input.GetMouseButtonDown(0))
             {
                 (playerManager.itemInHand as Missile)?.OnChargeStart();
