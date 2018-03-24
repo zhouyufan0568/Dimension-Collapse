@@ -158,7 +158,7 @@ public class CollapseController : MonoBehaviour {
 		LinkedList<Transform> other=new LinkedList<Transform>();
 		//FloorUnit[,] temp=new FloorUnit[FloorMaker.wnum,FloorMaker.dnum];
 		GetAllChildren (this.gameObject.transform,flo, other);
-        Debug.Log(flo.Count);
+        //Debug.Log(flo.Count);
 
         FloorUnit[,] cubeSpace = new FloorUnit[120, 120];
         int count = 0;
@@ -185,7 +185,7 @@ public class CollapseController : MonoBehaviour {
                 cubeSpace[x, z].list.AddLast(new LinkedListNode<GameObject>(cube.gameObject));
             }
         }
-        Debug.Log(count);
+        //Debug.Log(count);
 		FloorUnit[] res = new FloorUnit[count];
         int index = 0;
         for (int i = 0; i < 120; i++)
