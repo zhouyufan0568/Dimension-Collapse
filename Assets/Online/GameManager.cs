@@ -67,7 +67,7 @@ namespace DimensionCollapse
 
         void Update()
         {
-            if (currentState == gameStates.Waiting && PhotonNetwork.room.PlayerCount >= 3)
+            if (currentState == gameStates.Waiting && survivors.transform.childCount >= 3)
             {
 
                 if (PhotonNetwork.isMasterClient)
@@ -80,7 +80,7 @@ namespace DimensionCollapse
                 currentState = gameStates.Gaming;
             }
 
-            if (currentState == gameStates.Gaming && survivors.transform.childCount == 1 && deaders.transform.childCount!=0 ) {
+            if (currentState == gameStates.Gaming && survivors.transform.childCount == 1 ) {
                 currentState = gameStates.GameOver;
             }
 
@@ -93,6 +93,19 @@ namespace DimensionCollapse
                     PlayerUI.Instance.GameOver.transform.Find("Result").GetComponent<Text>().text = "失败";
                 }
                 GameOver.SetActive(true);
+                GameObject player = PlayerManager.LocalPlayerInstance;
+                if (player.GetComponent<PlayerManager>().isAlive == true)
+                {
+                    player.transform.GetComponent<FirstViewCamera>().enabled = false;
+                    player.transform.GetComponent<CharacterController>().enabled = false;
+                    player.transform.GetComponent<Player>().enabled = false;
+                }
+                else {
+                    player.transform.GetComponent<GhostMoveController>().enabled = false;
+                }
+                
+                Transform camera = player.transform.Find("Center").Find("Camera");
+                StartCoroutine("MoveCamera", camera);
             }
 
             //Debug.Log(currentState);
@@ -141,7 +154,22 @@ namespace DimensionCollapse
 
         #region Private Methods
 
+        IEnumerator MoveCamera(Transform camera) {
+            Transform center = camera.parent;
+            Vector3 centerOffsetRotation = (new Vector3(0, 0, 0) - center.localRotation.eulerAngles) / 2;
+            Vector3 offsetPosition = (new Vector3(5, 0, 0) - camera.localPosition) / 2;
+            Vector3 offsetRotation = (new Vector3(0, -90, 0) - camera.localRotation.eulerAngles) / 2;
+            float time = 0;
 
+            while (time < 2) {
+                center.Rotate(centerOffsetRotation * Time.deltaTime);
+                camera.localPosition += offsetPosition * Time.deltaTime;
+                camera.Rotate(offsetRotation * Time.deltaTime);
+                time += Time.deltaTime;
+                yield return null;
+            }
+            camera.GetComponent<Animator>().enabled = true;
+        }
 
 
         #endregion
