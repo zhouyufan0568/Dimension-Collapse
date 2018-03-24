@@ -16,23 +16,23 @@ namespace DimensionCollapse
 
         private void Update()
         {
-			if (localCamera == null) {
-				SetLocalCamera ();
+			if (localCamera == null)
+            {
+				SetLocalCamera();
 			}
+
+            if (localCamera == null)
+            {
+                return;
+            }
+
             Vector3 front = localCamera.transform.position + localCamera.transform.forward * offsetZ;
             transform.position = new Vector3(front.x, Mathf.Max(front.y, minY), front.z);
             transform.rotation = Quaternion.Euler(0, localCamera.transform.rotation.y, 0);
         }
-		private void SetLocalCamera(){
-			Camera[] cameras = PlayerManager.LocalPlayerInstance.GetComponentsInChildren<Camera>();
-			foreach (var camera in cameras)
-			{
-				if (camera.tag == "MainCamera")
-				{
-					localCamera = camera;
-					break;
-				}
-			}
+		private void SetLocalCamera()
+        {
+            localCamera = Camera.main;
 		}
     }
 }
