@@ -123,6 +123,7 @@ GameObject:
   - component: {fileID: 20323478287497930}
   - component: {fileID: 81885588100027140}
   - component: {fileID: 124651136397477960}
+  - component: {fileID: 95865874347264214}
   m_Layer: 11
   m_Name: Camera
   m_TagString: MainCamera
@@ -559,6 +560,23 @@ AudioListener:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1828405944946750}
   m_Enabled: 1
+--- !u!95 &95865874347264214
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1828405944946750}
+  m_Enabled: 0
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 587ddf02631578949a8ede1729549fae, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!95 &95932953714416796
 Animator:
   serializedVersion: 3
@@ -668,20 +686,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Health: 1
   Direction: 0
-  equipbar: []
-  skillbar: []
-  itembar: []
   playerPrefab: {fileID: 1151663828921520, guid: 5109f6fb64b4b9f4a8da61c6e1e9b432,
     type: 2}
   GhostPlayerfab: {fileID: 1038965112058080}
   camera: {fileID: 0}
+  maxChargeTime: 3
+  maxChargeForce: 50
   isAlive: 0
   maxHealth: 200
   health: 0
   numOfkill: 0
-  backpack: []
-  equipBar: []
-  skills: []
+  inventory: {fileID: 0}
+  pickupManager: {fileID: 0}
+  itemInHand: {fileID: 0}
+  itemStore: {fileID: 0}
+  skillOne: {fileID: 0}
+  skillTwo: {fileID: 0}
 --- !u!114 &114582760623786304
 MonoBehaviour:
   m_ObjectHideFlags: 1
