@@ -190,11 +190,9 @@ GameObject:
   - component: {fileID: 82654884913113904}
   - component: {fileID: 23369266712469702}
   - component: {fileID: 114873934379243178}
-  - component: {fileID: 95665549060594820}
   - component: {fileID: 114115612928238616}
   - component: {fileID: 114327967152604442}
   - component: {fileID: 114092046160593534}
-  - component: {fileID: 114120725730729202}
   - component: {fileID: 114970765863133390}
   - component: {fileID: 114720977703305352}
   - component: {fileID: 114472806663477704}
@@ -702,6 +700,8 @@ GameObject:
   - component: {fileID: 95888791733169304}
   - component: {fileID: 114778506914722608}
   - component: {fileID: 114312999007513280}
+  - component: {fileID: 114586256057360474}
+  - component: {fileID: 114350048837862062}
   m_Layer: 0
   m_Name: xiaoming_prefab
   m_TagString: Untagged
@@ -2278,6 +2278,7 @@ Camera:
   m_TargetEye: 3
   m_HDR: 0
   m_AllowMSAA: 1
+  m_AllowDynamicResolution: 0
   m_ForceIntoRT: 0
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
@@ -2461,23 +2462,6 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!95 &95665549060594820
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1151663828921520}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: cadbdf404c7f10d43bd6ae9750a8d6f8, type: 3}
-  m_Controller: {fileID: 9100000, guid: d61ce12d287afe54d980520cf9d6b064, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!95 &95888791733169304
 Animator:
   serializedVersion: 3
@@ -2606,32 +2590,6 @@ MonoBehaviour:
     InterpolateOption: 0
     InterpolateMoveTowardsSpeed: 1
     InterpolateLerpSpeed: 0
---- !u!114 &114120725730729202
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1151663828921520}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b8c4a61274f60b4ea5fb4299cfdbf14, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ShowLayerWeightsInspector: 1
-  ShowParameterInspector: 1
-  m_SynchronizeParameters:
-  - Type: 4
-    SynchronizeType: 1
-    Name: iswalk
-  - Type: 4
-    SynchronizeType: 1
-    Name: ishold
-  - Type: 4
-    SynchronizeType: 1
-    Name: ishi
-  m_SynchronizeLayers:
-  - SynchronizeType: 1
-    LayerIndex: 0
 --- !u!114 &114129361763090038
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2680,7 +2638,7 @@ MonoBehaviour:
   ownershipTransfer: 0
   ObservedComponents:
   - {fileID: 114115612928238616}
-  - {fileID: 114120725730729202}
+  - {fileID: 4692022219527512}
   - {fileID: 4049885416086630}
   - {fileID: 4790274831972654}
   ObservedComponentsFoldoutOpen: 1
@@ -2688,6 +2646,62 @@ MonoBehaviour:
   instantiationId: 3
   currentMasterID: -1
   isRuntimeInstantiated: 0
+--- !u!114 &114350048837862062
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1596481027136564}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b8c4a61274f60b4ea5fb4299cfdbf14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowLayerWeightsInspector: 1
+  ShowParameterInspector: 1
+  m_SynchronizeParameters:
+  - Type: 4
+    SynchronizeType: 1
+    Name: isAlive
+  - Type: 4
+    SynchronizeType: 1
+    Name: isDie
+  - Type: 4
+    SynchronizeType: 1
+    Name: isStand
+  - Type: 4
+    SynchronizeType: 1
+    Name: isCrouch
+  - Type: 4
+    SynchronizeType: 1
+    Name: isProne
+  - Type: 4
+    SynchronizeType: 1
+    Name: isAttack
+  - Type: 4
+    SynchronizeType: 1
+    Name: isPickGun
+  - Type: 4
+    SynchronizeType: 1
+    Name: isShooting
+  - Type: 9
+    SynchronizeType: 1
+    Name: isJump
+  - Type: 4
+    SynchronizeType: 1
+    Name: IsholdGun
+  - Type: 9
+    SynchronizeType: 1
+    Name: HodGunTrigger
+  - Type: 1
+    SynchronizeType: 1
+    Name: horizontal
+  - Type: 1
+    SynchronizeType: 1
+    Name: vertical
+  m_SynchronizeLayers:
+  - SynchronizeType: 1
+    LayerIndex: 0
 --- !u!114 &114403385412301964
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2792,6 +2806,32 @@ MonoBehaviour:
   mWeaponPanel: {fileID: 4402765159444652}
   itemStorage: {fileID: 4437746762528744}
   playerManager: {fileID: 114092046160593534}
+--- !u!114 &114586256057360474
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1596481027136564}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ownerId: 0
+  group: 0
+  OwnerShipWasTransfered: 0
+  prefixBackup: -1
+  synchronization: 0
+  onSerializeTransformOption: 3
+  onSerializeRigidBodyOption: 2
+  ownershipTransfer: 0
+  ObservedComponents:
+  - {fileID: 114350048837862062}
+  ObservedComponentsFoldoutOpen: 1
+  viewIdField: 4
+  instantiationId: 4
+  currentMasterID: -1
+  isRuntimeInstantiated: 0
 --- !u!114 &114670018340857366
 MonoBehaviour:
   m_ObjectHideFlags: 1

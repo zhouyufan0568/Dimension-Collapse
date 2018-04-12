@@ -142,7 +142,7 @@ namespace DimensionCollapse
         // Update is called once per frame
         void Update()
         {
-            if (itemInHand == null)
+            if (itemInHand == null && ikManager != null)
             {
                 ikManager.DisableIK();
             }
