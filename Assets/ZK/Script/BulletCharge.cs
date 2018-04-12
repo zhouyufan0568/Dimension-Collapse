@@ -353,9 +353,9 @@ namespace DimensionCollapse
                 //Debug.Log("stop");
                 ChargeParticle.Stop();
                 // Debug.Log("damage:" + damage + "init:" + initDamage);
-                float scaleMutiple = (float)(damage)/(float)(initDamage) * (1f);
-                this.transform.localScale = new Vector3(scaleMutiple,scaleMutiple,scaleMutiple);
-                Debug.Log("this.transform.localScale"+ this.transform.localScale);
+                float scaleMultiple = (float)(damage)/(float)(initDamage) * (1f);
+                this.transform.localScale = new Vector3(scaleMultiple,scaleMultiple,scaleMultiple);
+                // Debug.Log("this.transform.localScale"+ this.transform.localScale);
             }
 
             this.GetComponent<Collider>().enabled = true; //启用物体本身的碰撞体            

@@ -97,7 +97,7 @@ namespace DimensionCollapse
             if (this.currentBullet != null && this.currentBullet.isCharging && this.currentBullet.isActiveAndEnabled)
             {
                 // Debug.Log("charing!");
-                this.currentBullet.setInitTransformAndDamageForCharge(gunpoint, this.damageThis, true,damage);
+                this.currentBullet.setInitTransformAndDamageForCharge(gunpoint, this.damageThis, true, damage);
                 WeaponCharging();
             }
 
@@ -184,25 +184,32 @@ namespace DimensionCollapse
             if (Physics.Raycast(ray, out hitInfo, 1000))//如果射线碰撞到物体  
             {
                 force = hitInfo.point;//记录碰撞的目标点的方向  
+
+                force -= gunpoint.position;
+
+                force.Normalize();
+                force *= InitialV;
             }
             else
             {
                 //将目标点设置在摄像机自身前方1000米处  
-                force = m_Camera.transform.forward * 1000;
+                force = ray.direction; 
+
+
+                force.Normalize();
+                force *= InitialV;
             }
             /*---------------------------------------------------------------------------------------------------------*/
 
             gunpoint.LookAt(force);
-            //Debug.DrawLine(gunpoint.position, force, Color.red, 20000, false);
+            Debug.DrawLine(gunpoint.position, force, Color.red, 20000, false);
 
             //Debug.Log("charging = false! hash:" + (this.currentBullet.GetHashCode() == currentBullet.GetHashCode()));
             currentBullet.setInitTransformAndDamageForCharge(gunpoint, damageThis, false, damage);
             this.chargingTime = 0f;
 
             /*-------------------------------------------朝向准心发射代码----------------------------------------------*/
-            force -= gunpoint.position;
-            force.Normalize();
-            force *= InitialV;
+
             //Debug.DrawRay(gunpoint.position,force,Color.green, 20000, false);
             /*---------------------------------------------------------------------------------------------------------*/
 

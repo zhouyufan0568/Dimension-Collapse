@@ -165,8 +165,8 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 114682221142780590}
   ObservedComponentsFoldoutOpen: 1
-  viewIdField: 1
-  instantiationId: 1
+  viewIdField: 0
+  instantiationId: -1
   currentMasterID: -1
   isRuntimeInstantiated: 0
 --- !u!114 &114401333023699118
@@ -186,7 +186,7 @@ MonoBehaviour:
   TheBullet: {fileID: 114332543375146714, guid: a736009206f74614a9a92755f1ca0760,
     type: 2}
   InitialV: 50
-  Interval: 2
+  Interval: 0.1
   damage: 30
   CurrentChanger: 10
   CurrentChangerCapacity: 10

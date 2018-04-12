@@ -23,6 +23,11 @@ namespace DimensionCollapse
             if (Input.GetMouseButtonDown(0))
             {
                 (playerManager.itemInHand as Missile)?.OnChargeStart();
+                RangedWeaponChanger rangedWeaponChanger = playerManager.itemInHand as RangedWeaponChanger;
+                if(rangedWeaponChanger != null)
+                {
+                    rpcManager.RangedWeaponChargerStartRPC();
+                }
             }
 
             if (Input.GetMouseButton(0))
@@ -60,6 +65,12 @@ namespace DimensionCollapse
                 if (spaceGun != null)
                 {
                     rpcManager.SpaceGunAttackEndRPC();
+                }
+
+                RangedWeaponChanger rangedWeaponChanger = playerManager.itemInHand as RangedWeaponChanger;
+                if(rangedWeaponChanger != null)
+                {
+                    rpcManager.RangedWeaponChargerEndRPC();
                 }
             }
 

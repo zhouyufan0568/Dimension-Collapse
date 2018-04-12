@@ -101,6 +101,7 @@ namespace DimensionCollapse
                     CurrentChanger--;
                     //Debug.Log(CurrentChanger);
 
+                    Bullet currentBullet;
                     /*-------------------------------------------朝向准心发射代码----------------------------------------------*/
                     //  m_Camera = Camera.main;
                     //if (m_Camera == null) { Debug.Log("null!!!!"); }-
@@ -108,29 +109,44 @@ namespace DimensionCollapse
                     Ray ray = m_Camera.ScreenPointToRay(new Vector3(Screen.width >> 1, Screen.height >> 1, 0));
                     if (Physics.Raycast(ray, out hitInfo, 1000))//如果射线碰撞到物体  
                     {
-                        force = hitInfo.point;//记录碰撞的目标点的方向  
+                        force = hitInfo.point;//记录碰撞的目标点的
+
+                        /*---------------------------------------------------------------------------------------------------------*/
+
+                        currentBullet = bulletList.First.Value;
+                        gunpoint.LookAt(force);
+                        currentBullet.setInitTransformAndDamage(gunpoint, damage);
+
+
+                        /*-------------------------------------------朝向准心发射代码----------------------------------------------*/
+                        force -= gunpoint.position;
+                        force.Normalize();
+                        force *= InitialV;
+                        //Debug.DrawRay(gunpoint.position,force,Color.green, 20000, false);
+                        /*---------------------------------------------------------------------------------------------------------*/
+
+                        //   Vector3 force = gunpoint.forward * InitialV;
                     }
                     else
                     {
                         //将目标点设置在摄像机自身前方1000米处  
-                        force = m_Camera.transform.forward * 1000;
+                        force = ray.direction;
+                        force.Normalize();
+                        force *= InitialV;
+
+                        currentBullet = bulletList.First.Value;
+                        gunpoint.LookAt(force);
+
+
+
+                        /*-------------------------------------------朝向准心发射代码----------------------------------------------*/
+
+                        //Debug.DrawRay(gunpoint.position,force,Color.green, 20000, false);
+                        /*---------------------------------------------------------------------------------------------------------*/
+
+                        //   Vector3 force = gunpoint.forward * InitialV;
                     }
-                    /*---------------------------------------------------------------------------------------------------------*/
-
-                    Bullet currentBullet;
-                    currentBullet = bulletList.First.Value;
-                    gunpoint.LookAt(force);
-                    //Debug.DrawLine(gunpoint.position, force, Color.red, 20000, false);
                     currentBullet.setInitTransformAndDamage(gunpoint, damage);
-
-                    /*-------------------------------------------朝向准心发射代码----------------------------------------------*/
-                    force -= gunpoint.position;
-                    force.Normalize();
-                    force *= InitialV;
-                    //Debug.DrawRay(gunpoint.position,force,Color.green, 20000, false);
-                    /*---------------------------------------------------------------------------------------------------------*/
-
-                    //   Vector3 force = gunpoint.forward * InitialV;
                     currentBullet.GetComponent<Rigidbody>().AddForce(force, ForceMode.Impulse);
 
                     //播放声音

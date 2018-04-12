@@ -54,4 +54,6 @@ MonoBehaviour:
   - EquipeWeaponByButton
   - DropItemByUI
   - SwapItemByUI
+  - RangedWeaponChargerEnd
+  - RangedWeaponChargerStart
   DisableAutoOpenWizard: 1

@@ -86,21 +86,40 @@ namespace DimensionCollapse
             }
         }
 
-        public void EquipeWeapon(int index) {
+        public void RangedWeaponChargerStartRPC()
+        {
             if (photonView.isMine)
             {
-                photonView.RPC("EquipeWeaponByButton", PhotonTargets.All,index);
+                photonView.RPC("RangedWeaponChargerStart", PhotonTargets.All);
             }
         }
 
-        public void DropItem(Inventory.ItemType it, int index) {
+        public void RangedWeaponChargerEndRPC()
+        {
             if (photonView.isMine)
             {
-                photonView.RPC("DropItemByUI", PhotonTargets.All, it,index);
+                photonView.RPC("RangedWeaponChargerEnd", PhotonTargets.All);
             }
         }
 
-        public void SwapItem(Inventory.ItemType itemType, int itemindex, Inventory.ItemType toitemType, int toitemindex) {
+        public void EquipeWeapon(int index)
+        {
+            if (photonView.isMine)
+            {
+                photonView.RPC("EquipeWeaponByButton", PhotonTargets.All, index);
+            }
+        }
+
+        public void DropItem(Inventory.ItemType it, int index)
+        {
+            if (photonView.isMine)
+            {
+                photonView.RPC("DropItemByUI", PhotonTargets.All, it, index);
+            }
+        }
+
+        public void SwapItem(Inventory.ItemType itemType, int itemindex, Inventory.ItemType toitemType, int toitemindex)
+        {
             if (photonView.isMine)
             {
                 photonView.RPC("SwapItemByUI", PhotonTargets.All, itemType, itemindex, toitemType, toitemindex);
@@ -171,7 +190,7 @@ namespace DimensionCollapse
         [PunRPC]
         private void DropItemByUI(Inventory.ItemType it, int index)
         {
-            pickupManager.DropItemByUI(it,index);
+            pickupManager.DropItemByUI(it, index);
         }
 
         [PunRPC]
@@ -180,6 +199,18 @@ namespace DimensionCollapse
             pickupManager.SwapItemByUI(itemType, itemindex, toitemType, toitemindex);
         }
         #endregion
-        
+
+        [PunRPC]
+        private void RangedWeaponChargerStart()
+        {
+            (playerManager.itemInHand as RangedWeaponChanger)?.Attack(true);
+        }
+
+        [PunRPC]
+        private void RangedWeaponChargerEnd()
+        {
+            (playerManager.itemInHand as RangedWeaponChanger)?.Attack(false);
+        }
+
     }
 }
