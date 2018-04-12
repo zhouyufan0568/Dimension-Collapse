@@ -4,17 +4,21 @@ namespace DimensionCollapse
 {
     public class KeyListener : Photon.PunBehaviour
     {
-        RPCManager rpcManager;
-        PlayerManager playerManager;
+        private RPCManager rpcManager;
+        private PlayerManager playerManager;
+        private AnimationCenter animationCenter;
 
         void Start()
         {
             rpcManager = GetComponent<RPCManager>();
             playerManager = GetComponent<PlayerManager>();
+            animationCenter = GetComponentInChildren<AnimationCenter>();
         }
 
         void Update()
         {
+            animationCenter.HandleInput();
+
             if (rpcManager == null)
             {
                 return;
