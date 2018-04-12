@@ -63,6 +63,8 @@ namespace DimensionCollapse
 			ItemSprite.Add(2, Resources.Load("ItemSprite/Weapon/SpaceExchangeBall", typeof(Sprite)) as Sprite);
 			ItemSprite.Add(3002, Resources.Load("ItemSprite/Weapon/StarMagicWand", typeof(Sprite)) as Sprite);
 			ItemSprite.Add(3001, Resources.Load("ItemSprite/Weapon/Wiley", typeof(Sprite)) as Sprite);
+            ItemSprite.Add(456, Resources.Load("ItemSprite/Weapon/Reaper", typeof(Sprite)) as Sprite);
+            ItemSprite.Add(9001, Resources.Load("ItemSprite/Weapon/M4A1", typeof(Sprite)) as Sprite);
         }
 
         Sprite GetSpriteByID(int id) {
