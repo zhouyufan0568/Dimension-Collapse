@@ -32,6 +32,7 @@ namespace DimensionCollapse
         // int cursor = 0; //此游标用来测试射线发射是否正常
         private ParticleSystem ChargeParticle; //充能特效
         public bool isCharging;
+        private bool canCauseDamage;  // 可以执行扣血操作标识，防止重复扣血
 
 
         // private const float HIGH_SPEED = 50; //超过这个速度的加入射线检测，防止穿过物体。由于地图没有厚度，此判定暂时搁置
@@ -81,6 +82,7 @@ namespace DimensionCollapse
                 BulletRealLifeTime = BulletLifeTime;
                 //Debug.Log(BulletRealLifeTime);
             }
+            this.canCauseDamage = true;
             this.thisHash = this.gameObject.GetHashCode();
             this.isCharging = false;
             this.gameObject.SetActive(false);
@@ -187,7 +189,6 @@ namespace DimensionCollapse
         //other：被碰到的物体，position：被碰到的位置
         private void BulletOnCollisionEnter(Collider other, Vector3 position, Vector3 impulse)
         {
-            //Debug.Log("collision enter");
             //此判断是为了防止子弹在某些情况下能触发两个碰撞（比如把枪口伸到物体里面），就会调用两次本函数，那么第二次的碰撞就会因为物体是非激活状态而引发错误
             if (this.gameObject.activeInHierarchy == true)
             {
@@ -229,8 +230,9 @@ namespace DimensionCollapse
                 else
                 {
                     //临时扣血代码
-                    if (player != null)
+                    if (player != null && this.canCauseDamage)
                     {
+                        this.canCauseDamage = false;
                         player.OnAttacked(this.damage, position);
                         //Debug.Log("OnAttacked执行！");
                         player = null;
@@ -280,7 +282,7 @@ namespace DimensionCollapse
             {
                 yield return 0;
             }
-            this.transform.localScale = new Vector3(1,1,1);
+            this.transform.localScale = new Vector3(1, 1, 1);
             BulletCharge tempBullet = this;
             bulletList.RemoveLast();
             bulletList.AddFirst(tempBullet);
@@ -335,6 +337,9 @@ namespace DimensionCollapse
             this.transform.position = initTransform.position;
             this.transform.rotation = initTransform.rotation;
             this.transform.eulerAngles = initTransform.eulerAngles;
+
+            this.canCauseDamage = true;
+            this.GetComponent<Collider>().enabled = false; // 关闭物体本身的碰撞体   
             //Debug.Log(isCharging);
             if (this.isCharging)
             {
@@ -351,8 +356,8 @@ namespace DimensionCollapse
                 //Debug.Log("stop");
                 ChargeParticle.Stop();
                 // Debug.Log("damage:" + damage + "init:" + initDamage);
-                float scaleMultiple = (float)(damage)/(float)(initDamage) * (1f);
-                this.transform.localScale = new Vector3(scaleMultiple,scaleMultiple,scaleMultiple);
+                float scaleMultiple = (float)(damage) / (float)(initDamage) * (1f);
+                this.transform.localScale = new Vector3(scaleMultiple, scaleMultiple, scaleMultiple);
                 // Debug.Log("this.transform.localScale"+ this.transform.localScale);
             }
 

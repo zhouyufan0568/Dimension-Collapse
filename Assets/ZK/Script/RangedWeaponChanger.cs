@@ -193,7 +193,7 @@ namespace DimensionCollapse
             else
             {
                 //将目标点设置在摄像机自身前方1000米处  
-                force = ray.direction; 
+                force = ray.direction;
 
 
                 force.Normalize();
@@ -255,13 +255,12 @@ namespace DimensionCollapse
 
             GameObject bulletListParent = new GameObject(this.TheBullet.name + "sList");
             BulletCharge newBullet = Instantiate(TheBullet, bulletListParent.GetComponent<Transform>(), true) as BulletCharge;
+            // bulletList.AddLast(newBullet);
+            // newBullet.setBulletList(bulletList);
 
-            bulletList.AddLast(newBullet);
-            newBullet.setBulletList(bulletList);
             float bulletRealLifeTime = newBullet.getBulletRealLifeTime();
             //Debug.Log("RangedWeapon:" + bulletRealLifeTime);
-            for (int i = 0; i <
-            bulletRealLifeTime / Interval; i++)
+            for (int i = 0; i < bulletRealLifeTime / Interval; i++)
             {
                 newBullet = Instantiate(TheBullet, bulletListParent.GetComponent<Transform>(), true) as BulletCharge;
                 bulletList.AddLast(newBullet);
