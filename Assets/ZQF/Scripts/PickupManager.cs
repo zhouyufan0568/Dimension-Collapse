@@ -134,6 +134,7 @@ public class PickupManager : MonoBehaviour
         weaponGO.transform.localEulerAngles = Vector3.zero;
 
 		playerManager.itemInHand = weaponGO.GetComponent<Item> ();
+        playerManager.SetupIK();
     }
 
     public void EquipeWeaponByButton(int index)
@@ -143,7 +144,7 @@ public class PickupManager : MonoBehaviour
         {
             playerManager.itemInHand.gameObject.SetActive(false);
             playerManager.itemInHand.transform.parent = itemStorage;
-            }
+        }
         switch (index)
         {
             case 0:

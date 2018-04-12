@@ -77,6 +77,7 @@ namespace DimensionCollapse
         private GameObject survivors;
         private GameObject deaders;
         private ImpactReceiver impactReceiver;
+        private IKManager ikManager;
 
         #endregion
 
@@ -84,7 +85,6 @@ namespace DimensionCollapse
 
         void Awake()
         {
-
             Camera[] cameras = gameObject.GetComponentsInChildren<Camera>();
             foreach (var cam in cameras)
             {
@@ -100,6 +100,8 @@ namespace DimensionCollapse
             pickupManager = GetComponent<PickupManager>();
 
             impactReceiver = GetComponent<ImpactReceiver>();
+
+            ikManager = GetComponent<IKManager>();
 
             // #Important
             // used in GameManager.cs: we keep track of the localPlayer instance to prevent instantiation when levels are synchronized
@@ -279,6 +281,11 @@ namespace DimensionCollapse
                 next.SetActive(true);
                 pickupManager.EquipeWeapon(next);
             }
+        }
+
+        public void SetupIK()
+        {
+            ikManager.ChangeIKObjs();
         }
         #endregion
 

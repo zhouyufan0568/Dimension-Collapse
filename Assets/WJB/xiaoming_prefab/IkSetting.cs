@@ -25,13 +25,13 @@ public class IkSetting : MonoBehaviour
                 if (lookObj != null)
                 {
                     //设置玩家的头部IK，使玩家的头部面向头部IK标记物所在的位置
-                    animator.SetLookAtWeight(1.0f);
-                    animator.SetLookAtPosition(lookObj.position);
+                   // animator.SetLookAtWeight(1.0f);
+                  //  animator.SetLookAtPosition(lookObj.position);
                 }
                 if (bodyObj != null)
                 {
                     //设置玩家躯干IK，使玩家躯干的旋转角与bodyObj对象的旋转角度相同
-                    animator.bodyRotation = bodyObj.rotation;
+                 //   animator.bodyRotation = bodyObj.rotation;
                 }
                 if (leftHandObj != null)
                 {
