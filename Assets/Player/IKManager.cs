@@ -34,7 +34,7 @@ namespace DimensionCollapse
                 return;
             }
 
-            ikSetting.isActive = true;
+            EnableIK();
 
             itemInHand.transform.localRotation = Quaternion.Euler(weaponIKData.weaponRotations[weaponIdToIndex[itemInHand.ID]]);
             itemInHand.transform.localScale = weaponIKData.weaponScales[weaponIdToIndex[itemInHand.ID]];
@@ -44,6 +44,16 @@ namespace DimensionCollapse
             Transform rightHandObj = itemInHand.transform.Find("righthand");
             ikSetting.leftHandObj = leftHandObj;
             ikSetting.rightHandObj = rightHandObj;
+        }
+
+        public void EnableIK()
+        {
+            ikSetting.isActive = true;
+        }
+
+        public void DisableIK()
+        {
+            ikSetting.isActive = false;
         }
     }
 }

@@ -17,6 +17,11 @@ namespace DimensionCollapse
 
         void Update()
         {
+            if (!photonView.isMine)
+            {
+                return;
+            }
+
             animationCenter.HandleInput();
 
             if (rpcManager == null)
@@ -24,7 +29,8 @@ namespace DimensionCollapse
                 return;
             }
 
-            if (Input.GetButton("Backpack")) {
+            if (Input.GetButton("Backpack"))
+            {
                 return;
             }
 

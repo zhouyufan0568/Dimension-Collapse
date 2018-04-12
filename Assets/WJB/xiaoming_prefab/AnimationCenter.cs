@@ -111,7 +111,7 @@ public class AnimationCenter : MonoBehaviour
     //当玩家按匍匐键时调用,不需要参数
     public void AnimationOfProne()
     {
-        if (animator.GetBool("isLie") == false)
+        if (animator.GetBool("isProne") == false)
         {
             animator.SetBool("isCrouch", false);
             animator.SetBool("isStand", false);

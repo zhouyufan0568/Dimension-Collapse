@@ -142,15 +142,21 @@ namespace DimensionCollapse
         // Update is called once per frame
         void Update()
         {
+            if (itemInHand == null)
+            {
+                ikManager.DisableIK();
+            }
 
             if (!photonView.isMine)
             {
                 return;
             }
+
             if (health < 0)
             {
                 DeadDecision();
             }
+
             if (transform.position.y < -25)
             {
                 if (isAlive)
@@ -160,6 +166,7 @@ namespace DimensionCollapse
                 }
 
             }
+
             if (Input.GetKeyDown(KeyCode.E))
             {
                 if (isAlive == false) { Revive(); }
