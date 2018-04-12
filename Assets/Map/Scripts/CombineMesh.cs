@@ -349,8 +349,8 @@ public class CombineMesh : MonoBehaviour {
         SetBlockUVCoordinates(BlockType.Concrete_green1, 5, 5, 5);
         SetBlockUVCoordinates(BlockType.Concrete_red1, 8, 8, 8);
         SetBlockUVCoordinates(BlockType.Tnt_side, 5, 5, 5);
-        SetBlockUVCoordinates(BlockType.Tnt_bottom, 8, 8, 8);
-
+        SetBlockUVCoordinates(BlockType.grass_deep, 80, 27, 27);
+        SetBlockUVCoordinates(BlockType.grass_s, 81, 27, 27);
 
     }
 
