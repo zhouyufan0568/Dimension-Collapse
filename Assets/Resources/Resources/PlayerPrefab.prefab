@@ -219,6 +219,7 @@ GameObject:
   - component: {fileID: 95151903564428352}
   - component: {fileID: 114156836929101536}
   - component: {fileID: 114006546443929254}
+  - component: {fileID: 114090513374072706}
   - component: {fileID: 114743289682118118}
   m_Layer: 12
   m_Name: PlayerPrefab
@@ -2308,6 +2309,7 @@ Camera:
   m_TargetEye: 3
   m_HDR: 1
   m_AllowMSAA: 1
+  m_AllowDynamicResolution: 0
   m_ForceIntoRT: 0
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
@@ -2343,6 +2345,7 @@ Camera:
   m_TargetEye: 3
   m_HDR: 0
   m_AllowMSAA: 1
+  m_AllowDynamicResolution: 0
   m_ForceIntoRT: 0
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
@@ -2573,6 +2576,17 @@ MonoBehaviour:
   cooldownTimeTotal: 10
   ball: {fileID: 1711370382243056, guid: 2d8b73d94248da746b401dfaab6437c6, type: 2}
   lifetime: 10
+--- !u!114 &114090513374072706
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1151663828921520}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fcc9e6324a6b7b41b0b5e49369b0157, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114092046160593534
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2722,8 +2736,8 @@ MonoBehaviour:
   - {fileID: 4049885416086630}
   - {fileID: 4790274831972654}
   ObservedComponentsFoldoutOpen: 1
-  viewIdField: 14
-  instantiationId: 14
+  viewIdField: 0
+  instantiationId: -1
   currentMasterID: -1
   isRuntimeInstantiated: 0
 --- !u!114 &114403385412301964
@@ -2864,8 +2878,8 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 0}
   ObservedComponentsFoldoutOpen: 1
-  viewIdField: 13
-  instantiationId: 13
+  viewIdField: 0
+  instantiationId: -1
   currentMasterID: -1
   isRuntimeInstantiated: 0
 --- !u!114 &114720977703305352
@@ -3082,8 +3096,8 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 0}
   ObservedComponentsFoldoutOpen: 1
-  viewIdField: 12
-  instantiationId: 12
+  viewIdField: 0
+  instantiationId: -1
   currentMasterID: -1
   isRuntimeInstantiated: 0
 --- !u!114 &114970765863133390
