@@ -36,7 +36,6 @@ GameObject:
   - component: {fileID: 4843521648549550}
   - component: {fileID: 20477505318589804}
   - component: {fileID: 124293827476421496}
-  - component: {fileID: 81440652780654390}
   m_Layer: 12
   m_Name: BackPlayerCamera
   m_TagString: Untagged
@@ -2430,13 +2429,6 @@ AudioListener:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1825951873435088}
   m_Enabled: 1
---- !u!81 &81440652780654390
-AudioListener:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1032581822606794}
-  m_Enabled: 1
 --- !u!82 &82654884913113904
 AudioSource:
   m_ObjectHideFlags: 1
@@ -2730,8 +2722,8 @@ MonoBehaviour:
   - {fileID: 4049885416086630}
   - {fileID: 4790274831972654}
   ObservedComponentsFoldoutOpen: 1
-  viewIdField: 0
-  instantiationId: -1
+  viewIdField: 14
+  instantiationId: 14
   currentMasterID: -1
   isRuntimeInstantiated: 0
 --- !u!114 &114403385412301964
@@ -2872,8 +2864,8 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 0}
   ObservedComponentsFoldoutOpen: 1
-  viewIdField: 0
-  instantiationId: -1
+  viewIdField: 13
+  instantiationId: 13
   currentMasterID: -1
   isRuntimeInstantiated: 0
 --- !u!114 &114720977703305352
@@ -3090,8 +3082,8 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 0}
   ObservedComponentsFoldoutOpen: 1
-  viewIdField: 0
-  instantiationId: -1
+  viewIdField: 12
+  instantiationId: 12
   currentMasterID: -1
   isRuntimeInstantiated: 0
 --- !u!114 &114970765863133390
