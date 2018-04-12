@@ -53,7 +53,7 @@ namespace DimensionCollapse
                     {
                         try
                         {
-                            Debug.Log(supplyPointStrs[i]);
+                            //Debug.Log(supplyPointStrs[i]);
                             string[] xyz = supplyPointStrs[i].Split(' ');
                             float x = float.Parse(xyz[0]);
                             float y = float.Parse(xyz[1]);
