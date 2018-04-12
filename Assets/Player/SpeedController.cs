@@ -19,8 +19,8 @@ namespace DimensionCollapse
         {
             if (animator.GetBool("isStand"))
             {
-                player.m_WalkSpeed = 2f;
-                player.m_RunSpeed = 4f;
+                player.m_WalkSpeed = 4f;
+                player.m_RunSpeed = 8f;
             }
             else if (animator.GetBool("isCrouch"))
             {
