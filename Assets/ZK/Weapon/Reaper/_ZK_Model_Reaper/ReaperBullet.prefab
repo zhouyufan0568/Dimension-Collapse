@@ -310,7 +310,7 @@ Transform:
   m_GameObject: {fileID: 1901961797117230}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
   m_Children:
   - {fileID: 4916880413462742}
   - {fileID: 4018366078822374}
@@ -324,7 +324,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1867320355988038}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 42.469833, y: 10.446242, z: 105.80738}
+  m_LocalPosition: {x: -0.020463705, y: 4.92, z: 2.59}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4684441484845744}
@@ -608,9 +608,9 @@ ParticleSystem:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  moveWithTransform: 1
+  moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
-  scalingMode: 2
+  scalingMode: 0
   randomSeed: 32090173
   InitialModule:
     serializedVersion: 3
@@ -17168,8 +17168,8 @@ ParticleSystem:
       m_RotationOrder: 4
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
-  scalingMode: 2
-  randomSeed: 1450372405
+  scalingMode: 0
+  randomSeed: 1838392766
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -20489,9 +20489,9 @@ ParticleSystem:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  moveWithTransform: 1
+  moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
-  scalingMode: 2
+  scalingMode: 0
   randomSeed: -151410818
   InitialModule:
     serializedVersion: 3
@@ -23736,8 +23736,8 @@ ParticleSystem:
       m_RotationOrder: 4
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
-  scalingMode: 1
-  randomSeed: 627001981
+  scalingMode: 0
+  randomSeed: 1403674910
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -30298,8 +30298,8 @@ ParticleSystem:
       m_RotationOrder: 4
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
-  scalingMode: 2
-  randomSeed: -1140299745
+  scalingMode: 0
+  randomSeed: 929844371
   InitialModule:
     serializedVersion: 3
     enabled: 1
