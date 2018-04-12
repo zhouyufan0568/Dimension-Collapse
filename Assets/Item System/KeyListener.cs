@@ -22,6 +22,11 @@ namespace DimensionCollapse
                 return;
             }
 
+            if (Input.GetKeyDown(KeyCode.P))
+            {
+                playerManager.GetIntoGodMode();
+            }
+
             animationCenter.HandleInput();
 
             if (rpcManager == null)

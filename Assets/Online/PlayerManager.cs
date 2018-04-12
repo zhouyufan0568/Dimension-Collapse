@@ -294,6 +294,11 @@ namespace DimensionCollapse
         {
             ikManager.ChangeIKObjs();
         }
+
+        public void GetIntoGodMode()
+        {
+            this.health = 500f;
+        }
         #endregion
 
         #region IPunObservable implementation
