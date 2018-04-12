@@ -34,6 +34,8 @@ namespace DimensionCollapse
                 return;
             }
 
+            ikSetting.isActive = true;
+
             itemInHand.transform.localRotation = Quaternion.Euler(weaponIKData.weaponRotations[weaponIdToIndex[itemInHand.ID]]);
             itemInHand.transform.localScale = weaponIKData.weaponScales[weaponIdToIndex[itemInHand.ID]];
             itemInHand.transform.localPosition = weaponIKData.weaponPositions[weaponIdToIndex[itemInHand.ID]];

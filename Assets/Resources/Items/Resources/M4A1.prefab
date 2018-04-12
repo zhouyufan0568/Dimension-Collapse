@@ -1093,7 +1093,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: m4a1
-  ID: 0
+  ID: 9001
   Picked: 0
   TheBullet: {fileID: 114523114689912646, guid: 141e29725dd25cd4bb01a19c62cf5f4d,
     type: 2}
@@ -1192,8 +1192,8 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 114541152336602230}
   ObservedComponentsFoldoutOpen: 1
-  viewIdField: 1
-  instantiationId: 1
+  viewIdField: 0
+  instantiationId: -1
   currentMasterID: -1
   isRuntimeInstantiated: 0
 --- !u!198 &198292627433139156
