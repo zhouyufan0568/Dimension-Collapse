@@ -22,11 +22,12 @@ namespace DimensionCollapse
         public Camera m_Camera; //当前使用的相机，用于将子弹方向对准屏幕中心
         private RaycastHit hitInfo; //将子弹方向对准屏幕中心辅助对象
         private Transform gunpoint; //空物体：枪口,子弹实际上从此点进行发射
-        private Vector3 force; //将子弹方向对准屏幕中心辅助对象
+        private Vector3 force; //将子弹方向对准屏幕中心辅助对象 
         private AudioSource Audio_Shoot; //枪声
         private ParticleSystem ShellParticle; //弹出弹壳特效
         private ParticleSystem FlashParticle; //枪口闪光特效
-
+        private AudioSource audioCharging;   //充能音效
+        private bool canPlayAudio; // 充能可以播放，一次充能只会播放一次音效 
         public int damageDelta; //每0.5秒伤害增量，蓄力情况下会根据这个量增加伤害
 
         public int maxDamage; //最大伤害量
@@ -90,6 +91,7 @@ namespace DimensionCollapse
             {
                 Debug.Log("此武器：" + name + " 不含FlashParticle，也即没有枪口闪光特效。 " + e);
             }
+            audioCharging = this.GetComponent<AudioSource>();
         }
 
         private void Update()
@@ -166,7 +168,7 @@ namespace DimensionCollapse
             BulletCharge tempBullet = currentBullet;
             bulletList.RemoveFirst();
             bulletList.AddLast(tempBullet);
-
+            canPlayAudio = true;
             //尚未完成充能，进入充能增加伤害的阶段
             currentBullet.setInitTransformAndDamageForCharge(gunpoint, damageThis, true, damage);
             WeaponCharging();
@@ -216,6 +218,9 @@ namespace DimensionCollapse
             //   Vector3 force = gunpoint.forward * InitialV;
             // 发射
             currentBullet.GetComponent<Rigidbody>().AddForce(force, ForceMode.Impulse);
+
+            audioCharging.Stop();
+            canPlayAudio = true;
             //播放声音
             if (Audio_Shoot != null)
             {
@@ -241,6 +246,11 @@ namespace DimensionCollapse
         }
         private void WeaponCharging()
         {
+            if (!audioCharging.isPlaying && canPlayAudio)
+            {
+                canPlayAudio = false;
+                audioCharging.Play();
+            }
             this.chargingTime += Time.deltaTime;
             this.damageThis = (int)Math.Round(chargingTime * this.damageDelta * 2 + this.damage);
             if (this.damageThis >= this.maxDamage)

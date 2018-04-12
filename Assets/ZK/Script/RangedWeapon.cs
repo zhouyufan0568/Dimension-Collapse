@@ -71,6 +71,15 @@ namespace DimensionCollapse
             {
                 Debug.Log("此武器：" + name + " 不含ShellParticle，也即没有弹壳弹出特效。 " + e);
             }
+
+            try
+            {
+                FlashParticle = this.transform.Find("Particle_Flash").gameObject.GetComponent<ParticleSystem>();
+            }
+            catch (System.NullReferenceException e)
+            {
+                Debug.Log("此武器：" + name + " 不含Particle_Flash，也即没有枪口闪光特效。 " + e);
+            }
         }
 
         private void Update()
