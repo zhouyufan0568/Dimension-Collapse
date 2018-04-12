@@ -30,6 +30,8 @@ namespace DimensionCollapse
 
         public GameObject deaders;
 
+        public GameObject delayStart;
+
         public enum gameStates
         {
             Waiting,
@@ -38,6 +40,8 @@ namespace DimensionCollapse
         }
         [HideInInspector]
         public gameStates currentState;
+
+        private bool canStart = false;
 
         #region MonoBehaviour CallBacks
 
@@ -67,17 +71,10 @@ namespace DimensionCollapse
 
         void Update()
         {
-            if (currentState == gameStates.Waiting && survivors.transform.childCount >= 3)
+            if (currentState == gameStates.Waiting && survivors.transform.childCount >= 3 && canStart == false)
             {
-
-                if (PhotonNetwork.isMasterClient)
-                {
-                    PhotonNetwork.room.SetCustomProperties(new ExitGames.Client.Photon.Hashtable() { { "StartTime", PhotonNetwork.time } });
-                }
-                mapDynamicLoading.whenToStart = (float)(double)PhotonNetwork.room.CustomProperties["StartTime"];
-
-                PhotonNetwork.room.IsVisible = false;
-                currentState = gameStates.Gaming;
+                canStart = true;
+                StartCoroutine(delayStartGame());
             }
 
             if (currentState == gameStates.Gaming && survivors.transform.childCount == 1 ) {
@@ -169,6 +166,37 @@ namespace DimensionCollapse
                 yield return null;
             }
             camera.GetComponent<Animator>().enabled = true;
+        }
+
+        IEnumerator delayStartGame()
+        {
+            int time = 0;
+            while (time < 5)
+            {
+                delayStart.transform.GetChild(time).gameObject.SetActive(true);
+                if (time - 1 >= 0)
+                {
+                    delayStart.transform.GetChild(time - 1).gameObject.SetActive(false);
+                }
+                time++;
+                yield return new WaitForSeconds(1);
+            }
+
+            delayStart.transform.GetChild(time - 1).gameObject.SetActive(false);
+
+            if (PhotonNetwork.isMasterClient)
+            {
+                PhotonNetwork.room.IsVisible = false;
+            }
+
+            if (PhotonNetwork.room.CustomProperties["StartTime"] == null)
+            {
+                PhotonNetwork.room.SetCustomProperties(new ExitGames.Client.Photon.Hashtable() { { "StartTime", PhotonNetwork.time } });
+            }
+
+            mapDynamicLoading.whenToStart = (float)(double)PhotonNetwork.room.CustomProperties["StartTime"];
+
+            currentState = gameStates.Gaming;
         }
 
 

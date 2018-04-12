@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -78,6 +79,8 @@ namespace DimensionCollapse
         private GameObject deaders;
         private ImpactReceiver impactReceiver;
         private IKManager ikManager;
+
+        private bool isSetPos = false;
 
         #endregion
 
@@ -174,6 +177,12 @@ namespace DimensionCollapse
 
             Direction = transform.rotation.eulerAngles.y;
             Health = health / maxHealth;
+
+            if (GameManager.Instance.currentState == GameManager.gameStates.Gaming && isSetPos == false)
+            {
+                setPosWhenGameStart();
+                isSetPos = true;
+            }
         }
 
         #endregion
@@ -342,6 +351,13 @@ namespace DimensionCollapse
                 Debug.Log("exe");
                 pickupManager.DropItem(itemInHand.gameObject);
             }
+        }
+
+        private void setPosWhenGameStart()
+        {
+                float x = UnityEngine.Random.Range(50f, 550f);
+                float z = UnityEngine.Random.Range(50f, 550f);
+                transform.position = new Vector3(x, 50, z);
         }
 
         #endregion
