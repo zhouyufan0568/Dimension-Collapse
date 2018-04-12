@@ -46,11 +46,11 @@ public class AnimationCenter : MonoBehaviour
         {
             AnimationOfStand();
         }
-        // 跳
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            AnimationOfJump();
-        }
+        //// 跳
+        //if (Input.GetKeyDown(KeyCode.Space))
+        //{
+        //    AnimationOfJump();
+        //}
         //移动
         if (Input.GetKey(KeyCode.W))
         {

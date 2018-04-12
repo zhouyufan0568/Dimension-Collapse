@@ -28,24 +28,20 @@ public class PickupManager : MonoBehaviour
 
     public int PickItem()
     {
-        Vector3 forward = mCamera.TransformDirection(Vector3.forward);
-        if (Physics.Raycast(mCamera.position, forward, out hit, 5f))
+        Vector3 forward = mCamera.forward;
+        RaycastHit[] hits = Physics.SphereCastAll(mCenter.position, 1f, forward, 10f, LayerMask.GetMask("Default"));
+        foreach (var hit in hits)
         {
-            Debug.DrawLine(mCamera.position, hit.point, Color.red);//划出射线，只有在scene视图中才能看到
-            Vector3 forward2 = mCenter.TransformDirection(Vector3.forward);
-            if (Physics.Raycast(mCenter.position, forward2, out hit, 7f))
-            {
-                Debug.DrawLine(mCenter.position, hit.point);
-                currentItem = hit.collider.gameObject;
+            Debug.Log(hit.collider.gameObject.name);
+            currentItem = hit.collider.gameObject;
 
-                Item item = currentItem.GetComponent<Item>();
-                if (item != null && !item.Picked)
+            Item item = currentItem.GetComponent<Item>();
+            if (item != null && !item.Picked)
+            {
+                PhotonView photonView = item.GetComponent<PhotonView>();
+                if (photonView != null)
                 {
-                    PhotonView photonView = item.GetComponent<PhotonView>();
-                    if (photonView != null)
-                    {
-                        return photonView.viewID;
-                    }
+                    return photonView.viewID;
                 }
             }
         }
