@@ -127,6 +127,7 @@ namespace DimensionCollapse
             if (photonView.isMine)
             {
                 GameObject.Find("UIManager").SendMessage("SetTarget", this, SendMessageOptions.RequireReceiver);
+                transform.Find("BackPlayerCamera").gameObject.SetActive(true);
             }
 
             if (isAlive)
