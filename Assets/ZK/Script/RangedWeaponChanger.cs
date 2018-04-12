@@ -202,7 +202,7 @@ namespace DimensionCollapse
             /*---------------------------------------------------------------------------------------------------------*/
 
             gunpoint.LookAt(force);
-            Debug.DrawLine(gunpoint.position, force, Color.red, 20000, false);
+            // Debug.DrawLine(gunpoint.position, force, Color.red, 20000, false);
 
             //Debug.Log("charging = false! hash:" + (this.currentBullet.GetHashCode() == currentBullet.GetHashCode()));
             currentBullet.setInitTransformAndDamageForCharge(gunpoint, damageThis, false, damage);

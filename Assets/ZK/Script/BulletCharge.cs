@@ -284,9 +284,7 @@ namespace DimensionCollapse
             BulletCharge tempBullet = this;
             bulletList.RemoveLast();
             bulletList.AddFirst(tempBullet);
-            Debug.Log("addFirst");
             this.gameObject.SetActive(false);
-            Debug.Log("delayDelete");
         }
         // 充能特殊初始话脚本，不同之处在与充能状态下只显示充能特效
 
