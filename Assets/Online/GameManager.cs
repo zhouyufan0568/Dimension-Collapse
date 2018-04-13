@@ -184,10 +184,10 @@ namespace DimensionCollapse
 
             delayStart.transform.GetChild(time - 1).gameObject.SetActive(false);
 
-            if (PhotonNetwork.isMasterClient)
-            {
-                PhotonNetwork.room.IsVisible = false;
-            }
+            //if (PhotonNetwork.isMasterClient)
+            //{
+            //    PhotonNetwork.room.IsVisible = false;
+            //}
 
             if (PhotonNetwork.room.CustomProperties["StartTime"] == null)
             {
