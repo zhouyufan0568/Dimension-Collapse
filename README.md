@@ -20,4 +20,6 @@
 游戏胜利:  
 ![游戏胜利](https://raw.githubusercontent.com/zhouyufan0568/Dimension-Collapse/master/READMEIMG/IMG6.png)  
 
+Windows平台发行版：链接：https://pan.baidu.com/s/106xOFIqjWZQt2v7PRC0iIg 密码：06m0
+
 
